@@ -1,7 +1,5 @@
 # RUBIRA_SANTOS
 
-##CURSOS: K3014 y K3012
-
 ## Integrantes: 
 *Facundo Emiliano Lopez Magarik - 152.505-0*
 
@@ -11,3 +9,4 @@
 
 *Ailén Magali Muñoz - 152.620-0 - ailenmunozz@gmail.com*
 
+Cursos: K3014 y K3012
