@@ -1,0 +1,2 @@
+E:\src\UberFrba\UberFrba\bin\Debug\UberFrba.exe.config
+C:\Users\aailenm\Downloads\gdd\Aplicacion Desktop\UberFrba\bin\Debug\UberFrba.exe.config
