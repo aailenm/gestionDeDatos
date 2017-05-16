@@ -1,0 +1,21 @@
+===== Estrategias ====
+
+1. generamos claves autoincrementales para todas las tablas, para independizarnos del dominio.
+2. Migramos el numero de rendicion y de factura pero no las usamos como pk porque hay números salteados. 
+En los nuevos registros ese numero irá con null. Los tenemos que migrar para poder machear las tablas 
+cuando se cargan los viajes.
+3. Migramos la totalidad d elos viajes, aplanamos los repetidos tomando el maximo de las facturas y el de las rendiciones
+Viajes repetidos:
+--select ma.Auto_Patente, ma.Cliente_Dni, ma.Chofer_Dni, ma.Turno_Descripcion, ma.Viaje_Fecha, 
+--ma.Viaje_Cant_Kilometros,MAX(ma.Factura_Nro), MAX(ma.Rendicion_Nro), count(*) as repetidos
+--from gd_esquema.Maestra ma 
+--group by ma.Auto_Patente, ma.Cliente_Dni, ma.Chofer_Dni, ma.Turno_Descripcion, ma.Viaje_Fecha, ma.Viaje_Cant_Kilometros
+
+4. Elegimos como pk de la tabla maestra para los choferes y los clientes el dni para migrar
+5 . Elegimos la patente del auto como pk de la tabla maestra para migrar los automoviles 
+En ambos casos son únicos para cada registro. 
+6. al hacer un 
+	SELECT m.Turno_Descripcion, m.Turno_Hora_Inicio,m.Turno_Hora_Fin, m.Turno_Precio_Base, m.Turno_Valor_Kilometro
+	from gd_esquema.Maestra m 
+	group by m.Turno_Descripcion, m.Turno_Hora_Inicio, m.Turno_Hora_Fin, m.Turno_Precio_Base, m.Turno_Valor_Kilometro
+solo encontramos 3 turnos, por lo que tomamos como pk el turno_descripcion.

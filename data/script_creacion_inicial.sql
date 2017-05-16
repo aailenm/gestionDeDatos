@@ -122,7 +122,8 @@ CREATE TABLE MARCA(
 
 CREATE TABLE RENDICION_VIAJE(
 	pago_id int PRIMARY KEY IDENTITY(1,1),
-	pago_fecha datetime,
+	pago_fecha smalldatetime,
+	pago_numero_migracion int,
 	pago_importe_total decimal(12,2),
 	pago_turno int,
 	pago_auto int
@@ -130,6 +131,7 @@ CREATE TABLE RENDICION_VIAJE(
 
 CREATE TABLE FACTURA(
 	fact_id int  PRIMARY KEY IDENTITY (1,1),
+	fact_numero_migracion int,
 	fact_fecha_inicio datetime,
 	fact_fecha_fin datetime,
 	fact_total decimal(12,2),
@@ -239,73 +241,62 @@ insert into TURNO_POR_AUTO(chof_id, turn_id, auto_id)
 	   order by turn_id
 
 -- Facturas
-insert into FACTURA(fact_fecha_inicio, fact_fecha_fin, fact_cliente, fact_total)
-		select ma.Factura_Fecha_Inicio, ma.Factura_Fecha_Fin, (select usua_id from USUARIO where usua_dni = ma.Cliente_Dni), SUM(ma.Turno_Precio_Base * ma.Turno_Valor_Kilometro)
+insert into FACTURA(fact_fecha_inicio, fact_fecha_fin, fact_cliente, fact_total, fact_numero_migracion)
+		select ma.Factura_Fecha_Inicio, ma.Factura_Fecha_Fin, (select usua_id from USUARIO where usua_dni = ma.Cliente_Dni), SUM(ma.Turno_Precio_Base * ma.Turno_Valor_Kilometro), ma.Factura_Nro
 		from gd_esquema.Maestra ma
 		where ma.Factura_Fecha_Fin is not null
 		group by ma.Factura_Nro, ma.Factura_Fecha_Inicio, ma.Factura_Fecha_Fin, ma.Cliente_Dni
 
 -- Rendicoines
-insert into RENDICION_VIAJE(pago_turno, pago_auto, pago_fecha, pago_importe_total)
-	   select t.turn_id, a.auto_id, ma.Rendicion_Fecha, sum(ma.Rendicion_Importe)
+insert into RENDICION_VIAJE(pago_turno, pago_auto, pago_fecha, pago_importe_total, pago_numero_migracion)
+	   select t.turn_id, a.auto_id, ma.Rendicion_Fecha, sum(ma.Rendicion_Importe), ma.Rendicion_Nro
 	   from gd_esquema.Maestra ma, TURNO t , AUTOMOVIL a 
 	   where ma.Rendicion_Importe is not null
 	   and t.turn_id = t.turn_id 
 	   and a.auto_id = a.auto_id
 	   and a.auto_patente = ma.Auto_Patente
 	   and t.turn_descripcion = ma.Turno_Descripcion
-	   group by t.turn_id, a.auto_id, ma.Rendicion_Fecha
+	   group by ma.Rendicion_Nro, t.turn_id, a.auto_id, ma.Rendicion_Fecha
 
--- Viajes
--- inserto los viajes que no tienen factura ni rendicion
-insert into VIAJE(viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_cliente, viaj_auto, viaj_turno)
-	  select ma.Viaje_Cant_Kilometros, 
-			 ma.Viaje_Fecha, 
-			 0, --ver esto 
-			 us.usua_id,
-			 au.auto_id,
-			 tu.turn_id
-	  from gd_esquema.Maestra ma join USUARIO us on us.usua_dni = ma.Cliente_Dni
-	  join AUTOMOVIL au on au.auto_patente = ma.Auto_Patente
-	  join TURNO tu on tu.turn_descripcion = ma.Turno_Descripcion
-	  where ma.Rendicion_Nro is null and ma.Factura_Fecha is null
+select ma.Auto_Patente, ma.Cliente_Dni, ma.Chofer_Dni, ma.Turno_Descripcion, ma.Viaje_Fecha, ma.Viaje_Cant_Kilometros, MAX(ma.Factura_Fecha_Inicio), MAX(ma.Factura_Fecha_Fin), MAX(ma.Rendicion_Fecha), MAX(ma.rendicion_importe)
+from gd_esquema.Maestra ma 
+group by ma.Auto_Patente, ma.Cliente_Dni, ma.Chofer_Dni, ma.Turno_Descripcion, ma.Viaje_Fecha, ma.Viaje_Cant_Kilometros
 
---inserto los viajes que solo tienen factura
-insert into VIAJE(viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_cliente, viaj_auto, viaj_turno, viaj_factura)
-	  select ma.Viaje_Cant_Kilometros, 
-			 ma.Viaje_Fecha, 
-			 0, --ver esto 
-			 us.usua_id,
-			 au.auto_id,
-			 tu.turn_id,
-			 f.fact_id
-	  from gd_esquema.Maestra ma join USUARIO us on us.usua_dni = ma.Cliente_Dni
-	  join AUTOMOVIL au on au.auto_patente = ma.Auto_Patente
-	  join TURNO tu on tu.turn_descripcion = ma.Turno_Descripcion
-	  join FACTURA f on f.fact_cliente = us.usua_id 
-	  where ma.Rendicion_Nro is null and ma.Factura_Fecha_Inicio = f.fact_fecha_inicio and ma.Factura_Fecha_Fin = f.fact_fecha_fin
-
--- inserto los viaes que solo tienen rendicion
-insert into VIAJE(viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_cliente, viaj_auto, viaj_turno, viaj_rendicion)
-select ma.Viaje_Cant_Kilometros, 
-			 ma.Viaje_Fecha, 
-			 0, --ver esto 
-			 us.usua_id,
-			 au.auto_id,
-			 tu.turn_id,
-			 r.pago_id
-	from gd_esquema.Maestra ma join USUARIO us on us.usua_dni = ma.Cliente_Dni
-	  join AUTOMOVIL au on au.auto_patente = ma.Auto_Patente
-	  join TURNO tu on tu.turn_descripcion = ma.Turno_Descripcion
-	  join RENDICION_VIAJE r on r.pago_auto = au.auto_id
-	  and tu.turn_id = r.pago_turno
-	  where ma.Rendicion_Fecha = r.pago_fecha and ma.Factura_Fecha_Inicio IS NULL
+---- Viajes
+insert into VIAJE(viaj_auto, viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_cliente, viaj_factura)
+		select au.auto_id,
+			   ma.Viaje_Cant_Kilometros,
+			   ma.Viaje_Fecha, 
+			   0,
+			   tu.turn_id,
+			   us2.usua_id,
+			   --(select fa.fact_id from FACTURA fa 
+			   --where fa.fact_numero_migracion = ma.Factura_Nro
+			   --and us2.usua_id = fa.fact_cliente
+			   --),
+			   (select distinct pago_id from RENDICION_VIAJE re
+			   join gd_esquema.Maestra ma2 on re.pago_numero_migracion = ma2.Rendicion_Nro
+			   and re.pago_auto = au.auto_id and re.pago_turno = tu.turn_id
+			   and ma2.Rendicion_Nro = ma.Rendicion_Nro
+			   )
+		from gd_esquema.Maestra ma
+		join Automovil au on au.auto_patente = ma.Auto_Patente
+		join USUARIO us1 on us1.usua_dni = ma.Chofer_Dni
+		join TURNO tu on tu.turn_descripcion = ma.Turno_Descripcion
+		join USUARIO us2 on us2.usua_dni = ma.Cliente_Dni
+		group by au.auto_id, us1.usua_id, ma.Viaje_Cant_Kilometros, ma.Viaje_Fecha, tu.turn_id, us2.usua_id, ma.Rendicion_Nro
+		order by 5, 1, 3				
+-- update viajes para facturas
+update VIAJE set viaj_factura = (select distinct fact_id 
+								from FACTURA join gd_esquema.Maestra 
+								on Factura_Nro = fact_numero_migracion
+								where viaj_cliente = fact_cliente
+								and viaj_fyh_inicio between fact_fecha_inicio and fact_fecha_fin
+								)
 
 -- valida que no haya viajes repetidos
-select viaj_turno, viaj_auto, viaj_cliente, viaj_fyh_inicio,  viaj_cantidad_km, COUNT(*)
-from VIAJE 
-group by viaj_turno, viaj_auto, viaj_cliente, viaj_fyh_inicio, viaj_cantidad_km
-having COUNT(*) > 1
-order by 1,2,3,4
-
-
+--select viaj_turno, viaj_auto, viaj_cliente, viaj_fyh_inicio,  viaj_cantidad_km, COUNT(*)
+--from VIAJE 
+--group by viaj_turno, viaj_auto, viaj_cliente, viaj_fyh_inicio, viaj_cantidad_km
+--having COUNT(*) > 1
+--order by 1,2,3,4
