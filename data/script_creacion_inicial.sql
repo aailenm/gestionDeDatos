@@ -161,7 +161,7 @@ INSERT INTO ROL(rol_descripcion) values('Cliente')
 INSERT INTO ROL(rol_descripcion) values('Chofer')
 
 --FUNCIONALIDADES
-
+--falta agregar las funcionalidades a los roles
 INSERT INTO FUNCIONALIDAD(func_descripcion) values('Alta de Rol')
 INSERT INTO FUNCIONALIDAD(func_descripcion) VALUES('Baja de Rol')
 INSERT INTO FUNCIONALIDAD(func_descripcion) VALUES('Modificacion de Rol')
@@ -247,7 +247,7 @@ insert into FACTURA(fact_fecha_inicio, fact_fecha_fin, fact_cliente, fact_total,
 		where ma.Factura_Fecha_Fin is not null
 		group by ma.Factura_Nro, ma.Factura_Fecha_Inicio, ma.Factura_Fecha_Fin, ma.Cliente_Dni
 
--- Rendicoines
+-- Rendiciones
 insert into RENDICION_VIAJE(pago_turno, pago_auto, pago_fecha, pago_importe_total, pago_numero_migracion)
 	   select t.turn_id, a.auto_id, ma.Rendicion_Fecha, sum(ma.Rendicion_Importe), ma.Rendicion_Nro
 	   from gd_esquema.Maestra ma, TURNO t , AUTOMOVIL a 
@@ -258,43 +258,32 @@ insert into RENDICION_VIAJE(pago_turno, pago_auto, pago_fecha, pago_importe_tota
 	   and t.turn_descripcion = ma.Turno_Descripcion
 	   group by ma.Rendicion_Nro, t.turn_id, a.auto_id, ma.Rendicion_Fecha
 
-select ma.Auto_Patente, ma.Cliente_Dni, ma.Chofer_Dni, ma.Turno_Descripcion, ma.Viaje_Fecha, ma.Viaje_Cant_Kilometros, MAX(ma.Factura_Fecha_Inicio), MAX(ma.Factura_Fecha_Fin), MAX(ma.Rendicion_Fecha), MAX(ma.rendicion_importe)
-from gd_esquema.Maestra ma 
-group by ma.Auto_Patente, ma.Cliente_Dni, ma.Chofer_Dni, ma.Turno_Descripcion, ma.Viaje_Fecha, ma.Viaje_Cant_Kilometros
+-- para ver los viajes repetidos de la tabla maestra 
+--select ma.Auto_Patente, ma.Cliente_Dni, ma.Chofer_Dni, ma.Turno_Descripcion, ma.Viaje_Fecha, 
+--ma.Viaje_Cant_Kilometros,MAX(ma.Factura_Nro), MAX(ma.Rendicion_Nro), count(*) as repetidos
+--from gd_esquema.Maestra ma 
+--group by ma.Auto_Patente, ma.Cliente_Dni, ma.Chofer_Dni, ma.Turno_Descripcion, ma.Viaje_Fecha, ma.Viaje_Cant_Kilometros
+
 
 ---- Viajes
-insert into VIAJE(viaj_auto, viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_cliente, viaj_factura)
+insert into VIAJE(viaj_auto, viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_cliente, viaj_factura, viaj_rendicion)
 		select au.auto_id,
 			   ma.Viaje_Cant_Kilometros,
 			   ma.Viaje_Fecha, 
 			   0,
 			   tu.turn_id,
 			   us2.usua_id,
-			   --(select fa.fact_id from FACTURA fa 
-			   --where fa.fact_numero_migracion = ma.Factura_Nro
-			   --and us2.usua_id = fa.fact_cliente
-			   --),
-			   (select distinct pago_id from RENDICION_VIAJE re
-			   join gd_esquema.Maestra ma2 on re.pago_numero_migracion = ma2.Rendicion_Nro
-			   and re.pago_auto = au.auto_id and re.pago_turno = tu.turn_id
-			   and ma2.Rendicion_Nro = ma.Rendicion_Nro
-			   )
+			  (select fact_id from FACTURA where fact_numero_migracion = MAX(ma.Factura_Nro)), 
+			  (select pago_id from RENDICION_VIAJE where pago_numero_migracion= MAX(ma.Rendicion_Nro))
 		from gd_esquema.Maestra ma
 		join Automovil au on au.auto_patente = ma.Auto_Patente
 		join USUARIO us1 on us1.usua_dni = ma.Chofer_Dni
 		join TURNO tu on tu.turn_descripcion = ma.Turno_Descripcion
 		join USUARIO us2 on us2.usua_dni = ma.Cliente_Dni
-		group by au.auto_id, us1.usua_id, ma.Viaje_Cant_Kilometros, ma.Viaje_Fecha, tu.turn_id, us2.usua_id, ma.Rendicion_Nro
-		order by 5, 1, 3				
--- update viajes para facturas
-update VIAJE set viaj_factura = (select distinct fact_id 
-								from FACTURA join gd_esquema.Maestra 
-								on Factura_Nro = fact_numero_migracion
-								where viaj_cliente = fact_cliente
-								and viaj_fyh_inicio between fact_fecha_inicio and fact_fecha_fin
-								)
+		group by au.auto_id, us1.usua_id, ma.Viaje_Cant_Kilometros, ma.Viaje_Fecha, tu.turn_id, us2.usua_id
 
--- valida que no haya viajes repetidos
+
+ --valida que no haya viajes repetidos cargados en nuestra tabla
 --select viaj_turno, viaj_auto, viaj_cliente, viaj_fyh_inicio,  viaj_cantidad_km, COUNT(*)
 --from VIAJE 
 --group by viaj_turno, viaj_auto, viaj_cliente, viaj_fyh_inicio, viaj_cantidad_km
