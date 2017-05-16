@@ -11,35 +11,20 @@ DROP TABLE ROL_POR_FUNCIONALIDAD
 IF OBJECT_ID('FUNCIONALIDAD') IS NOT NULL
 DROP TABLE FUNCIONALIDAD
 
-IF OBJECT_ID('USUARIO') IS NOT NULL
-DROP TABLE  USUARIO
-
-IF OBJECT_ID('ADMINISTRADOR') IS NOT NULL
-DROP TABLE ADMINISTRADOR
-
-IF OBJECT_ID('ITEM_RENDICION') IS NOT NULL
-DROP TABLE ITEM_RENDICION
-
-IF OBJECT_ID('ITEM_FACTURA') IS NOT NULL
-DROP TABLE ITEM_FACTURA
+IF OBJECT_ID('VIAJE') IS NOT NULL
+DROP TABLE VIAJE
 
 IF OBJECT_ID('FACTURA') IS NOT NULL
 DROP TABLE FACTURA
 
-IF OBJECT_ID('VIAJE') IS NOT NULL
-DROP TABLE VIAJE
-
 IF OBJECT_ID('RENDICION_VIAJE') IS NOT NULL
 DROP TABLE RENDICION_VIAJE
 
-IF OBJECT_ID('TURNO_POR_AUTO_POR_CHOFER') IS NOT NULL
-DROP TABLE TURNO_POR_AUTO_POR_CHOFER
+IF OBJECT_ID('TURNO_POR_AUTO') IS NOT NULL
+DROP TABLE TURNO_POR_AUTO
 
 IF OBJECT_ID('TURNO') IS NOT NULL
 DROP TABLE TURNO
-
-IF OBJECT_ID('CHOFER') IS NOT NULL
-DROP TABLE CHOFER
 
 IF OBJECT_ID('AUTOMOVIL') IS NOT NULL
 DROP TABLE AUTOMOVIL
@@ -47,11 +32,8 @@ DROP TABLE AUTOMOVIL
 IF OBJECT_ID('MARCA') IS NOT NULL
 DROP TABLE MARCA
 
-IF OBJECT_ID('CLIENTE') IS NOT NULL
-DROP TABLE CLIENTE
-
-IF OBJECT_ID('DIRECCION') IS NOT NULL
-DROP TABLE DIRECCION
+IF OBJECT_ID('USUARIO') IS NOT NULL
+DROP TABLE USUARIO
 
 IF OBJECT_ID('ROL') IS NOT NULL
 DROP TABLE ROL
@@ -68,7 +50,14 @@ CREATE TABLE USUARIO(
 	usua_usuario nvarchar(255) NOT NULL UNIQUE,
 	usua_password nvarchar(255) NOT NULL,
 	usua_intentosFallidos int default 0,
-	usua_habilitado bit default 1
+	usua_habilitado bit default 1,
+	usua_nombre nvarchar(255) NOT NULL ,
+	usua_apellido nvarchar(255) NOT NULL ,
+	usua_dni bigint NOT NULL UNIQUE,
+	usua_mail nvarchar(255),
+	usua_telefono nvarchar(255) NOT NULL ,
+	usua_fechaNacimiento datetime NOT NULL,
+	usua_direccion nvarchar(255) NOT NULL
 )
 
 CREATE TABLE ROL_POR_USUARIO(
@@ -89,46 +78,6 @@ CREATE TABLE ROL_POR_FUNCIONALIDAD(
 	PRIMARY KEY(rol_id, func_id)	
 )
 
-CREATE TABLE CLIENTE (
-	clie_rol int,
-	clie_id int PRIMARY KEY IDENTITY (1,1),
-	clie_nombre nvarchar(255) NOT NULL ,
-	clie_apellido nvarchar(255) NOT NULL ,
-	clie_dni bigint NOT NULL,
-	clie_mail nvarchar(255),
-	clie_telefono nvarchar(255) NOT NULL ,
-	clie_fechaNacimiento datetime NOT NULL,
-	clie_direccion int,
-	clie_habilitado bit DEFAULT 1
-)
-
-CREATE TABLE ADMINISTRADOR(
-	admi_rol int,
-	admi_id int PRIMARY KEY IDENTITY (1,1)
-	)
-
-CREATE TABLE CHOFER(
-	chof_rol int,
-	chof_id int PRIMARY KEY IDENTITY (1,1),
-	chof_nombre nvarchar(255) NOT NULL ,
-	chof_apellido nvarchar(255) NOT NULL ,
-	chof_dni  bigint NOT NULL,
-	chof_telefono nvarchar(255) NOT NULL,
-	chof_mail nvarchar(255) NOT NULL ,
-	chof_fechaNacimiento datetime NOT NULL,
-	chof_direccion int NOT NULL,
-	chof_habilitado bit DEFAULT 1
-)
-
-CREATE TABLE DIRECCION(
-	dire_id int PRIMARY KEY IDENTITY (1,1),
-	dire_calle nvarchar(255) NOT NULL ,
-	dire_depto  nvarchar(255) ,
-	dire_piso  nvarchar(255) ,
-	dire_localidad nvarchar(255) NOT NULL ,
-	dire_cp nvarchar(50) NOT NULL ,
-	)
-
 CREATE TABLE TURNO(
 	turn_id int PRIMARY KEY IDENTITY (1,1),
 	turn_hora_inicio int NOT NULL,
@@ -142,13 +91,13 @@ CREATE TABLE TURNO(
 CREATE TABLE VIAJE(
 	viaj_id int PRIMARY KEY IDENTITY (1,1),
 	viaj_cantidad_km decimal(10,2),
-	viaj_pago_id int,
 	viaj_fyh_inicio datetime,
 	viaj_fyh_fin datetime,
 	viaj_cliente int,
 	viaj_turno int,
-	viaj_chofer int,
-	viaj_auto int
+	viaj_auto int,
+	viaj_factura int,
+	viaj_rendicion int
 )
 
 CREATE TABLE AUTOMOVIL(
@@ -156,14 +105,14 @@ CREATE TABLE AUTOMOVIL(
 	auto_patente nvarchar(255) NOT NULL UNIQUE,
 	auto_marca int,
 	auto_modelo nvarchar(255) NOT NULL,
-	auto_habilitado bit DEFAULT 1,
+	auto_habilitado bit DEFAULT 1
 )
 
-CREATE TABLE TURNO_POR_AUTO_POR_CHOFER(
+CREATE TABLE TURNO_POR_AUTO(
 	auto_id int,
 	chof_id int,
 	turn_id int
-	PRIMARY KEY(auto_id, chof_id, turn_id)
+	PRIMARY KEY(auto_id, turn_id)
 )
 
 CREATE TABLE MARCA(
@@ -172,44 +121,19 @@ CREATE TABLE MARCA(
 	)
 
 CREATE TABLE RENDICION_VIAJE(
-	pago_id int,
-	pago_turno int,
-	pago_chofer int,
-	pago_auto int,
-	PRIMARY KEY(pago_id, pago_auto, pago_chofer, pago_turno),
+	pago_id int PRIMARY KEY IDENTITY(1,1),
 	pago_fecha datetime,
-	pago_importe_total decimal(12,2)
-)
-
-CREATE TABLE ITEM_RENDICION(
-	itemr_id int,
-	itemr_turno int,
-	itemr_chofer int,
-	itemr_auto int,
-	itemr_pago int,
-	PRIMARY KEY(itemr_id, itemr_pago, itemr_auto, itemr_chofer, itemr_turno),
-	itemr_viaje int,
-	itemr_precio decimal(12,2)
+	pago_importe_total decimal(12,2),
+	pago_turno int,
+	pago_auto int
 )
 
 CREATE TABLE FACTURA(
-	fact_numero bigint,
-	fact_sucursal bigint,
-	fact_tipo varchar(1),
-	PRIMARY KEY(fact_tipo, fact_sucursal, fact_numero),
+	fact_id int  PRIMARY KEY IDENTITY (1,1),
 	fact_fecha_inicio datetime,
 	fact_fecha_fin datetime,
 	fact_total decimal(12,2),
 	fact_cliente int,
-)
-
-CREATE TABLE ITEM_FACTURA(
-	item_numero bigint,
-	item_sucursal bigint,
-	item_tipo varchar(1),
-	PRIMARY KEY(item_tipo, item_sucursal, item_numero),
-	item_viaje int,
-	item_precioViaje decimal(12,2)
 )
 
 -- FK
@@ -218,23 +142,15 @@ ALTER TABLE ROL_POR_USUARIO ADD FOREIGN KEY (rol_id) REFERENCES ROL
 ALTER TABLE ROL_POR_USUARIO ADD FOREIGN KEY (usua_id) REFERENCES USUARIO
 ALTER TABLE ROL_POR_FUNCIONALIDAD ADD FOREIGN KEY (rol_id) REFERENCES ROL
 ALTER TABLE ROL_POR_FUNCIONALIDAD ADD FOREIGN KEY (func_id) REFERENCES FUNCIONALIDAD
-ALTER TABLE CLIENTE ADD FOREIGN KEY (clie_rol) REFERENCES ROL
-ALTER TABLE CLIENTE ADD FOREIGN KEY (clie_direccion) REFERENCES DIRECCION
-ALTER TABLE ADMINISTRADOR ADD FOREIGN KEY (admi_rol) REFERENCES ROL
-ALTER TABLE CHOFER ADD FOREIGN KEY (chof_rol) REFERENCES ROL
-ALTER TABLE CHOFER ADD FOREIGN KEY (chof_direccion) REFERENCES DIRECCION
-ALTER TABLE VIAJE ADD FOREIGN KEY (viaj_cliente) REFERENCES CLIENTE
-ALTER TABLE VIAJE ADD FOREIGN KEY (viaj_auto, viaj_chofer, viaj_turno) REFERENCES TURNO_POR_AUTO_POR_CHOFER
+ALTER TABLE VIAJE ADD FOREIGN KEY (viaj_cliente) REFERENCES USUARIO
+ALTER TABLE VIAJE ADD FOREIGN KEY (viaj_auto, viaj_turno) REFERENCES TURNO_POR_AUTO
+ALTER TABLE VIAJE ADD FOREIGN KEY (viaj_rendicion) REFERENCES RENDICION_VIAJE
+ALTER TABLE VIAJE ADD FOREIGN KEY (viaj_factura) REFERENCES FACTURA
 ALTER TABLE AUTOMOVIL ADD FOREIGN KEY (auto_marca) REFERENCES MARCA
-ALTER TABLE TURNO_POR_AUTO_POR_CHOFER ADD FOREIGN KEY (auto_id) REFERENCES AUTOMOVIL
-ALTER TABLE TURNO_POR_AUTO_POR_CHOFER ADD FOREIGN KEY (turn_id) REFERENCES TURNO
-ALTER TABLE TURNO_POR_AUTO_POR_CHOFER ADD FOREIGN KEY (chof_id) REFERENCES CHOFER
-ALTER TABLE RENDICION_VIAJE ADD FOREIGN KEY (pago_auto, pago_chofer, pago_turno) REFERENCES TURNO_POR_AUTO_POR_CHOFER
-ALTER TABLE ITEM_RENDICION ADD FOREIGN KEY (itemr_pago, itemr_auto, itemr_chofer, itemr_turno) REFERENCES RENDICION_VIAJE
-ALTER TABLE ITEM_RENDICION ADD FOREIGN KEY (itemr_viaje) REFERENCES VIAJE
-ALTER TABLE FACTURA ADD FOREIGN KEY (fact_cliente) REFERENCES CLIENTE
-ALTER TABLE ITEM_FACTURA ADD FOREIGN KEY (item_tipo, item_sucursal, item_numero) REFERENCES FACTURA
-ALTER TABLE ITEM_FACTURA ADD FOREIGN KEY (item_viaje) REFERENCES VIAJE
+ALTER TABLE TURNO_POR_AUTO ADD FOREIGN KEY (auto_id) REFERENCES AUTOMOVIL
+ALTER TABLE TURNO_POR_AUTO ADD FOREIGN KEY (turn_id) REFERENCES TURNO
+ALTER TABLE RENDICION_VIAJE ADD FOREIGN KEY (pago_auto, pago_turno) REFERENCES TURNO_POR_AUTO
+ALTER TABLE FACTURA ADD FOREIGN KEY (fact_cliente) REFERENCES USUARIO
 
 -- Migracion
 -- ROL 
@@ -265,10 +181,8 @@ INSERT INTO FUNCIONALIDAD(func_descripcion) VALUES('Facturacion')
 INSERT INTO FUNCIONALIDAD(func_descripcion) VALUES('Generar Listados')
 
 -- USUARIO
-INSERT INTO USUARIO(usua_usuario, usua_password) VALUES('admin', 'w23e')
-
---ADMINISTRADOR
-INSERT INTO ADMINISTRADOR(admi_rol) VALUES (1)
+INSERT INTO USUARIO(usua_usuario, usua_password, usua_nombre, usua_apellido, usua_dni, usua_telefono,usua_fechaNacimiento, usua_mail, usua_direccion)
+	   VALUES('admin', 'w23e', '','','','','','', '')
 
 --ROL POR USUARIO
 INSERT INTO ROL_POR_USUARIO(rol_id, usua_id) VALUES (1,1)
@@ -284,4 +198,114 @@ INSERT INTO TURNO(turn_descripcion, turn_hora_inicio, turn_hora_fin,turn_precio_
 	SELECT m.Turno_Descripcion, m.Turno_Hora_Inicio,m.Turno_Hora_Fin, m.Turno_Precio_Base, m.Turno_Valor_Kilometro
 	from gd_esquema.Maestra m 
 	group by m.Turno_Descripcion, m.Turno_Hora_Inicio, m.Turno_Hora_Fin, m.Turno_Precio_Base, m.Turno_Valor_Kilometro
+
+-- Clientes
+insert into USUARIO(usua_usuario, usua_password, usua_dni, usua_nombre, usua_apellido, usua_telefono, usua_fechaNacimiento, usua_mail, usua_direccion)
+	   select distinct m.Cliente_Dni,m.Cliente_Dni,m.Cliente_Dni, m.Cliente_Nombre, m.Cliente_Apellido, m.Cliente_Telefono, m.Cliente_Fecha_Nac, m.Cliente_Mail, m.Cliente_Direccion
+	   from gd_esquema.Maestra m
+
+-- 47 clientes 
+--select distinct Cliente_Dni from gd_esquema.Maestra where Cliente_Dni is not null
+
+-- Choferes
+insert into USUARIO(usua_usuario, usua_password, usua_dni, usua_nombre, usua_apellido, usua_telefono, usua_fechaNacimiento, usua_mail, usua_direccion)
+	   select distinct m.Chofer_Dni,m.Chofer_Dni,m.Chofer_Dni, m.Chofer_Nombre, m.Chofer_Apellido, m.Chofer_Telefono, m.Chofer_Fecha_Nac, m.Chofer_Mail, m.Chofer_Direccion
+	   from gd_esquema.Maestra m
+
+-- ROL POR USUARIO
+insert into ROL_POR_USUARIO(usua_id, rol_id)
+	   select usua_id, 1 
+	   from USUARIO join gd_esquema.Maestra 
+	   on usua_dni = Cliente_Dni
+	   group by usua_id
+
+insert into ROL_POR_USUARIO(usua_id, rol_id) 
+		select usua_id, 2
+		from USUARIO join gd_esquema.Maestra
+		on usua_dni = Chofer_Dni 
+		group by usua_id
+
+-- AUTOS
+insert into AUTOMOVIL(auto_patente,auto_marca, auto_modelo)
+		select distinct m.Auto_patente, (select marc_id from Marca where m.Auto_Marca = marc_detalle), m.Auto_Modelo
+		from gd_esquema.Maestra m
+-- 41 autos
+
+-- turnos por auto
+insert into TURNO_POR_AUTO(chof_id, turn_id, auto_id) 
+	   select distinct usua_id, turn_id, auto_id from gd_esquema.Maestra m join TURNO t on turn_descripcion = m.Turno_Descripcion
+	   join AUTOMOVIL a on a.auto_patente = m.Auto_Patente
+	   join USUARIO on usua_dni = Chofer_Dni
+	   order by turn_id
+
+-- Facturas
+insert into FACTURA(fact_fecha_inicio, fact_fecha_fin, fact_cliente, fact_total)
+		select ma.Factura_Fecha_Inicio, ma.Factura_Fecha_Fin, (select usua_id from USUARIO where usua_dni = ma.Cliente_Dni), SUM(ma.Turno_Precio_Base * ma.Turno_Valor_Kilometro)
+		from gd_esquema.Maestra ma
+		where ma.Factura_Fecha_Fin is not null
+		group by ma.Factura_Nro, ma.Factura_Fecha_Inicio, ma.Factura_Fecha_Fin, ma.Cliente_Dni
+
+-- Rendicoines
+insert into RENDICION_VIAJE(pago_turno, pago_auto, pago_fecha, pago_importe_total)
+	   select t.turn_id, a.auto_id, ma.Rendicion_Fecha, sum(ma.Rendicion_Importe)
+	   from gd_esquema.Maestra ma, TURNO t , AUTOMOVIL a 
+	   where ma.Rendicion_Importe is not null
+	   and t.turn_id = t.turn_id 
+	   and a.auto_id = a.auto_id
+	   and a.auto_patente = ma.Auto_Patente
+	   and t.turn_descripcion = ma.Turno_Descripcion
+	   group by t.turn_id, a.auto_id, ma.Rendicion_Fecha
+
+-- Viajes
+-- inserto los viajes que no tienen factura ni rendicion
+insert into VIAJE(viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_cliente, viaj_auto, viaj_turno)
+	  select ma.Viaje_Cant_Kilometros, 
+			 ma.Viaje_Fecha, 
+			 0, --ver esto 
+			 us.usua_id,
+			 au.auto_id,
+			 tu.turn_id
+	  from gd_esquema.Maestra ma join USUARIO us on us.usua_dni = ma.Cliente_Dni
+	  join AUTOMOVIL au on au.auto_patente = ma.Auto_Patente
+	  join TURNO tu on tu.turn_descripcion = ma.Turno_Descripcion
+	  where ma.Rendicion_Nro is null and ma.Factura_Fecha is null
+
+--inserto los viajes que solo tienen factura
+insert into VIAJE(viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_cliente, viaj_auto, viaj_turno, viaj_factura)
+	  select ma.Viaje_Cant_Kilometros, 
+			 ma.Viaje_Fecha, 
+			 0, --ver esto 
+			 us.usua_id,
+			 au.auto_id,
+			 tu.turn_id,
+			 f.fact_id
+	  from gd_esquema.Maestra ma join USUARIO us on us.usua_dni = ma.Cliente_Dni
+	  join AUTOMOVIL au on au.auto_patente = ma.Auto_Patente
+	  join TURNO tu on tu.turn_descripcion = ma.Turno_Descripcion
+	  join FACTURA f on f.fact_cliente = us.usua_id 
+	  where ma.Rendicion_Nro is null and ma.Factura_Fecha_Inicio = f.fact_fecha_inicio and ma.Factura_Fecha_Fin = f.fact_fecha_fin
+
+-- inserto los viaes que solo tienen rendicion
+insert into VIAJE(viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_cliente, viaj_auto, viaj_turno, viaj_rendicion)
+select ma.Viaje_Cant_Kilometros, 
+			 ma.Viaje_Fecha, 
+			 0, --ver esto 
+			 us.usua_id,
+			 au.auto_id,
+			 tu.turn_id,
+			 r.pago_id
+	from gd_esquema.Maestra ma join USUARIO us on us.usua_dni = ma.Cliente_Dni
+	  join AUTOMOVIL au on au.auto_patente = ma.Auto_Patente
+	  join TURNO tu on tu.turn_descripcion = ma.Turno_Descripcion
+	  join RENDICION_VIAJE r on r.pago_auto = au.auto_id
+	  and tu.turn_id = r.pago_turno
+	  where ma.Rendicion_Fecha = r.pago_fecha and ma.Factura_Fecha_Inicio IS NULL
+
+-- valida que no haya viajes repetidos
+select viaj_turno, viaj_auto, viaj_cliente, viaj_fyh_inicio,  viaj_cantidad_km, COUNT(*)
+from VIAJE 
+group by viaj_turno, viaj_auto, viaj_cliente, viaj_fyh_inicio, viaj_cantidad_km
+having COUNT(*) > 1
+order by 1,2,3,4
+
 
