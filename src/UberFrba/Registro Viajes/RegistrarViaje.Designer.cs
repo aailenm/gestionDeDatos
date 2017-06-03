@@ -28,36 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.cantkm = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.clie = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cancelar = new System.Windows.Forms.Button();
+            this.crear = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.ffin = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.finic = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.turn = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.auto = new System.Windows.Forms.TextBox();
+            this.chof = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.HDM = new System.Windows.Forms.TextBox();
+            this.HDH = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.HHM = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.HHH = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox2
+            // cantkm
             // 
-            this.textBox2.Location = new System.Drawing.Point(125, 150);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(51, 20);
-            this.textBox2.TabIndex = 64;
+            this.cantkm.Location = new System.Drawing.Point(125, 150);
+            this.cantkm.Name = "cantkm";
+            this.cantkm.Size = new System.Drawing.Size(51, 20);
+            this.cantkm.TabIndex = 64;
             // 
             // label7
             // 
@@ -68,15 +76,15 @@
             this.label7.TabIndex = 63;
             this.label7.Text = "Cantidad de KM";
             // 
-            // textBox1
+            // clie
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.textBox1.Location = new System.Drawing.Point(93, 124);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 62;
+            this.clie.Enabled = false;
+            this.clie.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.clie.Location = new System.Drawing.Point(93, 124);
+            this.clie.Name = "clie";
+            this.clie.ReadOnly = true;
+            this.clie.Size = new System.Drawing.Size(100, 20);
+            this.clie.TabIndex = 62;
             // 
             // label6
             // 
@@ -87,23 +95,25 @@
             this.label6.TabIndex = 61;
             this.label6.Text = "Cliente";
             // 
-            // button2
+            // cancelar
             // 
-            this.button2.Location = new System.Drawing.Point(263, 249);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 60;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.cancelar.Location = new System.Drawing.Point(296, 279);
+            this.cancelar.Name = "cancelar";
+            this.cancelar.Size = new System.Drawing.Size(75, 23);
+            this.cancelar.TabIndex = 60;
+            this.cancelar.Text = "Cancelar";
+            this.cancelar.UseVisualStyleBackColor = true;
+            this.cancelar.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
+            // crear
             // 
-            this.button1.Location = new System.Drawing.Point(182, 249);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 59;
-            this.button1.Text = "Crear";
-            this.button1.UseVisualStyleBackColor = true;
+            this.crear.Location = new System.Drawing.Point(215, 279);
+            this.crear.Name = "crear";
+            this.crear.Size = new System.Drawing.Size(75, 23);
+            this.crear.TabIndex = 59;
+            this.crear.Text = "Crear";
+            this.crear.UseVisualStyleBackColor = true;
+            this.crear.Click += new System.EventHandler(this.button1_Click);
             // 
             // label5
             // 
@@ -114,12 +124,12 @@
             this.label5.TabIndex = 58;
             this.label5.Text = "Fin del viaje";
             // 
-            // dateTimePicker2
+            // ffin
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(112, 202);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker2.TabIndex = 57;
+            this.ffin.Location = new System.Drawing.Point(112, 202);
+            this.ffin.Name = "ffin";
+            this.ffin.Size = new System.Drawing.Size(200, 20);
+            this.ffin.TabIndex = 57;
             // 
             // label4
             // 
@@ -130,12 +140,12 @@
             this.label4.TabIndex = 56;
             this.label4.Text = "Inicio del viaje";
             // 
-            // dateTimePicker1
+            // finic
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(112, 176);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 55;
+            this.finic.Location = new System.Drawing.Point(112, 176);
+            this.finic.Name = "finic";
+            this.finic.Size = new System.Drawing.Size(200, 20);
+            this.finic.TabIndex = 55;
             // 
             // label3
             // 
@@ -146,13 +156,16 @@
             this.label3.TabIndex = 54;
             this.label3.Text = "Turno";
             // 
-            // comboBox3
+            // turn
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(93, 97);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 53;
+            this.turn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.turn.FormattingEnabled = true;
+            this.turn.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.turn.Location = new System.Drawing.Point(93, 97);
+            this.turn.Name = "turn";
+            this.turn.Size = new System.Drawing.Size(121, 21);
+            this.turn.TabIndex = 53;
+            this.turn.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -172,25 +185,26 @@
             this.label1.TabIndex = 50;
             this.label1.Text = "Chofer";
             // 
-            // textBox3
+            // auto
             // 
-            this.textBox3.Enabled = false;
-            this.textBox3.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.textBox3.Location = new System.Drawing.Point(93, 70);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 65;
+            this.auto.Enabled = false;
+            this.auto.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.auto.Location = new System.Drawing.Point(93, 70);
+            this.auto.Name = "auto";
+            this.auto.ReadOnly = true;
+            this.auto.Size = new System.Drawing.Size(100, 20);
+            this.auto.TabIndex = 65;
             // 
-            // textBox4
+            // chof
             // 
-            this.textBox4.Enabled = false;
-            this.textBox4.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.textBox4.Location = new System.Drawing.Point(93, 43);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 66;
+            this.chof.Enabled = false;
+            this.chof.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.chof.Location = new System.Drawing.Point(93, 43);
+            this.chof.Name = "chof";
+            this.chof.ReadOnly = true;
+            this.chof.Size = new System.Drawing.Size(100, 20);
+            this.chof.TabIndex = 66;
+            this.chof.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // button3
             // 
@@ -200,6 +214,7 @@
             this.button3.TabIndex = 67;
             this.button3.Text = "Seleccionar";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -209,6 +224,7 @@
             this.button4.TabIndex = 68;
             this.button4.Text = "Seleccionar";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -218,13 +234,22 @@
             this.button5.TabIndex = 69;
             this.button5.Text = "Seleccionar";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.HDM);
+            this.groupBox1.Controls.Add(this.HDH);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.HHM);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.HHH);
+            this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.linkLabel1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(326, 222);
+            this.groupBox1.Size = new System.Drawing.Size(361, 261);
             this.groupBox1.TabIndex = 70;
             this.groupBox1.TabStop = false;
             // 
@@ -238,28 +263,96 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Datos del viaje";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(125, 219);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(10, 13);
+            this.label8.TabIndex = 64;
+            this.label8.Text = ":";
+            // 
+            // HDM
+            // 
+            this.HDM.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.HDM.Location = new System.Drawing.Point(141, 216);
+            this.HDM.Name = "HDM";
+            this.HDM.Size = new System.Drawing.Size(32, 20);
+            this.HDM.TabIndex = 63;
+            // 
+            // HDH
+            // 
+            this.HDH.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.HDH.Location = new System.Drawing.Point(90, 216);
+            this.HDH.Name = "HDH";
+            this.HDH.Size = new System.Drawing.Size(32, 20);
+            this.HDH.TabIndex = 62;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(295, 219);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(10, 13);
+            this.label9.TabIndex = 61;
+            this.label9.Text = ":";
+            // 
+            // HHM
+            // 
+            this.HHM.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.HHM.Location = new System.Drawing.Point(311, 216);
+            this.HHM.Name = "HHM";
+            this.HHM.Size = new System.Drawing.Size(32, 20);
+            this.HHM.TabIndex = 60;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(190, 219);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(61, 13);
+            this.label10.TabIndex = 58;
+            this.label10.Text = "Hora Hasta";
+            // 
+            // HHH
+            // 
+            this.HHH.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.HHH.Location = new System.Drawing.Point(260, 216);
+            this.HHH.Name = "HHH";
+            this.HHH.Size = new System.Drawing.Size(32, 20);
+            this.HHH.TabIndex = 59;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(20, 219);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(64, 13);
+            this.label11.TabIndex = 57;
+            this.label11.Text = "Hora Desde";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 284);
+            this.ClientSize = new System.Drawing.Size(385, 317);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.chof);
+            this.Controls.Add(this.auto);
+            this.Controls.Add(this.cantkm);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.clie);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cancelar);
+            this.Controls.Add(this.crear);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.dateTimePicker2);
+            this.Controls.Add(this.ffin);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.finic);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox3);
+            this.Controls.Add(this.turn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
@@ -274,26 +367,34 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox cantkm;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox clie;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cancelar;
+        private System.Windows.Forms.Button crear;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker ffin;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker finic;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox auto;
+        private System.Windows.Forms.TextBox chof;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        protected System.Windows.Forms.ComboBox turn;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox HDM;
+        private System.Windows.Forms.TextBox HDH;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox HHM;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox HHH;
+        private System.Windows.Forms.Label label11;
     }
 }

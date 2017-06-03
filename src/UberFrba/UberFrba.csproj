@@ -52,11 +52,23 @@
     <Compile Include="Abm Automovil\AltaAutomovil.Designer.cs">
       <DependentUpon>AltaAutomovil.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Automovil\BusquedaAuto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Automovil\BusquedaAuto.Designer.cs">
+      <DependentUpon>BusquedaAuto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Chofer\AltaDeChofer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Abm Chofer\AltaDeChofer.Designer.cs">
       <DependentUpon>AltaDeChofer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Chofer\BusquedaChofer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Chofer\BusquedaChofer.Designer.cs">
+      <DependentUpon>BusquedaChofer.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Cliente\AltaCliente.cs">
       <SubType>Form</SubType>
@@ -64,12 +76,42 @@
     <Compile Include="Abm Cliente\AltaCliente.Designer.cs">
       <DependentUpon>AltaCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Cliente\BusquedaCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\BusquedaCliente.Designer.cs">
+      <DependentUpon>BusquedaCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Rol\CrearRol.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Abm Rol\CrearRol.Designer.cs">
       <DependentUpon>CrearRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Turno\Alta_turno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Turno\Alta_turno.Designer.cs">
+      <DependentUpon>Alta_turno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Turno\BusquedaTurno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Turno\BusquedaTurno.Designer.cs">
+      <DependentUpon>BusquedaTurno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Funciones.cs" />
+    <Compile Include="Conexion.cs" />
     <Compile Include="Facturacion\CrearFactura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +124,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComunicacionForms.cs" />
     <Compile Include="Listado Estadistico\GenerarListados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,20 +148,38 @@
     <EmbeddedResource Include="Abm Automovil\AltaAutomovil.resx">
       <DependentUpon>AltaAutomovil.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Automovil\BusquedaAuto.resx">
+      <DependentUpon>BusquedaAuto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Chofer\AltaDeChofer.resx">
       <DependentUpon>AltaDeChofer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Chofer\BusquedaChofer.resx">
+      <DependentUpon>BusquedaChofer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\AltaCliente.resx">
       <DependentUpon>AltaCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\BusquedaCliente.resx">
+      <DependentUpon>BusquedaCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\CrearRol.resx">
       <DependentUpon>CrearRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Turno\Alta_turno.resx">
+      <DependentUpon>Alta_turno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Turno\BusquedaTurno.resx">
+      <DependentUpon>BusquedaTurno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion\CrearFactura.resx">
       <DependentUpon>CrearFactura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Listado Estadistico\GenerarListados.resx">
       <DependentUpon>GenerarListados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -135,6 +196,28 @@
     <EmbeddedResource Include="Rendicion Viajes\CrearPago.resx">
       <DependentUpon>CrearPago.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet2.xsc">
+      <DependentUpon>DataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSet2.xss">
+      <DependentUpon>DataSet2.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

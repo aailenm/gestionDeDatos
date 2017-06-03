@@ -16,7 +16,8 @@ namespace UberFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Conexion.establecerConexionBD();
+            Application.Run(new Listado_Estadistico.GenerarListados());
         }
     }
 }

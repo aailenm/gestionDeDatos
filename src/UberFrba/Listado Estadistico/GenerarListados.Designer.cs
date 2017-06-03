@@ -32,23 +32,25 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.INICIO = new System.Windows.Forms.DateTimePicker();
+            this.FIN = new System.Windows.Forms.DateTimePicker();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.LIMPIAR = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(129, 50);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.Size = new System.Drawing.Size(215, 21);
             this.comboBox1.TabIndex = 0;
             // 
             // label1
@@ -78,37 +80,39 @@
             this.label3.TabIndex = 51;
             this.label3.Text = "Hasta:";
             // 
-            // dateTimePicker1
+            // INICIO
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(93, 88);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 52;
+            this.INICIO.Location = new System.Drawing.Point(93, 88);
+            this.INICIO.Name = "INICIO";
+            this.INICIO.Size = new System.Drawing.Size(200, 20);
+            this.INICIO.TabIndex = 52;
             // 
-            // dateTimePicker2
+            // FIN
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(386, 88);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker2.TabIndex = 53;
+            this.FIN.Location = new System.Drawing.Point(386, 88);
+            this.FIN.Name = "FIN";
+            this.FIN.Size = new System.Drawing.Size(200, 20);
+            this.FIN.TabIndex = 53;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(534, 158);
+            this.button2.Location = new System.Drawing.Point(527, 406);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 56;
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(453, 158);
+            this.button3.Location = new System.Drawing.Point(446, 406);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 58;
             this.button3.Text = "Generar";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // linkLabel1
             // 
@@ -130,15 +134,35 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(32, 136);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(570, 249);
+            this.dataGridView1.TabIndex = 61;
+            // 
+            // LIMPIAR
+            // 
+            this.LIMPIAR.Location = new System.Drawing.Point(32, 406);
+            this.LIMPIAR.Name = "LIMPIAR";
+            this.LIMPIAR.Size = new System.Drawing.Size(75, 23);
+            this.LIMPIAR.TabIndex = 62;
+            this.LIMPIAR.Text = "Limpiar";
+            this.LIMPIAR.UseVisualStyleBackColor = true;
+            this.LIMPIAR.Click += new System.EventHandler(this.LIMPIAR_Click);
+            // 
             // GenerarListados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(629, 201);
+            this.ClientSize = new System.Drawing.Size(622, 441);
+            this.Controls.Add(this.LIMPIAR);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.FIN);
+            this.Controls.Add(this.INICIO);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -148,6 +172,7 @@
             this.Text = "GenerarListados";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,13 +184,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.DateTimePicker INICIO;
+        private System.Windows.Forms.DateTimePicker FIN;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button LIMPIAR;
     }
 }

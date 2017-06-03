@@ -1,3 +1,25 @@
 E:\src\UberFrba\UberFrba\bin\Debug\UberFrba.exe.config
 C:\Users\aailenm\Downloads\gdd\Aplicacion Desktop\UberFrba\bin\Debug\UberFrba.exe.config
 C:\Users\aailenm\Desktop\UTN\gestionDeDatos\src\UberFrba\bin\Debug\UberFrba.exe.config
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\bin\Debug\UberFrba.exe.config
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Automovil.Form1.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Automovil.BusquedaAuto.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Chofer.Form1.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Chofer.BusquedaChofer.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Cliente.Form1.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Cliente.BusquedaCliente.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Rol.Form1.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Turno.Alta_turno.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Facturacion.Form1.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Listado_Estadistico.GenerarListados.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Form1.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Properties.Resources.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Registro_Viajes.Form1.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Rendicion_Viajes.Form1.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.csproj.GenerateResource.Cache
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\bin\Debug\UberFrba.exe
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\bin\Debug\UberFrba.pdb
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.exe
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.pdb
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Turno.BusquedaTurno.resources
