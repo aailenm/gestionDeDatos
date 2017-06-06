@@ -937,32 +937,32 @@ INSERT INTO AUTO_POR_TURNO(auto_id,chof_id,turn_id)
 	join TURNO t on t.turn_descripcion = ma.Turno_Descripcion
 	join AUTOMOVIL a on a.auto_patente = ma.Auto_Patente
 	join CHOFER c on c.chof_telefono = ma.Chofer_Telefono 
+	group by a.auto_id, t.turn_id
 
 ------ Viajes
 insert into VIAJE(viaj_auto, viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_cliente, viaj_chofer, viaj_precio)
-		select au.auto_id,
-			   ma.Viaje_Cant_Kilometros,
+		select max(au.auto_id),
+			   max(ma.Viaje_Cant_Kilometros),
 			   ma.Viaje_Fecha,
-			   DATEADD(minute,1*ma.Viaje_Cant_Kilometros,ma.Viaje_Fecha),
-			   tu.turn_id,
+			   DATEADD(minute,1*max(ma.Viaje_Cant_Kilometros),ma.Viaje_Fecha),
+			   max(tu.turn_id),
 			   cli.clie_id,
-			   cho.chof_id,
-			   (ma.Viaje_Cant_Kilometros * tu.turn_valor_km) + tu.turn_precio_base
+			   max(cho.chof_id),
+			   (select (max(ma.Viaje_Cant_Kilometros) * tu2.turn_valor_km) + tu2.turn_precio_base from TURNO tu2 where tu2.turn_id = max(tu.turn_id))
 		from gd_esquema.Maestra ma
 		left join Automovil au on au.auto_patente = ma.Auto_Patente
 		left join CHOFER cho on chof_telefono = ma.Chofer_Telefono
 		left join TURNO tu on tu.turn_descripcion = ma.Turno_Descripcion
 		left join CLIENTE cli on clie_telefono = ma.Cliente_Telefono
-		group by au.auto_id, cho.chof_id, ma.Viaje_Cant_Kilometros, ma.Viaje_Fecha, tu.turn_id, cli.clie_id, tu.turn_valor_km, tu.turn_precio_base
--- 114039 viajes
+		group by cli.clie_id,ma.Viaje_Fecha
+-- 99660 viajes
 
 -- Facturas
-insert into FACTURA(fact_fecha_inicio, fact_fecha_fin, fact_cliente, fact_total, fact_nro_migracion)
+insert into FACTURA(fact_fecha_inicio, fact_fecha_fin, fact_cliente, fact_total)
 		select ma.Factura_Fecha_Inicio
 		, ma.Factura_Fecha_Fin
 		, (select clie_id from CLIENTE where clie_telefono = ma.Cliente_Telefono)
 		, SUM(isnull(ma.Turno_Precio_Base,0) * isnull(ma.Turno_Valor_Kilometro,0))
-		, ma.Factura_Nro
 		from gd_esquema.Maestra ma
 		where ma.Factura_Fecha_Fin is not null
 		group by ma.Factura_Nro, ma.Factura_Fecha_Inicio, ma.Factura_Fecha_Fin, ma.Cliente_Telefono
@@ -976,7 +976,6 @@ insert into ITEM_FACTURA(itemf_fact, itemf_viaje, itemf_precioViaje)
 		or (viaj_fyh_fin = fact_fecha_inicio)
 	    or (viaj_fyh_fin = fact_fecha_fin))
 		group by viaj_id, viaj_precio, fact_id
-		--ver 
 
 ---- Rendiciones
 insert into RENDICION_VIAJE(pago_turno, pago_fecha, pago_importe_total, pago_chofer)
@@ -1095,5 +1094,4 @@ WHILE @@FETCH_STATUS = 0
 CLOSE C1
 DEALLOCATE C1
 END
-
 
