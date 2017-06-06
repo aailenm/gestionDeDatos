@@ -33,6 +33,7 @@ namespace UberFrba.Abm_Chofer
             if (validaciones())
                 dataGridView1.DataSource = Conexion.obtenerTablaProcedure("filtro_chofer", Conexion.generarArgumentos("@nombre", "@apellido", "@dni"),
                     nombre.Text, apellido.Text, dni.Text);
+            this.dataGridView1.Columns["chof_id"].Visible = false;
                         
         }
 

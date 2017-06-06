@@ -12,7 +12,6 @@ C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Turno.Alta_turno.resources
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Facturacion.Form1.resources
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Listado_Estadistico.GenerarListados.resources
-C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Form1.resources
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Properties.Resources.resources
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Registro_Viajes.Form1.resources
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Rendicion_Viajes.Form1.resources
@@ -23,3 +22,4 @@ C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.pdb
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Turno.BusquedaTurno.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Rol.BusquedaRol.resources

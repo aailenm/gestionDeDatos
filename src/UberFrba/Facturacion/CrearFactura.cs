@@ -23,6 +23,10 @@ namespace UberFrba.Facturacion
         {
 
         }
+        public void editar(string id)
+        {
+
+        }
 
         private void label14_Click(object sender, EventArgs e)
         {

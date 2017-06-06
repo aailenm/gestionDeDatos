@@ -22,6 +22,7 @@ namespace UberFrba.Abm_Turno
         {
             dataGridView1.DataSource= Conexion.obtenerTablaProcedure("filtro_turno", Conexion.generarArgumentos("@descripcion"),
                  descripcion.Text);
+            this.dataGridView1.Columns["turn_id"].Visible = false;
             if (dataGridView1.RowCount == 0) MessageBox.Show("No hay turnos con la descripción indicada");
         }
 
@@ -29,6 +30,15 @@ namespace UberFrba.Abm_Turno
         {
             descripcion.Clear();
             dataGridView1.DataSource = -1;
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string id = dataGridView1.Rows[e.RowIndex].Cells["chof_id"].Value.ToString();
+            ComunicacionForms comunic = this.Owner as ComunicacionForms;
+            if (comunic != null)
+                comunic.editar(id);
+            Close();
         }
     }
 }

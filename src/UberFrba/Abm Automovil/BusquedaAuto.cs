@@ -28,6 +28,11 @@ namespace UberFrba.Abm_Automovil
             this.cLIENTETableAdapter.Fill(this.dataSet11.CLIENTE);
 
         }
+        public void editar(string id)
+        {
+
+        }
+
 
         private void LlenarCombo()
         {
@@ -42,6 +47,7 @@ namespace UberFrba.Abm_Automovil
         {
             dataGridView1.DataSource = Conexion.obtenerTablaProcedure("filtro_automovil", Conexion.generarArgumentos("@marca", "@modelo", "@patente", "@chofer"), 
                 marca.SelectedValue, modelo.Text, patente.Text,chofer.Text);
+            this.dataGridView1.Columns["auto_id"].Visible = false;
         }
 
         private void label3_Click(object sender, EventArgs e)

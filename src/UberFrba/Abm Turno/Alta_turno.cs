@@ -31,14 +31,34 @@ namespace UberFrba.Abm_Turno
         {
             if (validaciones())
             {
-                Conexion.executeProcedure("ALTA_TURNO",
+              bool result =  Conexion.executeProcedure("ALTA_TURNO",
                     Conexion.generarArgumentos("@DESCRIPCION", "@HORA_INICIO", "@HORA_FIN", "@PRECIOBASE", "@VALORKM"),
                     DETALLE.Text, HDH.Text + ':' + HDM.Text, HHH.Text + ':' + HHM.Text, PB.Text, VKM.Text);
-                MessageBox.Show("Turno creado");
+               if(result) MessageBox.Show("Turno creado");
             }
         }
 
         private bool validaciones() {
+            if (HDM.Text == "")
+            {
+                MessageBox.Show("El campo Hora desde no puede estar vacio");
+                return false;
+            }
+            if (HHM.Text == "")
+            {
+                MessageBox.Show("El campo Hora hasta no puede estar vacio");
+                return false;
+            }
+            if (HDH.Text == "")
+            {
+                MessageBox.Show("El campo Hora desde no puede estar vacio");
+                return false;
+            }
+            if (HHH.Text == "")
+            {
+                MessageBox.Show("El campo Hora Hasta no puede estar vacio");
+                return false;
+            }
             if(!Funciones.esNumero(PB.Text)){
                 MessageBox.Show("El campo Precio Base debe ser un número");
                 return false;
@@ -63,7 +83,8 @@ namespace UberFrba.Abm_Turno
             MessageBox.Show("El campo de minutos Hora Hasta debe ser un número");
                 return false;
             }
-             if((Int32.Parse(HHM.Text) > 60) || (Int32.Parse(HDM.Text) > 60) || (0 > Int32.Parse(HHM.Text)) || (0 > Int32.Parse(HDM.Text))){
+
+            if((Int32.Parse(HHM.Text) > 60) || (Int32.Parse(HDM.Text) > 60) || (0 > Int32.Parse(HHM.Text)) || (0 > Int32.Parse(HDM.Text))){
             MessageBox.Show("El campo minutos no es valido. Por favor ingrese un valor de 0 a 59");
                  return false;
             }
@@ -77,27 +98,6 @@ namespace UberFrba.Abm_Turno
                  MessageBox.Show("El campo Nombre no puede estar vacio");
                  return false;
              }
-             if (HDH.Text == "")
-             {
-                 MessageBox.Show("El campo Hora desde no puede estar vacio");
-                 return false;
-             }
-             if (HDM.Text == "")
-             {
-                 MessageBox.Show("El campo Hora desde no puede estar vacio");
-                 return false;
-             }
-             if (HHH.Text == "")
-             {
-                 MessageBox.Show("El campo Hora Hasta no puede estar vacio");
-                 return false;
-             }
-             if (HHM.Text == "")
-             {
-                 MessageBox.Show("El campo Hora hasta no puede estar vacio");
-                 return false;
-             }
-
              if (VKM.Text == "")
              {
                  MessageBox.Show("El campo Valor del KM no puede estar vacio");
@@ -120,6 +120,11 @@ namespace UberFrba.Abm_Turno
         private void CANCELAR_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void DETALLE_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

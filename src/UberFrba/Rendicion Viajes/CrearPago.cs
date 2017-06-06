@@ -74,6 +74,12 @@ namespace UberFrba.Rendicion_Viajes
         public void editarAuto(string id) { 
         
         }
+
+        public void editar(string id)
+        {
+
+        }
+
         private void button4_Click(object sender, EventArgs e)
         {
             Abm_Chofer.BusquedaChofer chof = new Abm_Chofer.BusquedaChofer();

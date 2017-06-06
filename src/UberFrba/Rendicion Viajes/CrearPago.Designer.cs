@@ -41,6 +41,7 @@
             this.totalviaje = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.CHOF = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.button5 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -48,7 +49,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.porcentaje = new System.Windows.Forms.TextBox();
             this.TOTAL = new System.Windows.Forms.TextBox();
-            this.CHOF = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -175,6 +175,14 @@
             this.groupBox1.TabIndex = 62;
             this.groupBox1.TabStop = false;
             // 
+            // CHOF
+            // 
+            this.CHOF.Enabled = false;
+            this.CHOF.Location = new System.Drawing.Point(353, 27);
+            this.CHOF.Name = "CHOF";
+            this.CHOF.Size = new System.Drawing.Size(100, 20);
+            this.CHOF.TabIndex = 67;
+            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -236,14 +244,6 @@
             this.TOTAL.Size = new System.Drawing.Size(100, 20);
             this.TOTAL.TabIndex = 66;
             this.TOTAL.TextChanged += new System.EventHandler(this.TOTAL_TextChanged);
-            // 
-            // CHOF
-            // 
-            this.CHOF.Enabled = false;
-            this.CHOF.Location = new System.Drawing.Point(353, 27);
-            this.CHOF.Name = "CHOF";
-            this.CHOF.Size = new System.Drawing.Size(100, 20);
-            this.CHOF.TabIndex = 67;
             // 
             // Form1
             // 

@@ -30,7 +30,7 @@ namespace UberFrba.Abm_Cliente
             if (validaciones())
                 dataGridView1.DataSource = Conexion.obtenerTablaProcedure("filtro_cliente", Conexion.generarArgumentos("@nombre", "@apellido", "@dni"),
                     nombre.Text, apellido.Text, dni.Text);
-          
+            this.dataGridView1.Columns["clie_id"].Visible = false;
         }
 
         private void button4_Click(object sender, EventArgs e)

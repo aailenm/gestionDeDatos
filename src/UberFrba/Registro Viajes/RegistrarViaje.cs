@@ -26,6 +26,11 @@ namespace UberFrba.Registro_Viajes
         {
             chof.Text = id;
         }
+        public void editar(string id)
+        {
+
+        }
+
         public void editarCliente(string id)
         {
             clie.Text = id;
@@ -73,6 +78,11 @@ namespace UberFrba.Registro_Viajes
         }
 
         private bool validaciones() {
+            if (turn.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un turno");
+                return false;
+            }
             if(chof.Text == ""){
             MessageBox.Show("El campo Chofer no puede estar vacio");
                 return false;
@@ -85,7 +95,57 @@ namespace UberFrba.Registro_Viajes
             MessageBox.Show("El campo Cliente no puede estar vacio");
                 return false;
             }
+            if (HDM.Text == "")
+            {
+                MessageBox.Show("El campo Hora desde no puede estar vacio");
+                return false;
+            }
+            if (HHM.Text == "")
+            {
+                MessageBox.Show("El campo Hora hasta no puede estar vacio");
+                return false;
+            }
+            if (HDH.Text == "")
+            {
+                MessageBox.Show("El campo Hora desde no puede estar vacio");
+                return false;
+            }
+            if (HHH.Text == "")
+            {
+                MessageBox.Show("El campo Hora Hasta no puede estar vacio");
+                return false;
+            }
+            if (!Funciones.esNumero(HDH.Text))
+            {
+                MessageBox.Show("El campo horas de Hora desde debe ser un número ");
+                return false;
+            }
+            if (!Funciones.esNumero(HDM.Text))
+            {
+                MessageBox.Show("El campo minutos de Hora desde debe ser un número");
+                return false;
+            }
+            if (!Funciones.esNumero(HHH.Text))
+            {
+                MessageBox.Show("El campo de horas Hora Hasta debe ser un número");
+                return false;
+            }
+            if (!Funciones.esNumero(HHM.Text))
+            {
+                MessageBox.Show("El campo de minutos Hora Hasta debe ser un número");
+                return false;
+            }
 
+            if ((Int32.Parse(HHM.Text) > 60) || (Int32.Parse(HDM.Text) > 60) || (0 > Int32.Parse(HHM.Text)) || (0 > Int32.Parse(HDM.Text)))
+            {
+                MessageBox.Show("El campo minutos no es valido. Por favor ingrese un valor de 0 a 59");
+                return false;
+            }
+            if ((Int32.Parse(HHH.Text) > 23) || (Int32.Parse(HDH.Text) > 23) || (0 > Int32.Parse(HHH.Text)) || (0 > Int32.Parse(HDH.Text)))
+            {
+                MessageBox.Show("El campo horas no es valido. Por favor ingrese un valor de 0 a 23");
+                return false;
+            }
             if (ffin.Value >= DateTime.Today || finic.Value >= DateTime.Today)
             {
             MessageBox.Show("Fechas invalidas");
