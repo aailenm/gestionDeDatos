@@ -23,3 +23,4 @@ C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Turno.BusquedaTurno.resources
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Rol.BusquedaRol.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Alta_Usuario.AltaUsuario.resources

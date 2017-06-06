@@ -24,8 +24,6 @@ namespace UberFrba.Abm_Automovil
         }
         private void BusquedaAuto_Load(object sender, EventArgs e)
         {
-            // TODO: esta línea de código carga datos en la tabla 'dataSet11.CLIENTE' Puede moverla o quitarla según sea necesario.
-            this.cLIENTETableAdapter.Fill(this.dataSet11.CLIENTE);
 
         }
         public void editar(string id)

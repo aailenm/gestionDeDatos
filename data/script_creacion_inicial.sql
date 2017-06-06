@@ -102,8 +102,14 @@ DROP PROCEDURE filtro_chofer
  IF OBJECT_ID('GET_TURNOS') IS NOT NULL
 DROP PROCEDURE GET_TURNOS
 
+ IF OBJECT_ID('GET_TODOS_TURNOS') IS NOT NULL
+DROP PROCEDURE GET_TODOS_TURNOS
+
   IF OBJECT_ID('ALTA_CLIENTE') IS NOT NULL
 DROP PROCEDURE ALTA_CLIENTE
+
+  IF OBJECT_ID('ALTA_USUARIO') IS NOT NULL
+DROP PROCEDURE ALTA_USUARIO
 
  IF OBJECT_ID('ALTA_CHOFER') IS NOT NULL
 DROP PROCEDURE ALTA_CHOFER
@@ -129,8 +135,8 @@ DROP PROCEDURE CREAR_RENDICION
  IF OBJECT_ID('ALTA_TURNO') IS NOT NULL
 DROP PROCEDURE ALTA_TURNO
 
- IF OBJECT_ID('AGREGAR_FUNCIONALIDAD') IS NOT NULL
-DROP PROCEDURE AGREGAR_FUNCIONALIDAD
+ IF OBJECT_ID('AGREGAR_ROLES') IS NOT NULL
+DROP PROCEDURE AGREGAR_ROLES
 
  IF OBJECT_ID('VIAJE_RENDICION') IS NOT NULL
 DROP PROCEDURE VIAJE_RENDICION
@@ -156,7 +162,8 @@ DROP TRIGGER VIAJE_NO_PAGO
 IF OBJECT_ID('VIAJE_NO_FACTURADO') IS NOT NULL
 DROP TRIGGER VIAJE_NO_FACTURADO
 
-
+IF OBJECT_ID('VERIFICACION_PAGO') IS NOT NULL
+DROP TRIGGER VERIFICACION_PAGO
 /* ================================================
 		        CREACION DE TABLAS
    ================================================
@@ -359,10 +366,18 @@ GO
 CREATE PROCEDURE GET_ROLES(@DESCRIPCION NVARCHAR(250))
 AS
 BEGIN
-	SELECT rol_id, rol_habilitado
+	SELECT rol_id, rol_habilitado,rol_descripcion
 	FROM ROL
 	WHERE rol_descripcion = '' OR rol_descripcion LIKE '%'+ @DESCRIPCION + '%'
 END
+GO
+CREATE PROCEDURE GET_TODOS_TURNOS
+AS
+BEGIN
+	SELECT turn_id, turn_descripcion
+	from TURNO
+	WHERE turn_habilitado = 1
+end
 
 GO 
 CREATE PROCEDURE GET_TURNOS
@@ -370,6 +385,7 @@ AS
 BEGIN 
 	SELECT turn_id, turn_descripcion
 	from TURNO
+	WHERE turn_habilitado = 1
 end
 
 GO
@@ -493,25 +509,9 @@ CREATE PROCEDURE ALTA_VIAJE(@CANTIDADKM INT,@FECHAINICIO smalldatetime ,@FECHAFI
 AS
 DECLARE @CLIE_HABILITADO INT, @CHOF_HABILITADO INT, @AUTO_HABILITADO INT, @TURNO_HABILITADO INT 
 BEGIN
-SELECT @TURNO_HABILITADO = turn_habilitado FROM TURNO WHERE turn_id = @TURNO
-SELECT @AUTO_HABILITADO = auto_habilitado FROM AUTOMOVIL WHERE auto_id = @AUTO
-SELECT @CLIE_HABILITADO = clie_habilitado FROM CLIENTE WHERE clie_id = @CLIENTE
-SELECT @CHOF_HABILITADO = chof_habilitado FROM CHOFER WHERE chof_id = @CHOFER
 	IF(EXISTS (SELECT auto_id, chof_id, turn_id FROM AUTO_POR_TURNO WHERE auto_id = @AUTO and chof_id = @CHOFER and turn_id = @TURNO))
-		IF(@CLIE_HABILITADO = 1)
-			IF(@CHOF_HABILITADO = 1)
-				IF(@AUTO_HABILITADO = 1)
-					IF(@TURNO_HABILITADO = 1)
-						INSERT INTO VIAJE(viaj_auto, viaj_cantidad_km, viaj_chofer, viaj_cliente, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_precio)
-						VALUES(@AUTO, @CANTIDADKM, @CHOFER, @CLIENTE,@FECHAINICIO ,@FECHAFIN, @TURNO, (SELECT (@CANTIDADKM * t.turn_valor_km + t.turn_precio_base) FROM TURNO t where t.turn_id = @TURNO))
-					ELSE
-						RAISERROR('El turno seleccionado no está habilitado', 16, 217) WITH SETERROR
-				ELSE
-					RAISERROR('El auto seleccionado no está habilitado', 16, 217) WITH SETERROR
-			ELSE
-				RAISERROR('El chofer seleccionado no está habilitado', 16, 217) WITH SETERROR
-		ELSE 
-			RAISERROR ('El cliente seleccionado no está habilitado', 16, 217) WITH SETERROR
+		INSERT INTO VIAJE(viaj_auto, viaj_cantidad_km, viaj_chofer, viaj_cliente, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_precio)
+		VALUES(@AUTO, @CANTIDADKM, @CHOFER, @CLIENTE,@FECHAINICIO ,@FECHAFIN, @TURNO, (SELECT (@CANTIDADKM * t.turn_valor_km + t.turn_precio_base) FROM TURNO t where t.turn_id = @TURNO))
 	ELSE
 		RAISERROR ('No existe un chofer con ese auto en ese turno', 16, 217) WITH SETERROR	
 END
@@ -527,6 +527,25 @@ BEGIN
 		END
 	ELSE 
 		RAISERROR ('El rol ya existe', 16, 217) WITH SETERROR
+END
+
+GO
+CREATE PROCEDURE ALTA_USUARIO(@USUARIO nvarchar(255), @CONTRA nvarchar(255))
+AS
+BEGIN
+	IF(NOT EXISTS(SELECT * FROM USUARIO WHERE usua_usuario = @USUARIO))
+		INSERT INTO USUARIO(usua_usuario, usua_password)
+		VALUES(@USUARIO,@CONTRA)
+	ELSE
+		RAISERROR('Ya existe ese usuario',16,217) WITH SETERROR
+END
+
+GO
+CREATE PROCEDURE AGREGAR_ROLES(@USUARIO INT, @ROL INT)
+AS
+BEGIN
+	INSERT INTO ROL_POR_USUARIO(rol_id, usua_id)
+	VALUES(@ROL,@USUARIO)
 END
 
 GO
@@ -918,17 +937,16 @@ INSERT INTO AUTO_POR_TURNO(auto_id,chof_id,turn_id)
 	join TURNO t on t.turn_descripcion = ma.Turno_Descripcion
 	join AUTOMOVIL a on a.auto_patente = ma.Auto_Patente
 	join CHOFER c on c.chof_telefono = ma.Chofer_Telefono 
-	group by t.turn_id, a.auto_id, c.chof_id
 
 ------ Viajes
 insert into VIAJE(viaj_auto, viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_cliente, viaj_chofer, viaj_precio)
-		select isnull(au.auto_id,-1),
-			   isnull(ma.Viaje_Cant_Kilometros,0),
-			   isnull(ma.Viaje_Fecha, 0),
+		select au.auto_id,
+			   ma.Viaje_Cant_Kilometros,
+			   ma.Viaje_Fecha,
 			   DATEADD(minute,1*ma.Viaje_Cant_Kilometros,ma.Viaje_Fecha),
-			   isnull(tu.turn_id,-1),
-			   isnull(cli.clie_id,-1),
-			   isnull(cho.chof_id,-1),
+			   tu.turn_id,
+			   cli.clie_id,
+			   cho.chof_id,
 			   (ma.Viaje_Cant_Kilometros * tu.turn_valor_km) + tu.turn_precio_base
 		from gd_esquema.Maestra ma
 		left join Automovil au on au.auto_patente = ma.Auto_Patente
@@ -971,7 +989,6 @@ insert into RENDICION_VIAJE(pago_turno, pago_fecha, pago_importe_total, pago_cho
 	   and t.turn_descripcion = ma.Turno_Descripcion
 	    and rendicion_fecha is not null
 	   group by ma.Rendicion_Nro, ma.Rendicion_Fecha, t.turn_id, c.chof_id
-	   order by ma.Rendicion_Nro, ma.Rendicion_Fecha, t.turn_id, c.chof_id
 --40198 rendiciones
 
 --ITEM RENDICION
@@ -984,7 +1001,6 @@ insert into ITEM_RENDICION(itemr_pago, itemr_precio, itemr_viaje)
 		and MONTH(viaj_fyh_inicio) = MONTH(pago_fecha) 
 		and DAY(viaj_fyh_inicio) = DAY(pago_fecha)
 	group by  pago_id, viaj_id,viaj_precio
-	order by pago_id
 
 UPDATE RENDICION_VIAJE SET pago_porcentaje = (R.pago_importe_total/(Select SUM(viaj_precio) 
 											  from VIAJE 
@@ -1001,7 +1017,20 @@ FROM RENDICION_VIAJE R
 		TRIGGERS AFTER MIGRACION
 ======================================
 */
-
+GO
+CREATE TRIGGER VERIFICACION_PAGO ON RENDICION_VIAJE INSTEAD OF INSERT
+AS
+DECLARE @FECHA SMALLDATETIME, @CHOFER INT, @TOTAL DECIMAL(12,2), @TURNO INT, @PORCENTAJE DECIMAL(12,2)
+BEGIN 
+	SELECT @FECHA = I.pago_fecha , @CHOFER = I.pago_chofer
+	FROM inserted I 
+	IF(NOT EXISTS(SELECT * FROM RENDICION_VIAJE R WHERE R.pago_chofer = @CHOFER AND R.pago_fecha = @FECHA))
+		INSERT INTO RENDICION_VIAJE(pago_chofer, pago_fecha, pago_importe_total, pago_turno, pago_porcentaje)
+		select i.pago_chofer, i.pago_fecha, i.pago_importe_total, i.pago_turno, i.pago_porcentaje
+		from inserted i
+	ELSE 
+		RAISERROR('Ya existe una rendición para el chofer el día de la fecha', 16, 217) WITH SETERROR
+END
 
 GO
 CREATE TRIGGER VERIFICACION_HABILITADO ON VIAJE INSTEAD OF INSERT
@@ -1066,3 +1095,5 @@ WHILE @@FETCH_STATUS = 0
 CLOSE C1
 DEALLOCATE C1
 END
+
+

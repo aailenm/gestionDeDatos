@@ -106,6 +106,12 @@
     <Compile Include="Abm Turno\BusquedaTurno.Designer.cs">
       <DependentUpon>BusquedaTurno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Alta Usuario\AltaUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Alta Usuario\AltaUsuario.Designer.cs">
+      <DependentUpon>AltaUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\BusquedaTurno.resx">
       <DependentUpon>BusquedaTurno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Alta Usuario\AltaUsuario.resx">
+      <DependentUpon>AltaUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion\CrearFactura.resx">
       <DependentUpon>CrearFactura.cs</DependentUpon>
