@@ -78,6 +78,7 @@
             this.TURNO.Name = "TURNO";
             this.TURNO.Size = new System.Drawing.Size(121, 21);
             this.TURNO.TabIndex = 40;
+            this.TURNO.SelectedIndexChanged += new System.EventHandler(this.TURNO_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -182,6 +183,7 @@
             this.CHOF.Name = "CHOF";
             this.CHOF.Size = new System.Drawing.Size(100, 20);
             this.CHOF.TabIndex = 67;
+            this.CHOF.TextChanged += new System.EventHandler(this.CHOF_TextChanged);
             // 
             // linkLabel1
             // 

@@ -12,7 +12,7 @@ using System.Data.SqlClient;
 
 namespace UberFrba.Abm_Automovil
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form, ComunicacionForms
     {
         public Form1()
         {
@@ -33,11 +33,31 @@ namespace UberFrba.Abm_Automovil
         private void button3_Click(object sender, EventArgs e)
         {
             Abm_Chofer.BusquedaChofer form = new Abm_Chofer.BusquedaChofer();
-            form.Show();
+            form.Show(this);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+        public void editarChofer(string id)
+        {
+            textBox3.Text = id;
+        }
+        public void editar(string id)
+        {
+
+        }
+        public void editarTurno(string id)
+        {
+
+        }
+        public void editarCliente(string id)
+        {
+   
+        }
+        public void editarAuto(string id)
+        {
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -46,8 +66,11 @@ namespace UberFrba.Abm_Automovil
             {
                 bool conex = Conexion.executeProcedure("ALTA_AUTOMOVIL",Conexion.generarArgumentos("@MARCA", "@MODELO", "@PATENTE", "@TURNO", "@CHOFER"),
                  comboBox1.SelectedValue, textBox1.Text, textBox2.Text, comboBox2.SelectedValue, textBox3.Text);
-                if(conex) MessageBox.Show("Auto creado correctamente");
-                Limpiar();
+                if (conex)
+                {
+                    MessageBox.Show("Auto creado correctamente");
+                    Limpiar();
+                }
             }
         }
         
@@ -90,17 +113,8 @@ namespace UberFrba.Abm_Automovil
 
         private void LlenarCombos()
         {
-            comboBox1.ValueMember = "marc_id";
-            comboBox1.DisplayMember = "marc_detalle";
-            comboBox1.DataSource = Conexion.cargarTablaConsulta("GET_MARCAS");
-            comboBox1.SelectedIndex = -1;
-
-            comboBox2.ValueMember = "turn_id";
-            comboBox2.DisplayMember = "turn_descripcion";
-            comboBox2.DataSource = Conexion.cargarTablaConsulta("GET_TURNOS");
-            comboBox2.SelectedIndex = -1;
-
-
+            Funciones.llenarCombo_Marca(comboBox1);
+            Funciones.llenarCombo_Turno(comboBox2);
         }
 
 

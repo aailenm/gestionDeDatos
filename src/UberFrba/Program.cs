@@ -17,7 +17,7 @@ namespace UberFrba
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Conexion.establecerConexionBD();
-            Application.Run(new Registro_Viajes.Form1());
+            Application.Run(new Abm_Automovil.Form1());
         }
     }
 }

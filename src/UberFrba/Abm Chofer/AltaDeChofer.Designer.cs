@@ -173,9 +173,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(237, 55);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(49, 13);
+            this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 38;
-            this.label5.Text = "Telefono";
+            this.label5.Text = "Telefono*";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // mail

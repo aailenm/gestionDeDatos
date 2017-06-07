@@ -34,6 +34,8 @@ namespace UberFrba.Abm_Chofer
                 dataGridView1.DataSource = Conexion.obtenerTablaProcedure("filtro_chofer", Conexion.generarArgumentos("@nombre", "@apellido", "@dni"),
                     nombre.Text, apellido.Text, dni.Text);
             this.dataGridView1.Columns["chof_id"].Visible = false;
+            this.dataGridView1.Columns["turn_turnoActivo"].Visible = false;
+            this.dataGridView1.Columns["auto_id"].Visible = false;
                         
         }
 
@@ -48,10 +50,14 @@ namespace UberFrba.Abm_Chofer
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string id = dataGridView1.Rows[e.RowIndex].Cells["chof_id"].Value.ToString();
+            string idchofer = dataGridView1.Rows[e.RowIndex].Cells["chof_id"].Value.ToString();
+            string idturno = dataGridView1.Rows[e.RowIndex].Cells["turn_turnoActivo"].Value.ToString();
+            string idauto = dataGridView1.Rows[e.RowIndex].Cells["auto_id"].Value.ToString();
             ComunicacionForms comunic = this.Owner as ComunicacionForms;
             if (comunic != null)
-                comunic.editarChofer(id);
+                comunic.editarChofer(idchofer);
+                comunic.editarTurno(idturno);
+                comunic.editarAuto(idauto);
             Close();
         }
 

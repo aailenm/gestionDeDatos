@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace UberFrba
 {
@@ -18,10 +19,29 @@ namespace UberFrba
             }
             return true;
         }
-        /*llena los combobox, es necsario que el nombre del combobox y el nombre del procedure sean igual, y sea eso lo que se le pasa por parametro*/
-        internal static void LlenarComboBox(string s) { 
-        }
 
+        internal static void llenarCombo_Turno(ComboBox combo) {
+            combo.ValueMember = "turn_id";
+            combo.DisplayMember = "turn_descripcion";
+            combo.DataSource = Conexion.cargarTablaConsulta("GET_TURNOS");
+            combo.SelectedIndex = -1;
+        }
+        internal static void llenarCombo_Listados(ComboBox combo)
+        {
+            combo.Items.Insert(0, "Choferes con mayor recaudación");
+            combo.Items.Insert(1, "Choferes con el viaje más largo realizado");
+            combo.Items.Insert(2, "Clientes con mayor consumo");
+            combo.Items.Insert(3, "Cliente que repitió mas veces automovil");
+            combo.SelectedIndex = -1;
+        }
+        internal static void llenarCombo_Marca(ComboBox combo)
+        {
+            combo.ValueMember = "marc_id";
+            combo.DisplayMember = "marc_detalle";
+            combo.DataSource = Conexion.cargarTablaConsulta("GET_MARCAS");
+            combo.SelectedIndex = -1;
+        }
+        /* los datetimepiker solo ponen fechas, y el horario en 00.00. Para agergarles el horario, se usa esta funcion */
         internal static DateTime TransformarDateConTime(string fecha, string horas, string minutos) {
             DateTime horaTransformada = new DateTime();
             int hora = int.Parse(horas);

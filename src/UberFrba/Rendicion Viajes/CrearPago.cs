@@ -17,7 +17,7 @@ namespace UberFrba.Rendicion_Viajes
         public Form1()
         {
             InitializeComponent();
-            LlenarCombo();
+            Funciones.llenarCombo_Turno(TURNO);
             dataGridView1.ReadOnly = true;
         }
 
@@ -57,13 +57,6 @@ namespace UberFrba.Rendicion_Viajes
             }
         }
 
-        private void LlenarCombo() {
-            TURNO.ValueMember = "turn_id";
-            TURNO.DisplayMember = "turn_descripcion";
-            TURNO.DataSource = Conexion.cargarTablaConsulta("GET_TURNOS");
-            TURNO.SelectedIndex = -1;
-        }
-
         public void editarChofer(string id) {
             CHOF.Text = id;
         }
@@ -78,6 +71,9 @@ namespace UberFrba.Rendicion_Viajes
         public void editar(string id)
         {
 
+        }
+        public void editarTurno(string id) {
+            TURNO.SelectedValue = id;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -98,7 +94,7 @@ namespace UberFrba.Rendicion_Viajes
 
         private void button3_Click(object sender, EventArgs e)
         {
-            LlenarCombo();
+            Funciones.llenarCombo_Turno(TURNO);
             CHOF.Clear();
             textBox1.Clear();
             porcentaje.Clear();
@@ -154,5 +150,14 @@ namespace UberFrba.Rendicion_Viajes
                     porcentaje.Text = (Convert.ToDouble(TOTAL.Text)/totalViajes).ToString();
                 }
             }
+
+        private void CHOF_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void TURNO_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
         }
 }

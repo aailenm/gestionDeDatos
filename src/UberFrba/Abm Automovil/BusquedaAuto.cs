@@ -16,12 +16,9 @@ namespace UberFrba.Abm_Automovil
         {
             InitializeComponent();
             dataGridView1.ReadOnly = true;
-            LlenarCombo();
+            Funciones.llenarCombo_Marca(marca);
         }
-        public void Chofer(string id)
-        {
-            chofer.Text = id;
-        }
+
         private void BusquedaAuto_Load(object sender, EventArgs e)
         {
 
@@ -31,14 +28,8 @@ namespace UberFrba.Abm_Automovil
 
         }
 
-
-        private void LlenarCombo()
-        {
-            marca.ValueMember = "marc_id";
-            marca.DisplayMember = "marc_detalle";
-            marca.DataSource = Conexion.cargarTablaConsulta("GET_MARCAS");
-            marca.SelectedIndex = -1;
-
+        public void editarTurno(string id) { 
+        
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -55,7 +46,7 @@ namespace UberFrba.Abm_Automovil
 
         private void button2_Click(object sender, EventArgs e)
         {
-            LlenarCombo();
+            Funciones.llenarCombo_Marca(marca);
             modelo.Clear();
             patente.Clear();
             chofer.Clear();

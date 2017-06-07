@@ -4,7 +4,7 @@ GO
 					DROP DE TABLAS
    ================================================
  */
-IF OBJECT_ID('AUTO_POR_TURNO') IS NOT NULL
+IF OBJECT_ID('RUBIRA_SANTOS.AUTO_POR_TURNO') IS NOT NULL
 DROP TABLE AUTO_POR_TURNO
 
 IF OBJECT_ID('ROL_POR_USUARIO') IS NOT NULL
@@ -164,6 +164,18 @@ DROP TRIGGER VIAJE_NO_FACTURADO
 
 IF OBJECT_ID('VERIFICACION_PAGO') IS NOT NULL
 DROP TRIGGER VERIFICACION_PAGO
+
+-- DROP SCHEMA
+
+IF  EXISTS (SELECT * FROM sys.schemas WHERE name = N'RUBIRA_SANTOS')
+DROP SCHEMA [RUBIRA_SANTOS]
+GO
+
+-- CREATE SCHEMA
+
+CREATE SCHEMA [RUBIRA_SANTOS] AUTHORIZATION [dbo]
+GO
+
 /* ================================================
 		        CREACION DE TABLAS
    ================================================
@@ -289,7 +301,8 @@ CREATE TABLE AUTO_POR_TURNO(
 	auto_id int NOT NULL,
 	turn_id int NOT NULL,
 	PRIMARY KEY(AUTO_ID, TURN_ID),
-	chof_id int
+	turn_turnoActivo int NOT NULL,
+	chof_id int NOT NULL
 )
 
 CREATE TABLE MARCA(
@@ -312,7 +325,6 @@ CREATE TABLE FACTURA(
 	fact_fecha_fin smalldatetime NOT NULL,
 	fact_total decimal(12,2) NOT NULL,
 	fact_cliente int NOT NULL,
-	fact_nro_migracion int
 )
 
 /* ================================================
@@ -400,19 +412,19 @@ GO
 CREATE PROCEDURE VIAJES_RENDICION(@CHOFER INT, @TURNO INT, @FECHA SMALLDATETIME)
 AS
 BEGIN
-	SELECT v.viaj_id, v.viaj_fyh_inicio, v.viaj_fyh_fin, c.clie_nombre + ' ' + c.clie_apellido, t.turn_descripcion, v.viaj_cantidad_km, a.auto_patente,v.viaj_precio
+	SELECT distinct v.viaj_id, c.clie_nombre + ' ' + c.clie_apellido CLIENTE, v.viaj_fyh_inicio INICIO, v.viaj_fyh_fin FIN, t.turn_descripcion TURNO, v.viaj_cantidad_km CANTIDAD_KM, a.auto_patente AUTO_PATENTE,v.viaj_precio VIAJE_PRECIO
 	FROM VIAJE v
+	JOIN AUTO_POR_TURNO apt on apt.turn_turnoActivo = v.viaj_turno and v.viaj_chofer = apt.chof_id and v.viaj_auto = apt.auto_id
 	JOIN CLIENTE c on v.viaj_cliente = c.clie_id
 	JOIN TURNO t ON t.turn_id = v.viaj_turno
-	JOIN AUTOMOVIL a on a.auto_id = v.viaj_auto
-	join AUTO_POR_TURNO apt on apt.turn_id = t.turn_id and apt.chof_id = v.viaj_chofer
+	JOIN AUTOMOVIL a on a.auto_id = apt.auto_id
 	WHERE viaj_chofer = @CHOFER
 	AND viaj_turno = @TURNO
 	AND YEAR(viaj_fyh_fin) = YEAR(@FECHA) 
 	AND MONTH(viaj_fyh_fin) = MONTH(@FECHA)
 	AND DAY(viaj_fyh_fin) = DAY(@FECHA)
 END
-
+select * from AUTO_POR_TURNO
 GO
 CREATE PROCEDURE ALTA_CLIENTE(@NOMBRE nvarchar(255), @APELLIDO nvarchar(255), @DNI bigint, @TELEFONO bigint, @MAIL nvarchar(255), @FECHA_NACIMIENTO smalldatetime, @CALLE nvarchar(255), @PISO nvarchar(255), @DPTO nvarchar(255), @LOCALIDAD nvarchar(255), @CP nvarchar(255))
 AS
@@ -488,18 +500,19 @@ AS
 BEGIN 
 DECLARE @AUTOID int
 	IF(NOT EXISTS(SELECT * FROM AUTOMOVIL WHERE auto_patente = @PATENTE))
-		IF(NOT EXISTS(SELECT * FROM AUTO_POR_TURNO WHERE chof_id = @CHOFER and turn_id = @TURNO))
+		IF(NOT EXISTS(SELECT * FROM AUTO_POR_TURNO apt JOIN AUTOMOVIL a on apt.auto_id = a.auto_id
+					 WHERE chof_id = @CHOFER and a.auto_habilitado = 1))
 			BEGIN
 				INSERT INTO AUTOMOVIL(auto_patente, auto_modelo, auto_marca)
 				VALUES(@PATENTE, @MODELO, @MARCA)
 				
 				SELECT @AUTOID = auto_id FROM AUTOMOVIL where auto_patente = @PATENTE
 				
-				INSERT INTO AUTO_POR_TURNO(auto_id, chof_id, turn_id)
-				VALUES(@AUTOID,@CHOFER,@TURNO)
+				INSERT INTO AUTO_POR_TURNO(auto_id, chof_id, turn_id, turn_turnoActivo)
+				VALUES(@AUTOID,@CHOFER,@TURNO, @TURNO)
 			END
 		ELSE
-			RAISERROR ('El chofer ya tiene un auto en ese turno', 16, 217) WITH SETERROR
+			RAISERROR ('El chofer ya tiene asignado un auto habilitado', 16, 217) WITH SETERROR
 	ELSE
 		RAISERROR ('El auto ya existe', 16, 217) WITH SETERROR
 END
@@ -507,13 +520,15 @@ END
 GO
 CREATE PROCEDURE ALTA_VIAJE(@CANTIDADKM INT,@FECHAINICIO smalldatetime ,@FECHAFIN smalldatetime, @TURNO INT, @AUTO INT, @CHOFER INT, @CLIENTE INT)
 AS
-DECLARE @CLIE_HABILITADO INT, @CHOF_HABILITADO INT, @AUTO_HABILITADO INT, @TURNO_HABILITADO INT 
 BEGIN
-	IF(EXISTS (SELECT auto_id, chof_id, turn_id FROM AUTO_POR_TURNO WHERE auto_id = @AUTO and chof_id = @CHOFER and turn_id = @TURNO))
-		INSERT INTO VIAJE(viaj_auto, viaj_cantidad_km, viaj_chofer, viaj_cliente, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_precio)
-		VALUES(@AUTO, @CANTIDADKM, @CHOFER, @CLIENTE,@FECHAINICIO ,@FECHAFIN, @TURNO, (SELECT (@CANTIDADKM * t.turn_valor_km + t.turn_precio_base) FROM TURNO t where t.turn_id = @TURNO))
+	IF(NOT EXISTS(SELECT * FROM VIAJE WHERE viaj_cliente = @CLIENTE and viaj_fyh_inicio = @FECHAINICIO))
+		IF(EXISTS (SELECT auto_id, chof_id, turn_id FROM AUTO_POR_TURNO WHERE auto_id = @AUTO and chof_id = @CHOFER and turn_turnoActivo = @TURNO))
+			INSERT INTO VIAJE(viaj_auto, viaj_cantidad_km, viaj_chofer, viaj_cliente, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_precio)
+			VALUES(@AUTO, @CANTIDADKM, @CHOFER, @CLIENTE,@FECHAINICIO ,@FECHAFIN, @TURNO, (SELECT (@CANTIDADKM * t.turn_valor_km + t.turn_precio_base) FROM TURNO t where t.turn_id = @TURNO))
+		ELSE
+			RAISERROR ('No existe un chofer con ese auto en ese turno', 16, 217) WITH SETERROR	
 	ELSE
-		RAISERROR ('No existe un chofer con ese auto en ese turno', 16, 217) WITH SETERROR	
+		RAISERROR('Ya existe un viaje para este cliente en esta fecha y horario',16,217) WITH SETERROR
 END
 
 GO
@@ -628,7 +643,7 @@ CREATE PROCEDURE CREAR_RENDICION(@CHOFER INT, @TOTAL DECIMAL(12,2), @TURNO INT, 
 AS
 DECLARE @REND INT
 BEGIN
-	IF(EXISTS(SELECT turn_id, chof_id FROM AUTO_POR_TURNO WHERE turn_id = @TURNO and chof_id = @CHOFER))
+	IF(EXISTS(SELECT turn_id, chof_id FROM AUTO_POR_TURNO WHERE turn_turnoActivo = @TURNO and chof_id = @CHOFER))
 		BEGIN
 		INSERT INTO RENDICION_VIAJE(pago_chofer, pago_importe_total, pago_turno, pago_fecha,pago_porcentaje)
 		VALUES(@CHOFER, @TOTAL, @TURNO,@FECHA, @PORCENTAJE)
@@ -703,8 +718,8 @@ as
 BEGIN
 	Select distinct a.auto_id, a.auto_marca MARCA, a.auto_modelo MODELO, a.auto_patente PATENTE, tu.turn_descripcion TURNO
 from Automovil a join AUTO_POR_TURNO t on a.auto_id = t.auto_id
-join TURNO tu on tu.turn_id = t.turn_id
-where (@marca='' OR @marca=a.auto_marca) AND
+join TURNO tu on tu.turn_id = t.turn_turnoActivo
+where (@marca=0 OR @marca=a.auto_marca) AND
 	(@modelo='' OR a.auto_modelo like '%' + @modelo + '%'  ) AND
 	(@patente='' OR a.auto_patente like '%' + @patente + '%'  ) AND
 	(@chofer=0 OR @chofer=t.chof_id)
@@ -724,11 +739,11 @@ go
 Create procedure filtro_chofer(@nombre varchar(255), @apellido varchar(255), @dni bigint)
 as
 BEGIN
-	Select c.chof_id, c.chof_nombre Nombre, c.chof_apellido Apellido, c.chof_dni DNI, c.chof_mail Mail, c.chof_telefono Telefono, c.chof_fechaNacimiento Fecha_Nacimiento,
-	d.dire_calle Dirección, d.dire_localidad Localidad, d.dire_cp Codigo_Postal, c.chof_habilitado Habilitado
+	Select distinct c.chof_id, c.chof_nombre Nombre, c.chof_apellido Apellido, c.chof_dni DNI, c.chof_mail Mail, c.chof_telefono Telefono, c.chof_fechaNacimiento Fecha_Nacimiento,
+	d.dire_calle Dirección, d.dire_localidad Localidad, d.dire_cp Codigo_Postal, c.chof_habilitado Habilitado,a.turn_turnoActivo,a.auto_id
 	from Chofer c
-	join DIRECCION d
-	on d.dire_id = c.chof_direccion
+	join DIRECCION d on d.dire_id = c.chof_direccion
+	join AUTO_POR_TURNO a on a.chof_id = c.chof_id
 	Where (@nombre='' OR c.chof_nombre like '%' + @nombre + '%') AND
 		(@apellido='' OR c.chof_apellido like '%' + @apellido + '%') AND
 		(@dni=0 OR @dni=c.chof_dni)
@@ -931,13 +946,19 @@ insert into AUTOMOVIL(auto_patente,auto_marca, auto_modelo)
 
 --AUTO_POR_TURNO
 
-INSERT INTO AUTO_POR_TURNO(auto_id,chof_id,turn_id)
-	SELECT a.auto_id, c.chof_id, t.turn_id
+INSERT INTO AUTO_POR_TURNO(chof_id,auto_id,turn_id,turn_turnoActivo)
+	SELECT distinct c.chof_id 
+	, a.auto_id
+	, t.turn_id
+	,(select top 1 t2.turn_id 
+	from gd_esquema.Maestra ma2 join TURNO t2 on t2.turn_descripcion = ma2.Turno_Descripcion
+	where ma2.Chofer_Telefono=c.chof_telefono
+	and ma2.Viaje_Fecha = 
+				(select MAX(ma3.Viaje_Fecha) from gd_esquema.Maestra ma3 where ma3.Chofer_Telefono=ma2.Chofer_Telefono))
 	FROM gd_esquema.Maestra ma
 	join TURNO t on t.turn_descripcion = ma.Turno_Descripcion
 	join AUTOMOVIL a on a.auto_patente = ma.Auto_Patente
 	join CHOFER c on c.chof_telefono = ma.Chofer_Telefono 
-	group by a.auto_id, t.turn_id
 
 ------ Viajes
 insert into VIAJE(viaj_auto, viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_cliente, viaj_chofer, viaj_precio)
@@ -956,6 +977,7 @@ insert into VIAJE(viaj_auto, viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, vi
 		left join CLIENTE cli on clie_telefono = ma.Cliente_Telefono
 		group by cli.clie_id,ma.Viaje_Fecha
 -- 99660 viajes
+
 
 -- Facturas
 insert into FACTURA(fact_fecha_inicio, fact_fecha_fin, fact_cliente, fact_total)
@@ -1045,7 +1067,7 @@ IF((SELECT turn_habilitado FROM TURNO WHERE turn_id = @TUR) = 0) RAISERROR ('El 
 			ELSE 
 				IF((SELECT chof_habilitado FROM CHOFER WHERE chof_id = @CHOF)=0) RAISERROR ('El chofer no está habilitado', 16, 217) WITH SETERROR
 					ELSE
-						IF((SELECT clie_habilitado FROM CLIENTE WHERE clie_id = @CLIE)=0) RAISERROR ('El   no está habilitado', 16, 217) WITH SETERROR
+						IF((SELECT clie_habilitado FROM CLIENTE WHERE clie_id = @CLIE)=0) RAISERROR ('El cliente no está habilitado', 16, 217) WITH SETERROR
 							ELSE
 								INSERT INTO VIAJE(viaj_auto, viaj_cantidad_km, viaj_chofer, viaj_cliente, viaj_fyh_fin, viaj_fyh_inicio, viaj_precio, viaj_turno)
 								SELECT viaj_auto, viaj_cantidad_km, viaj_chofer, viaj_cliente, viaj_fyh_fin, viaj_fyh_inicio, viaj_precio, viaj_turno

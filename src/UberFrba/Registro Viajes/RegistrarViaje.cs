@@ -15,7 +15,7 @@ namespace UberFrba.Registro_Viajes
         public Form1()
         {
             InitializeComponent();
-            LlenarCombo();
+            Funciones.llenarCombo_Turno(turn);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -30,7 +30,9 @@ namespace UberFrba.Registro_Viajes
         {
 
         }
-
+        public void editarTurno(string id) {
+            turn.SelectedValue = id;
+        }
         public void editarCliente(string id)
         {
             clie.Text = id;
@@ -43,14 +45,8 @@ namespace UberFrba.Registro_Viajes
         {
 
         }
-        private void LlenarCombo() {
-            turn.ValueMember = "turn_id";
-            turn.DisplayMember = "turn_descripcion";
-            turn.DataSource = Conexion.cargarTablaConsulta("GET_TURNOS");
-            turn.SelectedIndex = -1;
-        }
+
         private void Limpiar(){
-            LlenarCombo();
             chof.Clear();
             auto.Clear();
             clie.Clear();
@@ -183,7 +179,7 @@ namespace UberFrba.Registro_Viajes
         private void button4_Click(object sender, EventArgs e)
         {
             Abm_Automovil.BusquedaAuto auto = new Abm_Automovil.BusquedaAuto();
-            auto.Chofer(chof.Text);
+            auto.editarChofer(chof.Text);
             auto.Show(this);
         }
 

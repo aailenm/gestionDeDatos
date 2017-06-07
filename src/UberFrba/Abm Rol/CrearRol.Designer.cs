@@ -34,7 +34,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.funcionalidadTableAdapter1 = new UberFrba.DataSet1TableAdapters.FUNCIONALIDADTableAdapter();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -100,10 +99,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
-            // funcionalidadTableAdapter1
-            // 
-            this.funcionalidadTableAdapter1.ClearBeforeFill = true;
-            // 
             // checkedListBox1
             // 
             this.checkedListBox1.FormattingEnabled = true;
@@ -140,7 +135,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private DataSet1TableAdapters.FUNCIONALIDADTableAdapter funcionalidadTableAdapter1;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
     }
 }

@@ -27,6 +27,9 @@ namespace UberFrba.Facturacion
         {
 
         }
+        public void editarTurno(string id) {
+        
+        }
 
         private void label14_Click(object sender, EventArgs e)
         {

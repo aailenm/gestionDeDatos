@@ -15,7 +15,7 @@ namespace UberFrba.Listado_Estadistico
         public GenerarListados()
         {
             InitializeComponent();
-            LlenarCombo();
+            Funciones.llenarCombo_Listados(comboBox1);
             dataGridView1.ReadOnly = true;
         }
 
@@ -24,13 +24,6 @@ namespace UberFrba.Listado_Estadistico
             Close();
         }
 
-        private void LlenarCombo() {
-            comboBox1.Items.Insert(0, "Choferes con mayor recaudación");
-            comboBox1.Items.Insert(1, "Choferes con el viaje más largo realizado");
-            comboBox1.Items.Insert(2, "Clientes con mayor consumo");
-            comboBox1.Items.Insert(3, "Cliente que repitió mas veces automovil");
-            comboBox1.SelectedIndex = -1;
-        }
         private void button3_Click(object sender, EventArgs e)
         {
             if(validaciones()){
@@ -74,10 +67,15 @@ namespace UberFrba.Listado_Estadistico
 
         private void LIMPIAR_Click(object sender, EventArgs e)
         {
-            LlenarCombo();
+            Funciones.llenarCombo_Listados(comboBox1);
             INICIO.ResetText();
             FIN.ResetText();
             dataGridView1.DataSource = -1;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

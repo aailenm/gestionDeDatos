@@ -227,6 +227,19 @@ namespace UberFrba.Abm_Chofer
                  MessageBox.Show("El campo calle no puede estar vacía");
                  return false;
              }
+
+             if (cp.Text == "")
+             {
+                 MessageBox.Show("El campo codigo postal no puede estar vacía");
+                 return false;
+             }
+
+
+             if (local.Text == "")
+             {
+                 MessageBox.Show("El campo localidad no puede estar vacía");
+                 return false;
+             }
             return true;
         }
         private void groupBox1_Enter(object sender, EventArgs e)
