@@ -4,9 +4,7 @@ C:\Users\aailenm\Desktop\UTN\gestionDeDatos\src\UberFrba\bin\Debug\UberFrba.exe.
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Automovil.Form1.resources
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Automovil.BusquedaAuto.resources
-C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Chofer.Form1.resources
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Chofer.BusquedaChofer.resources
-C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Cliente.Form1.resources
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Cliente.BusquedaCliente.resources
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Rol.Form1.resources
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Rol.BusquedaRol.resources
@@ -24,3 +22,9 @@ C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\bin\Debug\
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\bin\Debug\UberFrba.pdb
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.exe
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.pdb
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Automovil.BajaAutomovil.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Rol.BajaRol.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Turno.BajaTurno.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Alta_Usuario.BajaUsuario.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Login.ElegirRol.resources
+C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Login.Login.resources

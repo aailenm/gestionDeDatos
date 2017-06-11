@@ -65,23 +65,11 @@
     <Compile Include="Abm Automovil\BusquedaAuto.Designer.cs">
       <DependentUpon>BusquedaAuto.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Chofer\AltaDeChofer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Chofer\AltaDeChofer.Designer.cs">
-      <DependentUpon>AltaDeChofer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Chofer\BusquedaChofer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Abm Chofer\BusquedaChofer.Designer.cs">
       <DependentUpon>BusquedaChofer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Cliente\AltaCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Cliente\AltaCliente.Designer.cs">
-      <DependentUpon>AltaCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Cliente\BusquedaCliente.cs">
       <SubType>Form</SubType>
@@ -125,16 +113,16 @@
     <Compile Include="Abm Turno\BusquedaTurno.Designer.cs">
       <DependentUpon>BusquedaTurno.cs</DependentUpon>
     </Compile>
-    <Compile Include="Alta Usuario\AltaUsuario.cs">
+    <Compile Include="Abm Usuario\AltaUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Alta Usuario\AltaUsuario.Designer.cs">
+    <Compile Include="Abm Usuario\AltaUsuario.Designer.cs">
       <DependentUpon>AltaUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Alta Usuario\BajaUsuario.cs">
+    <Compile Include="Abm Usuario\BajaUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Alta Usuario\BajaUsuario.Designer.cs">
+    <Compile Include="Abm Usuario\BajaUsuario.Designer.cs">
       <DependentUpon>BajaUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Funciones.cs" />
@@ -151,6 +139,18 @@
     </Compile>
     <Compile Include="Listado Estadistico\GenerarListados.Designer.cs">
       <DependentUpon>GenerarListados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\ElegirRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\ElegirRol.Designer.cs">
+      <DependentUpon>ElegirRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -175,14 +175,8 @@
     <EmbeddedResource Include="Abm Automovil\BusquedaAuto.resx">
       <DependentUpon>BusquedaAuto.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Chofer\AltaDeChofer.resx">
-      <DependentUpon>AltaDeChofer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Abm Chofer\BusquedaChofer.resx">
       <DependentUpon>BusquedaChofer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Cliente\AltaCliente.resx">
-      <DependentUpon>AltaCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\BusquedaCliente.resx">
       <DependentUpon>BusquedaCliente.cs</DependentUpon>
@@ -205,10 +199,10 @@
     <EmbeddedResource Include="Abm Turno\BusquedaTurno.resx">
       <DependentUpon>BusquedaTurno.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Alta Usuario\AltaUsuario.resx">
+    <EmbeddedResource Include="Abm Usuario\AltaUsuario.resx">
       <DependentUpon>AltaUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Alta Usuario\BajaUsuario.resx">
+    <EmbeddedResource Include="Abm Usuario\BajaUsuario.resx">
       <DependentUpon>BajaUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion\CrearFactura.resx">
@@ -216,6 +210,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Listado Estadistico\GenerarListados.resx">
       <DependentUpon>GenerarListados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\ElegirRol.resx">
+      <DependentUpon>ElegirRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -49,11 +49,6 @@ namespace UberFrba.Abm_Cliente
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string id = dataGridView1.Rows[e.RowIndex].Cells["clie_id"].Value.ToString();
-            ComunicacionForms comunic = this.Owner as ComunicacionForms;
-            if (comunic != null)
-                comunic.editarCliente(id);
-            Close();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -68,6 +63,11 @@ namespace UberFrba.Abm_Cliente
             if (comunic != null)
                 comunic.editarCliente(id);
             Close();
+
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

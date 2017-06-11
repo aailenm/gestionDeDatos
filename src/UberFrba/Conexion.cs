@@ -37,7 +37,7 @@ namespace UberFrba
         {
 
 
-            string datosConexion = "Data Source=localHost\\SQLSERVER2017;Initial Catalog= ;Persist Security Info=True;User ID=gd;Password=gd2017; MultipleActiveResultSets=True";
+            string datosConexion = "Data Source=localHost\\SQLSERVER2012;Initial Catalog= ;Persist Security Info=True;User ID=gd;Password=gd2017; MultipleActiveResultSets=True";
             SqlConnection conexion = new SqlConnection();
             conexion.ConnectionString = datosConexion;
             SqlCommand command;
