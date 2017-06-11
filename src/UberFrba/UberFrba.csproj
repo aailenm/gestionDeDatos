@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -52,6 +53,12 @@
     <Compile Include="Abm Automovil\AltaAutomovil.Designer.cs">
       <DependentUpon>AltaAutomovil.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Automovil\BajaAutomovil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Automovil\BajaAutomovil.Designer.cs">
+      <DependentUpon>BajaAutomovil.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Automovil\BusquedaAuto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +89,12 @@
     <Compile Include="Abm Cliente\BusquedaCliente.Designer.cs">
       <DependentUpon>BusquedaCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Rol\BajaRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\BajaRol.Designer.cs">
+      <DependentUpon>BajaRol.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Rol\CrearRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +113,12 @@
     <Compile Include="Abm Turno\Alta_turno.Designer.cs">
       <DependentUpon>Alta_turno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Turno\BajaTurno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Turno\BajaTurno.Designer.cs">
+      <DependentUpon>BajaTurno.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Turno\BusquedaTurno.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +130,12 @@
     </Compile>
     <Compile Include="Alta Usuario\AltaUsuario.Designer.cs">
       <DependentUpon>AltaUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Alta Usuario\BajaUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Alta Usuario\BajaUsuario.Designer.cs">
+      <DependentUpon>BajaUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Funciones.cs" />
     <Compile Include="Conexion.cs" />
@@ -144,6 +169,9 @@
     <EmbeddedResource Include="Abm Automovil\AltaAutomovil.resx">
       <DependentUpon>AltaAutomovil.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Automovil\BajaAutomovil.resx">
+      <DependentUpon>BajaAutomovil.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Automovil\BusquedaAuto.resx">
       <DependentUpon>BusquedaAuto.cs</DependentUpon>
     </EmbeddedResource>
@@ -159,6 +187,9 @@
     <EmbeddedResource Include="Abm Cliente\BusquedaCliente.resx">
       <DependentUpon>BusquedaCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\BajaRol.resx">
+      <DependentUpon>BajaRol.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\CrearRol.resx">
       <DependentUpon>CrearRol.cs</DependentUpon>
     </EmbeddedResource>
@@ -168,11 +199,17 @@
     <EmbeddedResource Include="Abm Turno\Alta_turno.resx">
       <DependentUpon>Alta_turno.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Turno\BajaTurno.resx">
+      <DependentUpon>BajaTurno.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\BusquedaTurno.resx">
       <DependentUpon>BusquedaTurno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Alta Usuario\AltaUsuario.resx">
       <DependentUpon>AltaUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Alta Usuario\BajaUsuario.resx">
+      <DependentUpon>BajaUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion\CrearFactura.resx">
       <DependentUpon>CrearFactura.cs</DependentUpon>
@@ -206,7 +243,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

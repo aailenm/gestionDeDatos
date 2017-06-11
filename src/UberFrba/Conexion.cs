@@ -37,7 +37,7 @@ namespace UberFrba
         {
 
 
-            string datosConexion = "Data Source=localHost\\SQLSERVER2012;Initial Catalog= ;Persist Security Info=True;User ID=gd;Password=gd2017; MultipleActiveResultSets=True";
+            string datosConexion = "Data Source=localHost\\SQLSERVER2017;Initial Catalog= ;Persist Security Info=True;User ID=gd;Password=gd2017; MultipleActiveResultSets=True";
             SqlConnection conexion = new SqlConnection();
             conexion.ConnectionString = datosConexion;
             SqlCommand command;
@@ -52,13 +52,11 @@ namespace UberFrba
 
         internal static void cargarCmb(String nomColumna, String nomTabla, ComboBox cmbACargar)
         {
-            string query = "SELECT " + nomColumna + " AS atributo FROM " + nomTabla;
+            string query = "SELECT " + nomColumna + " AS atributo FROM RUBIRA_SANTOS." + nomTabla;
             SqlDataReader reader = Conexion.ejecutarQuery(query);
-
 
             try
             {
-
                 while (reader.Read())
                 {
                     cmbACargar.Items.Add(reader["atributo"]);
@@ -117,7 +115,7 @@ namespace UberFrba
             try
             {
                 SqlConnection cn = getSqlInstanceConnection();
-                SqlCommand cm = new SqlCommand(consulta, cn);
+                SqlCommand cm = new SqlCommand("RUBIRA_SANTOS." + consulta, cn);
                 cm.CommandTimeout = 1000;
                 SqlDataAdapter adap = new SqlDataAdapter(cm);
                 adap.Fill(dt);
@@ -139,7 +137,7 @@ namespace UberFrba
             try
             {
                 SqlConnection cn = getSqlInstanceConnection();
-                SqlCommand cm = new SqlCommand(procedure, cn);
+                SqlCommand cm = new SqlCommand("RUBIRA_SANTOS." + procedure, cn);
                 cm.CommandTimeout = 1000;
                 cm.CommandType = CommandType.StoredProcedure;
                 if (_validateArgumentsAndParameters(args, values))
@@ -164,7 +162,7 @@ namespace UberFrba
             {
                 SqlDataReader dr;
                 SqlConnection cn = getSqlInstanceConnection();
-                SqlCommand cm = new SqlCommand(procedure, cn);
+                SqlCommand cm = new SqlCommand("RUBIRA_SANTOS." + procedure, cn);
                 cm.CommandTimeout = 2000;
                 cm.CommandType = CommandType.StoredProcedure;
 
@@ -182,12 +180,11 @@ namespace UberFrba
 
         public static bool executeProcedure(string procedure, List<string> args, params object[] values)
         {
-
             try
             {
                 SqlDataReader dr;
                 SqlConnection cn = getSqlInstanceConnection();
-                SqlCommand cm = new SqlCommand(procedure, cn);
+                SqlCommand cm = new SqlCommand("RUBIRA_SANTOS." + procedure, cn);
                 cm.CommandTimeout = 2000;
                 cm.CommandType = CommandType.StoredProcedure;
                 if (_validateArgumentsAndParameters(args, values))
@@ -200,9 +197,8 @@ namespace UberFrba
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
-
             }
 
 
