@@ -65,6 +65,12 @@
     <Compile Include="Abm Automovil\BusquedaAuto.Designer.cs">
       <DependentUpon>BusquedaAuto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Automovil\ModificarAuto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Automovil\ModificarAuto.Designer.cs">
+      <DependentUpon>ModificarAuto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Chofer\BusquedaChofer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Automovil\BusquedaAuto.resx">
       <DependentUpon>BusquedaAuto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Automovil\ModificarAuto.resx">
+      <DependentUpon>ModificarAuto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Chofer\BusquedaChofer.resx">
       <DependentUpon>BusquedaChofer.cs</DependentUpon>
