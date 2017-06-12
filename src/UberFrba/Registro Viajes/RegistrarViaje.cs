@@ -16,6 +16,8 @@ namespace UberFrba.Registro_Viajes
         {
             InitializeComponent();
             Funciones.llenarCombo_Turno(turn);
+            finic.Value = Funciones.ObtenerFecha();
+            ffin.Value = Funciones.ObtenerFecha();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -55,8 +57,8 @@ namespace UberFrba.Registro_Viajes
             HHM.Clear();
             HDH.Clear();
             HDM.Clear();
-            finic.ResetText();
-            ffin.ResetText();
+            finic.Value = Funciones.ObtenerFecha();
+            ffin.Value = Funciones.ObtenerFecha();
         }
 
         private void button1_Click(object sender, EventArgs e)

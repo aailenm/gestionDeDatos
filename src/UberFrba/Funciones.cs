@@ -51,5 +51,13 @@ namespace UberFrba
             horaTransformada = horaTransformada.AddMinutes(minuto);
             return horaTransformada;
         }
+
+        internal static DateTime ObtenerFecha()
+        {
+            string fecha;
+            fecha = System.Configuration.ConfigurationSettings.AppSettings["fecha"];
+            DateTime fechaHoy = Convert.ToDateTime(fecha);
+            return fechaHoy;
+        }
     }
 }

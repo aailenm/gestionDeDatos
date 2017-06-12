@@ -16,6 +16,8 @@ namespace UberFrba.Listado_Estadistico
         {
             InitializeComponent();
             Funciones.llenarCombo_Listados(comboBox1);
+            INICIO.Value = Funciones.ObtenerFecha();
+            FIN.Value = Funciones.ObtenerFecha();
             dataGridView1.ReadOnly = true;
         }
 
@@ -68,8 +70,8 @@ namespace UberFrba.Listado_Estadistico
         private void LIMPIAR_Click(object sender, EventArgs e)
         {
             Funciones.llenarCombo_Listados(comboBox1);
-            INICIO.ResetText();
-            FIN.ResetText();
+            INICIO.Value = Funciones.ObtenerFecha();
+            FIN.Value = Funciones.ObtenerFecha();
             dataGridView1.DataSource = -1;
         }
 

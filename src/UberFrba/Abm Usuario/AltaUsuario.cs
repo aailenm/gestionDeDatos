@@ -17,6 +17,7 @@ namespace UberFrba.Abm_Usuario
         {
             InitializeComponent();
             mostrarRoles();
+            fechanac.Value = Funciones.ObtenerFecha();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -160,7 +161,7 @@ namespace UberFrba.Abm_Usuario
             dni.Clear();
             tel.Clear();
             mail.Clear();
-            fechanac.ResetText();
+            fechanac.Value = Funciones.ObtenerFecha();
             calle.Clear();
             piso.Clear();
             dpto.Clear();

@@ -17,6 +17,8 @@ namespace UberFrba.Facturacion
         {
             InitializeComponent();
             dataGridView1.ReadOnly = true;
+            fechafin.Value = Funciones.ObtenerFecha();
+            fechainicio.Value = Funciones.ObtenerFecha();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -115,8 +117,8 @@ namespace UberFrba.Facturacion
         private void limpiar_Click(object sender, EventArgs e)
         {
             client.Clear();
-            fechainicio.ResetText();
-            fechafin.ResetText();
+            fechainicio.Value = Funciones.ObtenerFecha();
+            fechafin.Value = Funciones.ObtenerFecha();
             total.Clear();
             dataGridView1.DataSource = -1;
 

@@ -268,7 +268,7 @@ namespace UberFrba.Login
 
         private void cerrarProgramaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)

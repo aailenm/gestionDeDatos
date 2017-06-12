@@ -19,6 +19,7 @@ namespace UberFrba.Rendicion_Viajes
             InitializeComponent();
             Funciones.llenarCombo_Turno(TURNO);
             dataGridView1.ReadOnly = true;
+            FECHA.Value = Funciones.ObtenerFecha();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -99,7 +100,7 @@ namespace UberFrba.Rendicion_Viajes
             textBox1.Clear();
             porcentaje.Clear();
             TOTAL.Clear();
-            FECHA.ResetText();
+            FECHA.Value = Funciones.ObtenerFecha();
         }
 
         private void button1_Click(object sender, EventArgs e)
