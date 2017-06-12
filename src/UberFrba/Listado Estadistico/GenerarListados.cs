@@ -79,5 +79,10 @@ namespace UberFrba.Listado_Estadistico
         {
 
         }
+
+        private void INICIO_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

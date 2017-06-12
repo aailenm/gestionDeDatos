@@ -87,6 +87,7 @@
             this.INICIO.Name = "INICIO";
             this.INICIO.Size = new System.Drawing.Size(200, 20);
             this.INICIO.TabIndex = 52;
+            this.INICIO.ValueChanged += new System.EventHandler(this.INICIO_ValueChanged);
             // 
             // FIN
             // 
