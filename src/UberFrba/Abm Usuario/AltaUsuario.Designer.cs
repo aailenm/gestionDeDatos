@@ -324,6 +324,7 @@
             this.fechanac.Name = "fechanac";
             this.fechanac.Size = new System.Drawing.Size(200, 20);
             this.fechanac.TabIndex = 45;
+            this.fechanac.ValueChanged += new System.EventHandler(this.fechanac_ValueChanged);
             // 
             // linkLabel2
             // 

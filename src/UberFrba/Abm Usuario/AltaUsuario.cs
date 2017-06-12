@@ -92,7 +92,7 @@ namespace UberFrba.Abm_Usuario
                 return false;
             }
 
-            if (fechanac.Value >= DateTime.Today)
+            if (fechanac.Value >= Funciones.ObtenerFecha())
             {
                 MessageBox.Show("La fecha de nacimiento es incorrecta");
                 return false;
@@ -189,6 +189,11 @@ namespace UberFrba.Abm_Usuario
         private void button2_Click_1(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void fechanac_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

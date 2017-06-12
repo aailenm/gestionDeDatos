@@ -144,7 +144,7 @@ namespace UberFrba.Registro_Viajes
                 MessageBox.Show("El campo horas no es valido. Por favor ingrese un valor de 0 a 23");
                 return false;
             }
-            if (ffin.Value >= DateTime.Today || finic.Value >= DateTime.Today)
+            if (ffin.Value >= Funciones.ObtenerFecha() || finic.Value >= Funciones.ObtenerFecha())
             {
             MessageBox.Show("Fechas invalidas");
                 return false;

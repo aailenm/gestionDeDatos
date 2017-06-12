@@ -89,13 +89,13 @@ namespace UberFrba.Facturacion
         }
 
         private bool validaciones() {
-            if (fechainicio.Value >= DateTime.Today)
+            if (fechainicio.Value >= Funciones.ObtenerFecha())
             {
                 MessageBox.Show("Fecha inicio mayor al dìa de hoy.");
                 return false;
             }
 
-            if (fechafin.Value > DateTime.Today)
+            if (fechafin.Value > Funciones.ObtenerFecha())
             {
                 MessageBox.Show("Fecha fin mayor al día de hoy.");
                 return false;

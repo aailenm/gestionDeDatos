@@ -119,7 +119,7 @@ namespace UberFrba.Rendicion_Viajes
                 MessageBox.Show("Debe seleccionar un chofer");
                 return false;
             }
-            if (FECHA.Value > DateTime.Today)
+            if (FECHA.Value > Funciones.ObtenerFecha())
             {
                 MessageBox.Show("Fecha inválida");
                 return false;
