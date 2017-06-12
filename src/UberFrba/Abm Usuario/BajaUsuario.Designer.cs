@@ -1,4 +1,5 @@
-﻿namespace UberFrba.Alta_Usuario {
+﻿namespace UberFrba.Abm_Usuario
+{
     partial class BajaUsuario {
         /// <summary>
         /// Required designer variable.

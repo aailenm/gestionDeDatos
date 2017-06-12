@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace UberFrba.Alta_Usuario {
+namespace UberFrba.Abm_Usuario {
     public partial class BajaUsuario : Form {
         public BajaUsuario() {
             InitializeComponent();

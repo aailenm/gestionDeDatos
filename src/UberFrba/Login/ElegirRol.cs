@@ -24,7 +24,14 @@ namespace UberFrba.Login
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            if (comboBox1.SelectedIndex == -1) MessageBox.Show("Elija un rol");
+            else
+            {
+                MenuGeneral menu = new MenuGeneral();
+                menu.habilitarFuncionalidadesPorRol(comboBox1.SelectedValue.ToString());
+                menu.Show();
+                this.Close();
+            }
         }
         public void setCombo(DataTable a) 
         {
@@ -32,6 +39,11 @@ namespace UberFrba.Login
             comboBox1.DisplayMember = "rol_descripcion";
             comboBox1.DataSource = a;
             comboBox1.SelectedIndex = -1;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

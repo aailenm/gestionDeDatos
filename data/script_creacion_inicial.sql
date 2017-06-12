@@ -169,6 +169,9 @@ DROP PROCEDURE RUBIRA_SANTOS.VIAJE_RENDICION
 IF OBJECT_ID('RUBIRA_SANTOS.filtro_turno') IS NOT NULL
 DROP PROCEDURE RUBIRA_SANTOS.filtro_turno
 
+
+IF OBJECT_ID('RUBIRA_SANTOS.GET_FUNCIONALIDAD_POR_ROL') IS NOT NULL
+DROP PROCEDURE RUBIRA_SANTOS.GET_FUNCIONALIDAD_POR_ROL
 /* ================================================
 				DROP DE TRIGGERS
    ================================================
@@ -433,6 +436,15 @@ BEGIN
 	SELECT turn_id, turn_descripcion
 	FROM RUBIRA_SANTOS.TURNO
 	WHERE turn_habilitado = 1
+END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.GET_FUNCIONALIDAD_POR_ROL(@ROL INT)
+AS
+BEGIN
+	SELECT F.func_descripcion FROM ROL_POR_FUNCIONALIDAD RPF 
+	JOIN FUNCIONALIDAD F ON F.func_id = RPF.func_id
+	WHERE RPF.rol_id = @ROL
 END
 
 GO
@@ -769,13 +781,24 @@ END
 				  CREACION DE TRIGGERS
    ================================================
  */
-
+ select * from RUBIRA_SANTOS.USUARIO
 GO
 CREATE TRIGGER RUBIRA_SANTOS.Cifrar ON RUBIRA_SANTOS.Usuario AFTER INSERT AS
+DECLARE @USER nvarchar(250)
+DECLARE C1 CURSOR FOR (SELECT i.usua_usuario FROM inserted i)
 BEGIN
-	UPDATE RUBIRA_SANTOS.USUARIO 
-	SET usua_password = HashBytes('SHA2_256',convert(nvarchar(255), u.usua_password)) 
-	FROM RUBIRA_SANTOS.USUARIO u
+	OPEN C1
+	FETCH NEXT FROM C1 INTO @USER
+	WHILE @@FETCH_STATUS = 0
+		BEGIN
+			UPDATE RUBIRA_SANTOS.USUARIO 
+			SET usua_password = HashBytes('SHA2_256',convert(nvarchar(255), u.usua_password)) 
+			FROM RUBIRA_SANTOS.USUARIO u
+			WHERE u.usua_usuario = @USER
+		FETCH NEXT FROM C1 INTO @USER
+		END
+	CLOSE C1
+	DEALLOCATE C1
 END
 
 /*
@@ -915,18 +938,23 @@ INSERT INTO RUBIRA_SANTOS.ROL(rol_descripcion) values('Chofer')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) values('Alta de Rol')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Baja de Rol')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Modificacion de Rol')
+INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Busqueda de Rol')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Alta de Cliente')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Baja de Cliente')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Modificadion de Cliente')
+INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Busqueda de Cliente')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Alta de Chofer')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Baja de Chofer')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Modificacion de Chofer')
+INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Busqueda de Chofer')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Alta de Automovil')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Baja de Automovil')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Modificacion de Automovil')
+INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Busqueda de Automovil')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Alta de Turno')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Baja de Turno')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Modificacion de Turno')
+INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Busqueda de Turno')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Registrar Viaje')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Rendicion de Viaje')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Facturacion')
@@ -954,6 +982,49 @@ values(1,1)
 ,(1,17)
 ,(1,18)
 ,(1,19)
+,(1,20)
+,(1,21)
+,(1,22)
+,(1,23)
+,(1,24)
+
+INSERT INTO RUBIRA_SANTOS.ROL_POR_FUNCIONALIDAD(rol_id, func_id)
+values(2,1)
+,(2,3)
+,(2,4)
+,(2,5)
+,(2,6)
+,(2,7)
+,(2,8)
+,(2,9)
+,(2,10)
+,(2,11)
+,(2,12)
+,(2,13)
+,(2,15)
+,(2,16)
+,(2,17)
+,(2,19)
+,(2,20)
+
+INSERT INTO RUBIRA_SANTOS.ROL_POR_FUNCIONALIDAD(rol_id, func_id)
+values(3,1)
+,(3,3)
+,(3,4)
+,(3,5)
+,(3,6)
+,(3,7)
+,(3,8)
+,(3,9)
+,(3,10)
+,(3,11)
+,(3,12)
+,(3,13)
+,(3,15)
+,(3,16)
+,(3,17)
+,(3,19)
+,(3,20)
 
 -- USUARIO
 INSERT INTO RUBIRA_SANTOS.USUARIO(usua_usuario, usua_password)

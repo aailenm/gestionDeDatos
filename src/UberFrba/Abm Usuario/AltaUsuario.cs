@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace UberFrba.Alta_Usuario
+namespace UberFrba.Abm_Usuario
 {
     public partial class AltaUsuario : Form
     {
