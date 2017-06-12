@@ -1,5 +1,5 @@
 ﻿namespace UberFrba.Abm_Rol {
-    partial class BajaRol {
+    partial class Baja_Rol {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -77,7 +77,7 @@
             this.Controls.Add(this.btnInhabilitar);
             this.Controls.Add(this.lblRol);
             this.Name = "BajaRol";
-            this.Text = "BajaRol";
+            this.Text = "Baja de Rol";
             this.Load += new System.EventHandler(this.BajaRol_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

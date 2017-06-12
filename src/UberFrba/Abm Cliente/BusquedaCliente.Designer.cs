@@ -157,7 +157,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Name = "BusquedaCliente";
-            this.Text = "BusquedaCliente";
+            this.Text = "Búsqueda de Cliente";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

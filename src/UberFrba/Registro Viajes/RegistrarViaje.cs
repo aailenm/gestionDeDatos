@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UberFrba.Registro_Viajes
-{
-    public partial class Form1 : Form, ComunicacionForms
+namespace UberFrba.Registro_Viajes {
+    public partial class Registro_Viajes : Form, ComunicacionForms
     {
-        public Form1()
+        public Registro_Viajes()
         {
             InitializeComponent();
             Funciones.llenarCombo_Turno(turn);

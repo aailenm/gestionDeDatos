@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace UberFrba.Login
-{
+namespace UberFrba.Login {
     public partial class MenuGeneral : Form
     {
         public MenuGeneral()
@@ -30,15 +23,8 @@ namespace UberFrba.Login
             automovilToolStripMenuItem.Visible = false;
             automovilToolStripMenuItem2.Visible = false;
             automovilToolStripMenuItem3.Visible = false;
-
-            clienteBaja.Visible = false;
-            clienteToolStripMenuItem1.Visible = false;
+            
             clienteToolStripMenuItem2.Visible = false;
-            usuarioToolStripMenuItem.Visible = false;
-
-            choferBaja.Visible = false;
-            choferToolStripMenuItem1.Visible = false;
-            choferToolStripMenuItem3.Visible = false;
             choferToolStripMenuItem4.Visible = false;
 
             turnoBaja.Visible = false;
@@ -75,13 +61,7 @@ namespace UberFrba.Login
             if(func == 2) rolBaja.Visible = true;
             if(func == 3) rolToolStripMenuItem2.Visible = true;
             if(func == 4) rolToolStripMenuItem3.Visible = true;
-            if(func == 5) usuarioToolStripMenuItem.Visible = true;
-            if(func == 6) clienteBaja.Visible = true;
-            if(func == 7) clienteToolStripMenuItem1.Visible = true;
             if (func == 8) clienteToolStripMenuItem2.Visible = true;
-            if (func == 9) choferToolStripMenuItem1.Visible = true;
-            if(func == 10) choferBaja.Visible = true;
-            if(func == 11) choferToolStripMenuItem3.Visible = true;
             if(func == 12) choferToolStripMenuItem4.Visible = true;
             if(func == 13) automovilToolStripMenuItem.Visible = true;
             if(func == 14) automovilBaja.Visible = true;
@@ -125,20 +105,20 @@ namespace UberFrba.Login
 
         private void automovilToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Abm_Automovil.Form1 form = new Abm_Automovil.Form1();
-            form.Show();
+            Abm_Automovil.Alta_Automovil form = new Abm_Automovil.Alta_Automovil();
+            form.ShowDialog();
         }
 
         private void rolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Abm_Rol.Form1 form = new Abm_Rol.Form1();
-            form.Show();
+            Abm_Rol.Alta_Rol form = new Abm_Rol.Alta_Rol();
+            form.ShowDialog();
         }
 
         private void turnoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Abm_Turno.Alta_turno form = new Abm_Turno.Alta_turno();
-            form.Show();
+            Abm_Turno.Alta_Turno form = new Abm_Turno.Alta_Turno();
+            form.ShowDialog();
         }
 
         private void usuarioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -157,78 +137,73 @@ namespace UberFrba.Login
         private void usuarioToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Abm_Usuario.BajaUsuario form = new Abm_Usuario.BajaUsuario();
-            form.Show();
-        }
-
-        private void choferToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-
+            form.ShowDialog();
         }
 
         private void rolToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Abm_Rol.BajaRol form = new Abm_Rol.BajaRol();
-            form.Show();
+            Abm_Rol.Baja_Rol form = new Abm_Rol.Baja_Rol();
+            form.ShowDialog();
         }
 
         private void turnoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Abm_Turno.BajaTurno form = new Abm_Turno.BajaTurno();
-            form.Show();
+            Abm_Turno.Baja_Turno form = new Abm_Turno.Baja_Turno();
+            form.ShowDialog();
         }
 
         private void automovilToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Abm_Automovil.BajaAutomovil form = new Abm_Automovil.BajaAutomovil();
-            form.Show();
+            Abm_Automovil.Baja_Automovil form = new Abm_Automovil.Baja_Automovil();
+            form.ShowDialog();
         }
 
         private void choferToolStripMenuItem4_Click(object sender, EventArgs e)
         {
             Abm_Chofer.BusquedaChofer form = new Abm_Chofer.BusquedaChofer();
-            form.Show();
+            form.ShowDialog();
         }
 
         private void clienteToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             Abm_Cliente.BusquedaCliente form = new Abm_Cliente.BusquedaCliente();
-            form.Show();
+            form.ShowDialog();
         }
 
         private void automovilToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             Abm_Automovil.BusquedaAuto form = new Abm_Automovil.BusquedaAuto();
-            form.Show();
+            form.ShowDialog();
         }
 
         private void rolToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             Abm_Rol.BusquedaRol form = new Abm_Rol.BusquedaRol();
-            form.Show();
+            form.ShowDialog();
         }
 
         private void turnoToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             Abm_Turno.BusquedaTurno form = new Abm_Turno.BusquedaTurno();
-            form.Show();
+            form.ShowDialog();
         }
 
         private void crearFacturaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Facturacion.Form1 form = new Facturacion.Form1();
-            form.Show();
+            Facturacion.Crear_Factura form = new Facturacion.Crear_Factura();
+            form.ShowDialog();
         }
 
         private void crearRendicionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Rendicion_Viajes.Form1 form = new Rendicion_Viajes.Form1();
-            form.Show();
+            Rendicion_Viajes.Crear_Pago form = new Rendicion_Viajes.Crear_Pago();
+            form.ShowDialog();
         }
 
         private void generarEstadisticasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Listado_Estadistico.GenerarListados form = new Listado_Estadistico.GenerarListados();
-            form.Show();
+            form.ShowDialog();
         }
 
         private void cerrarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -247,8 +222,8 @@ namespace UberFrba.Login
 
         private void registrarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Registro_Viajes.Form1 form = new Registro_Viajes.Form1();
-            form.Show();
+            Registro_Viajes.Registro_Viajes form = new Registro_Viajes.Registro_Viajes();
+            form.ShowDialog();
         }
 
         private void choferToolStripMenuItem3_Click(object sender, EventArgs e)
@@ -273,9 +248,39 @@ namespace UberFrba.Login
 
         private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
             Login log = new Login();
             log.Show();
+        }
+
+        private void automovilToolStripMenuItem2_Click(object sender, EventArgs e) {
+            Abm_Automovil.Modificar_Auto form = new Abm_Automovil.Modificar_Auto();
+            form.ShowDialog();
+        }
+
+        private void rolToolStripMenuItem2_Click(object sender, EventArgs e) {
+            Abm_Rol.Modificar_Rol form = new Abm_Rol.Modificar_Rol();
+            form.ShowDialog();
+        }
+
+        private void turnoToolStripMenuItem2_Click(object sender, EventArgs e) {
+            Abm_Turno.Modificar_Turno form = new Abm_Turno.Modificar_Turno();
+            form.ShowDialog();
+        }
+
+        private void usuarioToolStripMenuItem1_Click_1(object sender, EventArgs e) {
+            Abm_Usuario.Modificar_Usuario form = new Abm_Usuario.Modificar_Usuario();
+            form.ShowDialog();
+        }
+
+        private void usuarioToolStripMenuItem3_Click(object sender, EventArgs e) {
+            Abm_Usuario.AltaUsuario form = new Abm_Usuario.AltaUsuario();
+            form.ShowDialog();
+        }
+
+        private void usuarioToolStripMenuItem2_Click(object sender, EventArgs e) {
+            Abm_Usuario.BajaUsuario form = new Abm_Usuario.BajaUsuario();
+            form.ShowDialog();
         }
     }
 }

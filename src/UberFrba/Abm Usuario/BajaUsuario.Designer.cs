@@ -77,7 +77,7 @@
             this.Controls.Add(this.cmbUsuario);
             this.Controls.Add(this.lblUsuario);
             this.Name = "BajaUsuario";
-            this.Text = "BajaUsuario";
+            this.Text = "Baja de Usuario";
             this.Load += new System.EventHandler(this.BajaUsuario_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

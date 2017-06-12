@@ -419,7 +419,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Name = "AltaUsuario";
-            this.Text = "Form1";
+            this.Text = "Alta de Usuario";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

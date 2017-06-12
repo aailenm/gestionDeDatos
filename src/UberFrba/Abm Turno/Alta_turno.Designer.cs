@@ -1,6 +1,6 @@
 ﻿namespace UberFrba.Abm_Turno
 {
-    partial class Alta_turno
+    partial class Alta_Turno
     {
         /// <summary>
         /// Required designer variable.
@@ -179,6 +179,8 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
+            this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.linkLabel1.LinkColor = System.Drawing.SystemColors.WindowText;
             this.linkLabel1.Location = new System.Drawing.Point(9, 0);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(63, 13);
@@ -203,8 +205,6 @@
             this.DETALLE.Name = "DETALLE";
             this.DETALLE.Size = new System.Drawing.Size(100, 20);
             this.DETALLE.TabIndex = 31;
-            this.DETALLE.Click += new System.EventHandler(this.DETALLE_Click);
-            this.DETALLE.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // CANCELAR
             // 
@@ -235,7 +235,7 @@
             this.Controls.Add(this.CREAR);
             this.Controls.Add(this.groupBox1);
             this.Name = "Alta_turno";
-            this.Text = "Form1";
+            this.Text = "Alta de Turno";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

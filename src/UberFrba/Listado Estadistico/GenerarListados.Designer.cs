@@ -171,7 +171,7 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.groupBox1);
             this.Name = "GenerarListados";
-            this.Text = "GenerarListados";
+            this.Text = "Generación de Listados";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

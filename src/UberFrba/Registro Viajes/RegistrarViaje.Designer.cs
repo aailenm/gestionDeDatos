@@ -1,6 +1,6 @@
 ﻿namespace UberFrba.Registro_Viajes
 {
-    partial class Form1
+    partial class Registro_Viajes
     {
         /// <summary>
         /// Required designer variable.
@@ -48,7 +48,6 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label8 = new System.Windows.Forms.Label();
             this.HDM = new System.Windows.Forms.TextBox();
             this.HDH = new System.Windows.Forms.TextBox();
@@ -57,6 +56,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.HHH = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -253,16 +253,6 @@
             this.groupBox1.TabIndex = 70;
             this.groupBox1.TabStop = false;
             // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(6, 0);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(77, 13);
-            this.linkLabel1.TabIndex = 0;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Datos del viaje";
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -331,6 +321,16 @@
             this.label11.TabIndex = 57;
             this.label11.Text = "Hora Desde";
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(6, 0);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(77, 13);
+            this.linkLabel1.TabIndex = 0;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Datos del viaje";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -357,7 +357,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Registro de Viajes";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

@@ -1,5 +1,5 @@
 ﻿namespace UberFrba.Abm_Turno {
-    partial class BajaTurno {
+    partial class Baja_Turno {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -77,7 +77,7 @@
             this.Controls.Add(this.btnInhabilitar);
             this.Controls.Add(this.lblDesc);
             this.Name = "BajaTurno";
-            this.Text = "BajaTurno";
+            this.Text = "Baja de Turno";
             this.Load += new System.EventHandler(this.BajaTurno_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -193,7 +193,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Name = "BusquedaAuto";
-            this.Text = "BusquedaAuto";
+            this.Text = "Búsqueda de Automóvil";
             this.Load += new System.EventHandler(this.BusquedaAuto_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

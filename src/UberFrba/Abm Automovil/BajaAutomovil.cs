@@ -2,8 +2,8 @@
 using System.Windows.Forms;
 
 namespace UberFrba.Abm_Automovil {
-    public partial class BajaAutomovil : Form {
-        public BajaAutomovil() {
+    public partial class Baja_Automovil : Form {
+        public Baja_Automovil() {
             InitializeComponent();
         }
 

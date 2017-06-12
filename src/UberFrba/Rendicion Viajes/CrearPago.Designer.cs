@@ -1,6 +1,6 @@
 ﻿namespace UberFrba.Rendicion_Viajes
 {
-    partial class Form1
+    partial class Crear_Pago
     {
         /// <summary>
         /// Required designer variable.
@@ -272,7 +272,7 @@
             this.Controls.Add(this.FECHA);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Creación de Pago";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

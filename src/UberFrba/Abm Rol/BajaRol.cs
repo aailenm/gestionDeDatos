@@ -2,8 +2,8 @@
 using System.Windows.Forms;
 
 namespace UberFrba.Abm_Rol {
-    public partial class BajaRol : Form {
-        public BajaRol() {
+    public partial class Baja_Rol : Form {
+        public Baja_Rol() {
             InitializeComponent();
         }
 

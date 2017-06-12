@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UberFrba.Login
-{
+namespace UberFrba.Login {
     public partial class ElegirRol : Form
     {
         public ElegirRol()
@@ -38,12 +31,7 @@ namespace UberFrba.Login
             comboBox1.ValueMember = "rol_id";
             comboBox1.DisplayMember = "rol_descripcion";
             comboBox1.DataSource = a;
-            comboBox1.SelectedIndex = -1;
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            comboBox1.SelectedIndex = 0;
         }
     }
 }

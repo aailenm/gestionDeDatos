@@ -2,8 +2,8 @@
 using System.Windows.Forms;
 
 namespace UberFrba.Abm_Turno {
-    public partial class BajaTurno : Form {
-        public BajaTurno() {
+    public partial class Baja_Turno : Form {
+        public Baja_Turno() {
             InitializeComponent();
         }
 

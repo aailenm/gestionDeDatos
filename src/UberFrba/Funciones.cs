@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UberFrba
-{
+namespace UberFrba {
     class Funciones
     {
         /*verifica que una cadena text sea solo de numeros*/

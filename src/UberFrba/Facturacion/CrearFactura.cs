@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UberFrba.Facturacion
-{
-    public partial class Form1 : Form, ComunicacionForms
+namespace UberFrba.Facturacion {
+    public partial class Crear_Factura : Form, ComunicacionForms
     {
         double tot = 0;
-        public Form1()
+        public Crear_Factura()
         {
             InitializeComponent();
             dataGridView1.ReadOnly = true;

@@ -1,5 +1,5 @@
 ﻿namespace UberFrba.Abm_Automovil {
-    partial class BajaAutomovil {
+    partial class Baja_Automovil {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -77,7 +77,7 @@
             this.Controls.Add(this.btnInhabilitar);
             this.Controls.Add(this.lblPatente);
             this.Name = "BajaAutomovil";
-            this.Text = "BajaAutomovil";
+            this.Text = "Baja de Automóvil";
             this.Load += new System.EventHandler(this.BajaAutomovil_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UberFrba.Rendicion_Viajes
-{
-    public partial class Form1 : Form, ComunicacionForms
+namespace UberFrba.Rendicion_Viajes {
+    public partial class Crear_Pago : Form, ComunicacionForms
     {
         double porc = 0;
         double totalViajes=0;
-        public Form1()
+        public Crear_Pago()
         {
             InitializeComponent();
             Funciones.llenarCombo_Turno(TURNO);

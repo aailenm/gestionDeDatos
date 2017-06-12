@@ -3,11 +3,11 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 
 namespace UberFrba.Abm_Automovil {
-    public partial class ModificarAuto : Form, ComunicacionForms
+    public partial class Modificar_Auto : Form, ComunicacionForms
     {
         
         
-        public ModificarAuto()
+        public Modificar_Auto()
         {
             InitializeComponent();
             LlenarCombos();
@@ -91,7 +91,7 @@ namespace UberFrba.Abm_Automovil {
         {
             if( validaciones())
             {
-                bool conex = Conexion.executeProcedure("ModificarAuto", Conexion.generarArgumentos("@auto", "@nuevaMarca","@modelo","@patente","@chofer","@turno"),
+                bool conex = Conexion.executeProcedure("MODIFICAR_AUTO", Conexion.generarArgumentos("@auto", "@nuevaMarca","@modelo","@patente","@chofer","@turno"),
                  textBox4.Text, comboBox1.Text,textBox1.Text,textBox2.Text,textBox3.Text,comboBox2.Text);
                 if (conex)
                 {
@@ -144,7 +144,7 @@ namespace UberFrba.Abm_Automovil {
 
         private void botonHabili(object sender, EventArgs e)
         {
-            bool conex = Conexion.executeProcedure("habilitar_automovil", Conexion.generarArgumentos("@id"), textBox4.Text);
+            bool conex = Conexion.executeProcedure("HABILITAR_AUTO", Conexion.generarArgumentos("@id"), textBox4.Text);
             if (conex)
             {
                 MessageBox.Show("Automovil habilitado correctamente");
