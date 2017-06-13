@@ -54,7 +54,7 @@ namespace UberFrba.Abm_Rol {
             }
         }
         private void agregarFuncionalidades() {
-           SqlDataReader reader = Conexion.ejecutarQuery("Select rol_id from ROL WHERE ROL_DESCRIPCION like '%" + descripcion.Text +"%'");
+           SqlDataReader reader = Conexion.ejecutarQuery("Select rol_id from RUBIRA_SANTOS.ROL WHERE ROL_DESCRIPCION like '%" + descripcion.Text +"%'");
            reader.Read();
            string rol = (reader["rol_id"].ToString());
            reader.Close();

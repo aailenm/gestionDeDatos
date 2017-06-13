@@ -57,7 +57,7 @@ namespace UberFrba.Registro_Viajes {
         {
             if (validaciones())
             {
-                bool result = Conexion.executeProcedure("ALTA_VIAJE", Conexion.generarArgumentos("@CANTIDADKM", "@FECHAINICIO", "@FECHAFIN", "@TURNO", "@AUTO", "@CHOFER", "@CLIENTE"),
+                bool result = Conexion.executeProcedure("ALTA_VIAJE", Conexion.generarArgumentos("@CANTIDADKM", "@FECHAINICIO", "@FECHAFIN", "@TURNO", "@AUTO", "@CHOFER", "@CLIENT"),
                     cantkm.Text, Funciones.TransformarDateConTime(finic.Value.ToShortDateString(), HDH.Text, HDM.Text), Funciones.TransformarDateConTime(ffin.Value.ToShortDateString(), HHH.Text, HHM.Text), turn.SelectedValue, auto.Text, chof.Text, clie.Text);
                 if (result)
                 {

@@ -34,9 +34,14 @@ namespace UberFrba.Abm_Automovil
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = Conexion.obtenerTablaProcedure("filtro_automovil", Conexion.generarArgumentos("@marca", "@modelo", "@patente", "@chofer"), 
-                marca.SelectedValue, modelo.Text, patente.Text,chofer.Text);
-            this.dataGridView1.Columns["auto_id"].Visible = false;
+            if (marca.SelectedIndex == -1) MessageBox.Show("Seleccione una marca");
+            else
+            {
+                dataGridView1.DataSource = Conexion.obtenerTablaProcedure("filtro_automovil", Conexion.generarArgumentos("@marca", "@modelo", "@patente", "@chofer"),
+                    marca.SelectedValue, modelo.Text, patente.Text, chofer.Text);
+                this.dataGridView1.Columns["auto_id"].Visible = false;
+                this.dataGridView1.Columns["MARCA"].Visible = false;
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)

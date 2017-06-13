@@ -133,14 +133,14 @@ namespace UberFrba.Abm_Usuario
             foreach (DataRowView rowView in roles.CheckedItems)
             {
                 Conexion.executeProcedure("AGREGAR_ROLES", Conexion.generarArgumentos("@USUARIO", "@ROL"), usua, rowView["rol_id"]);
-                if (rowView["rol_id"].ToString() == "2")
+                if (rowView["rol_descripcion"].ToString() == "Cliente")
                 {
                     Conexion.executeProcedure("ALTA_CLIENTE", Conexion.generarArgumentos("@NOMBRE", "@APELLIDO", "@DNI", "@TELEFONO", "@MAIL", "@FECHA_NACIMIENTO", "@CALLE", "@PISO", "@DPTO", "@LOCALIDAD", "@CP", "@USUARIO"),
                 nomb.Text, apell.Text, dni.Text, tel.Text, mail.Text, fechanac.Value.ToShortDateString(), calle.Text, piso.Text, dpto.Text, local.Text, cp.Text, usua);
                 }
                 else
                 {
-                    if (rowView["rol_id"].ToString() == "3")
+                    if (rowView["rol_descripcion"].ToString() == "Chofer")
                     {
                         Conexion.executeProcedure("ALTA_CHOFER", Conexion.generarArgumentos("@NOMBRE", "@APELLIDO", "@DNI", "@MAIL", "@TELEFONO", "@FECHA_NACIMIENTO", "@CALLE", "@PISO", "@DPTO", "@LOCALIDAD", "@CP", "@USUARIO"),
                 nomb.Text, apell.Text, dni.Text, mail.Text, tel.Text, fechanac.Value.ToShortDateString(), calle.Text, piso.Text, dpto.Text, local.Text, cp.Text,usua);

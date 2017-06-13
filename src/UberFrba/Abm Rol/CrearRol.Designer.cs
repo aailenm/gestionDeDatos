@@ -60,12 +60,11 @@
             // 
             // descripcion
             // 
-            this.descripcion.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.descripcion.ForeColor = System.Drawing.SystemColors.WindowText;
             this.descripcion.Location = new System.Drawing.Point(59, 30);
             this.descripcion.Name = "descripcion";
             this.descripcion.Size = new System.Drawing.Size(100, 20);
             this.descripcion.TabIndex = 31;
-            this.descripcion.Text = "Ej: Administrador";
             this.descripcion.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label1
@@ -108,7 +107,7 @@
             this.checkedListBox1.TabIndex = 44;
             this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
-            // Form1
+            // Alta_Rol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -118,7 +117,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Form1";
+            this.Name = "Alta_Rol";
             this.Text = "Creación de Rol";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

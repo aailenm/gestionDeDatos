@@ -63,7 +63,6 @@ DROP TABLE RUBIRA_SANTOS.TURNO
 				DROP DE PROCEDURES
    ================================================
  */
- 
 IF OBJECT_ID('RUBIRA_SANTOS.GET_ROLES_POR_USUARIO') IS NOT NULL
 DROP PROCEDURE RUBIRA_SANTOS.GET_ROLES_POR_USUARIO
 
@@ -651,6 +650,7 @@ BEGIN
 		RAISERROR('Ese auto no existe', 16, 217) WITH SETERROR
 END
 
+
 GO
 CREATE PROCEDURE RUBIRA_SANTOS.ALTA_VIAJE(@CANTIDADKM INT,@FECHAINICIO smalldatetime ,@FECHAFIN smalldatetime, @TURNO INT, @AUTO INT, @CHOFER INT, @CLIENT INT)
 AS
@@ -930,7 +930,7 @@ go
 CREATE PROCEDURE RUBIRA_SANTOS.filtro_turno(@descripcion varchar(255))
 AS
 BEGIN
-	SELECT t.turn_descripcion DESCRIPCION, t.turn_hora_inicio HORA_INICIO , t.turn_hora_fin HORA_FIN, t.turn_precio_base PRECIO_BASE, t.turn_valor_km VALOR_KM
+	SELECT t.turn_id, t.turn_descripcion DESCRIPCION, t.turn_hora_inicio HORA_INICIO , t.turn_hora_fin HORA_FIN, t.turn_precio_base PRECIO_BASE, t.turn_valor_km VALOR_KM, t.turn_habilitado HABILITADO
 	FROM RUBIRA_SANTOS.TURNO t
 	WHERE @descripcion = '' OR
 		t.turn_descripcion LIKE '%' + @descripcion + '%'
@@ -944,7 +944,7 @@ BEGIN
 	d.dire_calle Dirección, d.dire_localidad Localidad, d.dire_cp Código_Postal, c.chof_habilitado Habilitado, a.turn_turnoActivo, a.auto_id
 	FROM RUBIRA_SANTOS.CHOFER c
 	JOIN RUBIRA_SANTOS.DIRECCION d ON d.dire_id = c.chof_direccion
-	JOIN RUBIRA_SANTOS.AUTO_POR_TURNO a ON a.chof_id = c.chof_id
+	left JOIN RUBIRA_SANTOS.AUTO_POR_TURNO a ON a.chof_id = c.chof_id
 	WHERE (@nombre = '' OR c.chof_nombre LIKE '%' + @nombre + '%') AND
 		(@apellido = '' OR c.chof_apellido LIKE '%' + @apellido + '%') AND
 		(@dni = 0 OR @dni = c.chof_dni)
