@@ -31,6 +31,16 @@ namespace UberFrba.Abm_Turno {
         }
 
         private bool validaciones() {
+            if (0 >= Int32.Parse(VKM.Text)) {
+                MessageBox.Show("El valor del kilometro debe ser mayor a 0");
+                return false;
+            }
+
+            if (0 >= Int32.Parse(PB.Text))
+            {
+                MessageBox.Show("El valor del precio base debe ser mayor a 0");
+                return false;
+            }
             if (HDM.Text == "")
             {
                 MessageBox.Show("El campo Hora desde no puede estar vacio");
@@ -107,6 +117,11 @@ namespace UberFrba.Abm_Turno {
         private void CANCELAR_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void PB_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

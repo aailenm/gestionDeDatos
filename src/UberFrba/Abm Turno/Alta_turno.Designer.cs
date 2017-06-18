@@ -148,6 +148,7 @@
             this.PB.Name = "PB";
             this.PB.Size = new System.Drawing.Size(100, 20);
             this.PB.TabIndex = 49;
+            this.PB.TextChanged += new System.EventHandler(this.PB_TextChanged);
             // 
             // label3
             // 
@@ -226,7 +227,7 @@
             this.CREAR.UseVisualStyleBackColor = true;
             this.CREAR.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Alta_turno
+            // Alta_Turno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -234,7 +235,7 @@
             this.Controls.Add(this.CANCELAR);
             this.Controls.Add(this.CREAR);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Alta_turno";
+            this.Name = "Alta_Turno";
             this.Text = "Alta de Turno";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

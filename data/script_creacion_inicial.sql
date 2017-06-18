@@ -657,8 +657,11 @@ AS
 BEGIN
 	IF(NOT EXISTS(SELECT * FROM RUBIRA_SANTOS.VIAJE WHERE viaj_cliente = @CLIENT AND viaj_fyh_inicio = @FECHAINICIO))
 		IF(EXISTS (SELECT auto_id, chof_id, turn_id FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE auto_id = @AUTO AND chof_id = @CHOFER AND turn_turnoActivo = @TURNO))
-			INSERT INTO RUBIRA_SANTOS.VIAJE(viaj_auto, viaj_cantidad_km, viaj_chofer, viaj_cliente, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_precio)
-			VALUES(@AUTO, @CANTIDADKM, @CHOFER, @CLIENT, @FECHAINICIO ,@FECHAFIN, @TURNO, (SELECT (@CANTIDADKM * t.turn_valor_km + t.turn_precio_base) FROM RUBIRA_SANTOS.TURNO t WHERE t.turn_id = @TURNO))
+			IF(EXISTS(SELECT * FROM RUBIRA_SANTOS.TURNO WHERE @TURNO = turn_id and CAST(@FECHAINICIO as time) between turn_hora_inicio and turn_hora_fin and CAST(@FECHAFIN as time) between turn_hora_inicio and turn_hora_fin  ))
+				INSERT INTO RUBIRA_SANTOS.VIAJE(viaj_auto, viaj_cantidad_km, viaj_chofer, viaj_cliente, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_precio)
+				VALUES(@AUTO, @CANTIDADKM, @CHOFER, @CLIENT, @FECHAINICIO ,@FECHAFIN, @TURNO, (SELECT (@CANTIDADKM * t.turn_valor_km + t.turn_precio_base) FROM RUBIRA_SANTOS.TURNO t WHERE t.turn_id = @TURNO))
+			ELSE
+				RAISERROR ('El horario ingresado no se corresponde con el turno elegido', 16, 217) WITH SETERROR
 		ELSE
 			RAISERROR ('No existe un chofer con ese auto en ese turno', 16, 217) WITH SETERROR	
 	ELSE
@@ -724,13 +727,11 @@ BEGIN
 END
 
 GO
-CREATE PROCEDURE RUBIRA_SANTOS.ALTA_TURNO(@DESCRIPCION NVARCHAR(255), @HORA_INICIO NVARCHAR(255), @HORA_FIN NVARCHAR(255), @PRECIOBASE decimal(12,2), @VALORKM decimal(12,2))
+CREATE PROCEDURE RUBIRA_SANTOS.ALTA_TURNO(@DESCRIPCION NVARCHAR(255), @HORA_INICIO time, @HORA_FIN time, @PRECIOBASE decimal(12,2), @VALORKM decimal(12,2))
 AS
+DECLARE C1 CURSOR FOR (SELECT turn_hora_inicio, turn_hora_fin, turn_habilitado FROM RUBIRA_SANTOS.TURNO)
+DECLARE @INICIO TIME, @FIN TIME, @HABILITADO INT, @NO_PUEDE_EXISTIR INT
 BEGIN
-	DECLARE C1 CURSOR FOR (SELECT turn_hora_inicio, turn_hora_fin, turn_habilitado FROM RUBIRA_SANTOS.TURNO)
-	DECLARE @INICIO TIME, @FIN TIME, @HABILITADO INT, @NO_PUEDE_EXISTIR INT
-	SET @HORA_INICIO = CAST(@HORA_INICIO AS time)
-	SET @HORA_FIN = CAST(@HORA_FIN AS time)
 	SET @NO_PUEDE_EXISTIR = 0
 	IF(@HORA_FIN > @HORA_INICIO)
 	BEGIN
@@ -740,11 +741,11 @@ BEGIN
 				FETCH NEXT FROM C1 INTO @INICIO, @FIN, @HABILITADO
 				WHILE @@FETCH_STATUS = 0
 					BEGIN
+						IF(@INICIO = CAST('00:00' AS TIME)) SET @INICIO = CAST('23:59' AS TIME)
+						IF(@FIN = CAST('00:00' AS TIME)) SET @FIN = CAST('23:59' AS TIME)  
 						IF(@HABILITADO = 1 
-							AND((@HORA_INICIO > @INICIO AND @HORA_FIN < @FIN) -- FRANJA NUEVA ABARCA UNA EXISTENTE
-							OR (@HORA_INICIO < @INICIO AND @HORA_FIN > @FIN ) --FRANJA EXISTENTE ABARCA A LA NUEVA
-							OR (@HORA_INICIO > @INICIO AND @HORA_INICIO < @FIN) -- SE SOLAPA
-							OR (@HORA_FIN > @INICIO AND @HORA_FIN < @FIN) --SE SOLAPA
+							AND ((@FIN > @HORA_INICIO AND @INICIO < @HORA_INICIO) -- SE SOLAPA
+							OR (@FIN > @HORA_FIN AND @INICIO < @HORA_FIN) --SE SOLAPA
 							))
 							SET @NO_PUEDE_EXISTIR = 1
 						FETCH NEXT FROM C1 INTO @INICIO, @FIN, @HABILITADO
@@ -762,6 +763,8 @@ BEGIN
 	ELSE 
 		RAISERROR('El turno debe comenzar y finalizar en el mismo día', 16, 217) WITH SETERROR
 END
+
+
 
 GO 
 CREATE PROCEDURE RUBIRA_SANTOS.GET_TURNOS
@@ -862,7 +865,7 @@ END
 				  CREACION DE TRIGGERS
    ================================================
  */
- select * from RUBIRA_SANTOS.USUARIO
+
 GO
 CREATE TRIGGER RUBIRA_SANTOS.Cifrar ON RUBIRA_SANTOS.Usuario AFTER INSERT AS
 DECLARE @USER nvarchar(250)
@@ -1210,21 +1213,21 @@ INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id,auto_id,turn_id,turn_turnoActiv
 
 ------ Viajes
 INSERT INTO RUBIRA_SANTOS.VIAJE(viaj_auto, viaj_cantidad_km, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_cliente, viaj_chofer, viaj_precio)
-	SELECT max(au.auto_id),
-		   max(ma.Viaje_Cant_Kilometros),
-		   ma.Viaje_Fecha,
-		   DATEADD(minute,1*max(ma.Viaje_Cant_Kilometros),ma.Viaje_Fecha),
-		   max(tu.turn_id),
-		   cli.clie_id,
-		   max(cho.chof_id),
-		   (SELECT (max(ma.Viaje_Cant_Kilometros) * tu2.turn_valor_km) + tu2.turn_precio_base FROM RUBIRA_SANTOS.TURNO tu2 WHERE tu2.turn_id = max(tu.turn_id))
-	FROM gd_esquema.Maestra ma
-	LEFT JOIN RUBIRA_SANTOS.AUTOMOVIL au ON au.auto_patente = ma.Auto_Patente
-	LEFT JOIN RUBIRA_SANTOS.CHOFER cho ON chof_telefono = ma.Chofer_Telefono
-	LEFT JOIN RUBIRA_SANTOS.TURNO tu ON tu.turn_descripcion = ma.Turno_Descripcion
-	LEFT JOIN RUBIRA_SANTOS.CLIENTE cli ON clie_telefono = ma.Cliente_Telefono
-	GROUP BY cli.clie_id,ma.Viaje_Fecha
--- 99660 viajes
+ 		select au.auto_id,
+ 			   ma.Viaje_Cant_Kilometros,
+ 			   ma.Viaje_Fecha,
+ 			   DATEADD(minute,1*ma.Viaje_Cant_Kilometros,ma.Viaje_Fecha),
+ 			   tu.turn_id,
+  			   cli.clie_id,
+ 			   cho.chof_id,
+ 			   (ma.Viaje_Cant_Kilometros * tu.turn_valor_km) + tu.turn_precio_base
+     	from gd_esquema.Maestra ma
+  		left join RUBIRA_SANTOS.Automovil au on au.auto_patente = ma.Auto_Patente
+  		left join RUBIRA_SANTOS.CHOFER cho on chof_telefono = ma.Chofer_Telefono
+  		left join RUBIRA_SANTOS.TURNO tu on tu.turn_descripcion = ma.Turno_Descripcion
+  		left join RUBIRA_SANTOS.CLIENTE cli on clie_telefono = ma.Cliente_Telefono
+ 		group by au.auto_id, cho.chof_id, ma.Viaje_Cant_Kilometros, ma.Viaje_Fecha, tu.turn_id, cli.clie_id, tu.turn_valor_km, tu.turn_precio_base
+ --- 114039 viajes
 
 
 -- Facturas
