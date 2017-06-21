@@ -21,6 +21,17 @@ namespace UberFrba {
             combo.DataSource = Conexion.cargarTablaConsulta("GET_TURNOS");
             combo.SelectedIndex = -1;
         }
+        internal static int calcularMeses(DateTime inicio, DateTime fin) {
+            int resultado = 0;
+            inicio = inicio.Date;
+            fin = fin.Date;
+            while (inicio < fin)
+            {
+                inicio = inicio.AddMonths(1);
+                resultado++;
+            }
+            return resultado;
+        }
         internal static void llenarCombo_Listados(ComboBox combo)
         {
             combo.Items.Insert(0, "Choferes con mayor recaudación");

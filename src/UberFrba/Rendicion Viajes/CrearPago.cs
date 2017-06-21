@@ -97,16 +97,27 @@ namespace UberFrba.Rendicion_Viajes {
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (validaciones() && TOTAL.Text != "")
+            if (TOTAL.Text == "")
             {
-                bool result = Conexion.executeProcedure("CREAR_RENDICION", Conexion.generarArgumentos("@CHOFER", "@TOTAL", "@TURNO", "@FECHA", "@PORCENTAJE"),
-                   CHOF.Text, TOTAL.Text, TURNO.SelectedValue, FECHA.Value.ToShortDateString(), porc);
-                if (result) MessageBox.Show("Rendición creada");
+                MessageBox.Show("Debe ingresar el total a pagar");
             }
-            else MessageBox.Show("Debe ingresar el total a pagar");
+            else
+            {
+                if (validaciones())
+                {
+                    bool result = Conexion.executeProcedure("CREAR_RENDICION", Conexion.generarArgumentos("@CHOFER", "@TOTAL", "@TURNO", "@FECHA", "@PORCENTAJE"),
+                       CHOF.Text, TOTAL.Text, TURNO.SelectedValue, FECHA.Value.ToShortDateString(), porc);
+                    if (result)
+                    {
+                        MessageBox.Show("Rendición creada");
+                        Close();
+                    }
+                }
+            }
         }
 
-        private bool validaciones() { 
+        private bool validaciones() {
+
             if(CHOF.Text == ""){
                 MessageBox.Show("Debe seleccionar un chofer");
                 return false;

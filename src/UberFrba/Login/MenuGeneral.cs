@@ -19,6 +19,10 @@ namespace UberFrba.Login {
             rolToolStripMenuItem2.Visible = false;
             rolToolStripMenuItem3.Visible = false;
 
+            usuarioToolStripMenuItem3.Visible = false;
+            usuarioToolStripMenuItem2.Visible = false;
+            usuarioToolStripMenuItem1.Visible = false;
+
             automovilBaja.Visible = false;
             automovilToolStripMenuItem.Visible = false;
             automovilToolStripMenuItem2.Visible = false;
@@ -61,20 +65,28 @@ namespace UberFrba.Login {
             if(func == 2) rolBaja.Visible = true;
             if(func == 3) rolToolStripMenuItem2.Visible = true;
             if(func == 4) rolToolStripMenuItem3.Visible = true;
-            if (func == 8) clienteToolStripMenuItem2.Visible = true;
-            if(func == 12) choferToolStripMenuItem4.Visible = true;
-            if(func == 13) automovilToolStripMenuItem.Visible = true;
-            if(func == 14) automovilBaja.Visible = true;
-            if(func == 15) automovilToolStripMenuItem2.Visible = true;
-            if(func == 16) automovilToolStripMenuItem3.Visible = true;
-            if(func == 17) turnoToolStripMenuItem.Visible = true;
-            if(func == 18) turnoBaja.Visible = true;
-            if(func == 19) turnoToolStripMenuItem2.Visible = true;
-            if(func == 20) turnoToolStripMenuItem3.Visible = true;
-            if(func == 21) registrarToolStripMenuItem.Visible = true;
-            if(func == 22) rendiciónToolStripMenuItem.Visible = true;
-            if(func == 23) facturaciónToolStripMenuItem.Visible = true;
-            if(func == 24) generarEstadisticasToolStripMenuItem.Visible = true;
+
+            if (func == 5) usuarioToolStripMenuItem3.Visible = true;
+            if (func == 6) usuarioToolStripMenuItem2.Visible = true;
+            if (func == 7) usuarioToolStripMenuItem1.Visible = true;
+
+            if(func == 8) clienteToolStripMenuItem2.Visible = true;
+            if(func == 9) choferToolStripMenuItem4.Visible = true;
+
+            if(func == 10) automovilToolStripMenuItem.Visible = true;
+            if(func == 11) automovilBaja.Visible = true;
+            if(func == 12) automovilToolStripMenuItem2.Visible = true;
+            if(func == 13) automovilToolStripMenuItem3.Visible = true;
+
+            if(func == 14) turnoToolStripMenuItem.Visible = true;
+            if(func == 15) turnoBaja.Visible = true;
+            if(func == 16) turnoToolStripMenuItem2.Visible = true;
+            if(func == 17) turnoToolStripMenuItem3.Visible = true;
+
+            if(func == 18) registrarToolStripMenuItem.Visible = true;
+            if(func == 19) rendiciónToolStripMenuItem.Visible = true;
+            if(func == 20) facturaciónToolStripMenuItem.Visible = true;
+            if(func == 21) generarEstadisticasToolStripMenuItem.Visible = true;
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)

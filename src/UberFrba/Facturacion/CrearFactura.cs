@@ -67,7 +67,7 @@ namespace UberFrba.Facturacion {
         private void buscar_Click(object sender, EventArgs e)
         {
             if(validaciones())
-           dataGridView1.DataSource = Conexion.obtenerTablaProcedure("VIAJE_FACTURA", Conexion.generarArgumentos("@FECHAI", "@FECHAF", "@CLIENTE"),
+                dataGridView1.DataSource = Conexion.obtenerTablaProcedure("VIAJE_FACTURA", Conexion.generarArgumentos("@FECHAI", "@FECHAF", "@CLIENT"),
                fechainicio.Value.ToShortDateString(), fechafin.Value.ToShortDateString(), client.Text);
 
             foreach (DataGridViewRow row in dataGridView1.Rows)
@@ -83,10 +83,9 @@ namespace UberFrba.Facturacion {
         private bool validaciones() {
             if (fechainicio.Value >= Funciones.ObtenerFecha())
             {
-                MessageBox.Show("Fecha inicio mayor al dìa de hoy.");
+                MessageBox.Show("Fecha inicio mayor o igual al dìa de hoy.");
                 return false;
             }
-
             if (fechafin.Value > Funciones.ObtenerFecha())
             {
                 MessageBox.Show("Fecha fin mayor al día de hoy.");
@@ -120,9 +119,13 @@ namespace UberFrba.Facturacion {
         {
             if (validaciones() && dataGridView1.RowCount != 0)
             {
-                bool result = Conexion.executeProcedure("CREAR_FACTURA", Conexion.generarArgumentos("@CLIENTE", "@FECHAI", "@FECHAF", "@TOTAL"),
+                bool result = Conexion.executeProcedure("CREAR_FACTURA", Conexion.generarArgumentos("@CLIENT", "@FECHAI", "@FECHAF", "@TOTAL"),
                       client.Text, fechainicio.Value.ToShortDateString(), fechafin.Value.ToShortDateString(), tot);
-                if (result) MessageBox.Show("Factura creada");
+                if (result)
+                {
+                    MessageBox.Show("Factura creada");
+                    Close();
+                }
             }
             else MessageBox.Show("No hay datos en la lista");
             }

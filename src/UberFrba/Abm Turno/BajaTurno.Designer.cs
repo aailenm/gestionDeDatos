@@ -67,16 +67,16 @@
             this.lblDesc.Text = "Descripción";
             this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // BajaTurno
+            // Baja_Turno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 72);
+            this.ClientSize = new System.Drawing.Size(284, 117);
             this.Controls.Add(this.cmbDesc);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnInhabilitar);
             this.Controls.Add(this.lblDesc);
-            this.Name = "BajaTurno";
+            this.Name = "Baja_Turno";
             this.Text = "Baja de Turno";
             this.Load += new System.EventHandler(this.BajaTurno_Load);
             this.ResumeLayout(false);

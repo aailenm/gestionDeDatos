@@ -209,7 +209,7 @@
             // 
             // CANCELAR
             // 
-            this.CANCELAR.Location = new System.Drawing.Point(329, 181);
+            this.CANCELAR.Location = new System.Drawing.Point(248, 172);
             this.CANCELAR.Name = "CANCELAR";
             this.CANCELAR.Size = new System.Drawing.Size(75, 23);
             this.CANCELAR.TabIndex = 45;
@@ -219,7 +219,7 @@
             // 
             // CREAR
             // 
-            this.CREAR.Location = new System.Drawing.Point(248, 181);
+            this.CREAR.Location = new System.Drawing.Point(329, 172);
             this.CREAR.Name = "CREAR";
             this.CREAR.Size = new System.Drawing.Size(75, 23);
             this.CREAR.TabIndex = 44;
@@ -231,7 +231,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(419, 220);
+            this.ClientSize = new System.Drawing.Size(419, 202);
             this.Controls.Add(this.CANCELAR);
             this.Controls.Add(this.CREAR);
             this.Controls.Add(this.groupBox1);

@@ -809,24 +809,27 @@ CREATE PROCEDURE RUBIRA_SANTOS.CREAR_FACTURA(@CLIENT INT, @FECHAI SMALLDATETIME,
 AS
 DECLARE @idFact int
 BEGIN
-	IF(NOT EXISTS(SELECT * FROM RUBIRA_SANTOS.FACTURA WHERE fact_fecha_inicio = @FECHAI AND fact_fecha_fin = @FECHAF AND @CLIENT = fact_cliente))
-		BEGIN
-			INSERT INTO RUBIRA_SANTOS.FACTURA(fact_cliente, fact_fecha_inicio, fact_fecha_fin, fact_total)
-			VALUES (@CLIENT, @FECHAI, @FECHAF, @TOTAL)
-			
-			SELECT @idFact = FACT_ID
-			FROM RUBIRA_SANTOS.FACTURA
-			WHERE fact_cliente = @CLIENT 
-			AND fact_fecha_inicio = @FECHAI
-			AND fact_fecha_fin = @FECHAF
-			AND fact_total = @TOTAL
+	IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.FACTURA F WHERE fact_fecha_inicio = @FECHAI AND fact_fecha_fin = @FECHAF AND @CLIENT = fact_cliente))
+		IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.USUARIO JOIN RUBIRA_SANTOS.CLIENTE ON clie_usua = usua_id WHERE cLIE_id = @CLIENT AND USUA_habilitado = 1)) 
+			BEGIN
+				INSERT INTO RUBIRA_SANTOS.FACTURA(fact_cliente, fact_fecha_inicio, fact_fecha_fin, fact_total)
+				VALUES (@CLIENT, @FECHAI, @FECHAF, @TOTAL)
+				
+				SELECT @idFact = FACT_ID
+				FROM RUBIRA_SANTOS.FACTURA
+				WHERE fact_cliente = @CLIENT 
+				AND fact_fecha_inicio = @FECHAI
+				AND fact_fecha_fin = @FECHAF
+				AND fact_total = @TOTAL
 
-			INSERT INTO RUBIRA_SANTOS.ITEM_FACTURA(itemf_fact, itemf_precioViaje, itemf_viaje)
-			SELECT @idFact, viaj_precio, viaj_id
-			FROM RUBIRA_SANTOS.VIAJE
-			WHERE viaj_cliente = @CLIENT 
-			AND viaj_fyh_fin BETWEEN @FECHAI AND DATEADD(day,1,@FECHAF)
-		END
+				INSERT INTO RUBIRA_SANTOS.ITEM_FACTURA(itemf_fact, itemf_precioViaje, itemf_viaje)
+				SELECT @idFact, viaj_precio, viaj_id
+				FROM RUBIRA_SANTOS.VIAJE
+				WHERE viaj_cliente = @CLIENT 
+				AND viaj_fyh_fin BETWEEN @FECHAI AND DATEADD(day,1,@FECHAF)
+			END
+		ELSE
+			RAISERROR('Usuario inhabilitado',16,217) WITH SETERROR
 	ELSE
 		RAISERROR ('Ya existe una factura para este cliente en dicha fecha', 16, 217) WITH SETERROR
 END
@@ -836,29 +839,32 @@ CREATE PROCEDURE RUBIRA_SANTOS.CREAR_RENDICION(@CHOFER INT, @TOTAL DECIMAL(12,2)
 AS
 DECLARE @REND INT
 BEGIN
-	IF(EXISTS(SELECT turn_id, chof_id FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE turn_turnoActivo = @TURNO AND chof_id = @CHOFER))
-		BEGIN
-		INSERT INTO RUBIRA_SANTOS.RENDICION_VIAJE(pago_chofer, pago_importe_total, pago_turno, pago_fecha,pago_porcentaje)
-		VALUES(@CHOFER, @TOTAL, @TURNO,@FECHA, @PORCENTAJE)
+	IF(EXISTS(SELECT turn_id, apt.chof_id FROM RUBIRA_SANTOS.AUTO_POR_TURNO apt  WHERE turn_turnoActivo = @TURNO AND apt.chof_id = @CHOFER))
+		IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.USUARIO JOIN RUBIRA_SANTOS.CHOFER ON chof_usua = usua_id WHERE chof_id = @CHOFER AND USUA_habilitado = 1)) 
+			BEGIN
+			INSERT INTO RUBIRA_SANTOS.RENDICION_VIAJE(pago_chofer, pago_importe_total, pago_turno, pago_fecha,pago_porcentaje)
+			VALUES(@CHOFER, @TOTAL, @TURNO,@FECHA, @PORCENTAJE)
 
-		SELECT @REND = pago_id 
-		FROM RUBIRA_SANTOS.RENDICION_VIAJE 
-		WHERE pago_chofer = @CHOFER
-		AND pago_fecha = @FECHA
-		AND pago_turno = @TURNO
-		AND pago_importe_total = @TOTAL
+			SELECT @REND = pago_id 
+			FROM RUBIRA_SANTOS.RENDICION_VIAJE 
+			WHERE pago_chofer = @CHOFER
+			AND pago_fecha = @FECHA
+			AND pago_turno = @TURNO
+			AND pago_importe_total = @TOTAL
 
-		INSERT INTO RUBIRA_SANTOS.ITEM_RENDICION(itemr_pago, itemr_precio, itemr_viaje)
-		SELECT @REND, viaj_precio, viaj_id
-		FROM RUBIRA_SANTOS.VIAJE JOIN RUBIRA_SANTOS.TURNO ON viaj_turno = turn_id
-		WHERE viaj_chofer = @CHOFER
-		AND viaj_turno = @TURNO
-		AND YEAR(viaj_fyh_fin) = YEAR(@FECHA)
-		AND MONTH(viaj_fyh_fin) = MONTH(@FECHA) 
-		AND DAY(viaj_fyh_fin) = DAY(@FECHA) 
-		END
+			INSERT INTO RUBIRA_SANTOS.ITEM_RENDICION(itemr_pago, itemr_precio, itemr_viaje)
+			SELECT @REND, viaj_precio, viaj_id
+			FROM RUBIRA_SANTOS.VIAJE JOIN RUBIRA_SANTOS.TURNO ON viaj_turno = turn_id
+			WHERE viaj_chofer = @CHOFER
+			AND viaj_turno = @TURNO
+			AND YEAR(viaj_fyh_fin) = YEAR(@FECHA)
+			AND MONTH(viaj_fyh_fin) = MONTH(@FECHA) 
+			AND DAY(viaj_fyh_fin) = DAY(@FECHA) 
+			END
+		ELSE
+			RAISERROR('Usuario inhabilitado', 16, 217) WITH SETERROR
 	ELSE
-		RAISERROR ('No existe un chofer con ese auto', 16, 217) WITH SETERROR
+		RAISERROR ('No existe un chofer con ese auto. Verifique que el chofer este habilitado', 16, 217) WITH SETERROR
 END
 
 /* ================================================
@@ -901,7 +907,9 @@ BEGIN
 	JOIN RUBIRA_SANTOS.CHOFER c ON c.chof_id = v.viaj_chofer
 	JOIN RUBIRA_SANTOS.AUTOMOVIL a ON a.auto_id = v.viaj_auto
 	WHERE v.viaj_cliente = @CLIENT
-		AND v.viaj_fyh_fin BETWEEN @FECHAI AND @FECHAF
+		AND YEAR(v.viaj_fyh_fin) = YEAR(@FECHAI)
+		AND MONTH(v.viaj_fyh_fin) BETWEEN MONTH(@FECHAI) AND MONTH(@FECHAF)
+		AND DAY(v.viaj_fyh_fin) BETWEEN DAY(@FECHAI) AND DAY(@FECHAF)
 END
 
 GO
@@ -1023,13 +1031,10 @@ INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) values('Alta de Rol')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Baja de Rol')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Modificacion de Rol')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Busqueda de Rol')
-INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Alta de Cliente')
-INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Baja de Cliente')
-INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Modificadion de Cliente')
+INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Alta de Usuario')
+INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Baja de Usuario')
+INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Modificadion de Usuario')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Busqueda de Cliente')
-INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Alta de Chofer')
-INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Baja de Chofer')
-INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Modificacion de Chofer')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Busqueda de Chofer')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Alta de Automovil')
 INSERT INTO RUBIRA_SANTOS.FUNCIONALIDAD(func_descripcion) VALUES('Baja de Automovil')
@@ -1068,47 +1073,29 @@ values(1,1)
 ,(1,19)
 ,(1,20)
 ,(1,21)
-,(1,22)
-,(1,23)
-,(1,24)
+
 
 INSERT INTO RUBIRA_SANTOS.ROL_POR_FUNCIONALIDAD(rol_id, func_id)
-values(2,1)
-,(2,3)
-,(2,4)
+values
+(2,4)
 ,(2,5)
 ,(2,6)
 ,(2,7)
 ,(2,8)
 ,(2,9)
-,(2,10)
-,(2,11)
-,(2,12)
 ,(2,13)
-,(2,15)
-,(2,16)
 ,(2,17)
-,(2,19)
-,(2,20)
+
 
 INSERT INTO RUBIRA_SANTOS.ROL_POR_FUNCIONALIDAD(rol_id, func_id)
-values(3,1)
-,(3,3)
-,(3,4)
+values(3,4)
 ,(3,5)
 ,(3,6)
 ,(3,7)
 ,(3,8)
 ,(3,9)
-,(3,10)
-,(3,11)
-,(3,12)
 ,(3,13)
-,(3,15)
-,(3,16)
 ,(3,17)
-,(3,19)
-,(3,20)
 
 -- USUARIO
 INSERT INTO RUBIRA_SANTOS.USUARIO(usua_usuario, usua_password)

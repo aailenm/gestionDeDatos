@@ -26,7 +26,11 @@ namespace UberFrba.Abm_Turno {
               bool result =  Conexion.executeProcedure("ALTA_TURNO",
                     Conexion.generarArgumentos("@DESCRIPCION", "@HORA_INICIO", "@HORA_FIN", "@PRECIOBASE", "@VALORKM"),
                     DETALLE.Text, HDH.Text + ':' + HDM.Text, HHH.Text + ':' + HHM.Text, PB.Text, VKM.Text);
-               if(result) MessageBox.Show("Turno creado");
+              if (result)
+              {
+                  MessageBox.Show("Turno creado");
+                  Close();
+              }
             }
         }
 

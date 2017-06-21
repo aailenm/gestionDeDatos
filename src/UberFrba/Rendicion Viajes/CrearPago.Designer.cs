@@ -100,7 +100,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(531, 413);
+            this.button2.Location = new System.Drawing.Point(452, 409);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 45;
@@ -110,7 +110,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(450, 413);
+            this.button1.Location = new System.Drawing.Point(533, 409);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 44;
@@ -247,7 +247,7 @@
             this.TOTAL.TabIndex = 66;
             this.TOTAL.TextChanged += new System.EventHandler(this.TOTAL_TextChanged);
             // 
-            // Form1
+            // Crear_Pago
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -271,7 +271,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.FECHA);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Form1";
+            this.Name = "Crear_Pago";
             this.Text = "Creación de Pago";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
