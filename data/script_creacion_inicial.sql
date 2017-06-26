@@ -215,6 +215,8 @@ DROP TRIGGER RUBIRA_SANTOS.VIAJE_NO_FACTURADO
 IF OBJECT_ID('RUBIRA_SANTOS.VERIFICACION_PAGO') IS NOT NULL
 DROP TRIGGER RUBIRA_SANTOS.VERIFICACION_PAGO
 
+IF OBJECT_ID('RUBIRA_SANTOS.MODIFICAR_AUTO_POR_TURNO') IS NOT NULL
+DROP procedure RUBIRA_SANTOS.MODIFICAR_AUTO_POR_TURNO
 -- DROP SCHEMA
 
 IF EXISTS (SELECT * FROM sys.schemas WHERE name = 'RUBIRA_SANTOS')
@@ -565,7 +567,7 @@ GO
 CREATE PROCEDURE RUBIRA_SANTOS.HABILITAR_CLIENTE(@idCliente int)
 AS
 BEGIN
-	UPDATE RUBIRA_SANTOS.CLIENTE SET clie_habilitado = 1 WHERE clie_id=@idCliente
+	UPDATE RUBIRA_SANTOS.CLIENTE SET clie_habilitado = 1 WHERE clie_usua=@idCliente
 END
 
 GO
@@ -605,7 +607,7 @@ GO
 CREATE PROCEDURE RUBIRA_SANTOS.HABILITAR_CHOFER(@idChofer int)
 AS
 BEGIN
-	UPDATE RUBIRA_SANTOS.CHOFER SET chof_habilitado = 1 WHERE chof_id=@idChofer
+	UPDATE RUBIRA_SANTOS.CHOFER SET chof_habilitado = 1 WHERE chof_usua=@idChofer
 END
 
 GO
@@ -639,11 +641,32 @@ BEGIN
 END
 
 GO
-CREATE PROCEDURE RUBIRA_SANTOS.MODIFICAR_AUTO(@auto int, @nuevaMarca int,@modelo nvarchar(255), @patente nvarchar(255), @chofer int, @turno int) AS
+CREATE PROCEDURE RUBIRA_SANTOS.MODIFICAR_AUTO_POR_TURNO(@CHOFERN int, @TURNON int, @CHOFERV int, @TURNOV int, @AUTO int)
+AS
 BEGIN
-	UPDATE RUBIRA_SANTOS.AUTOMOVIL SET auto_marca = @nuevaMarca, auto_modelo = @modelo, auto_patente = @patente WHERE auto_id = @auto
-	UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @chofer, turn_id = @turno WHERE auto_id = @auto
+	IF(NOT EXISTS (select 1 from RUBIRA_SANTOS.VIAJE v left join RUBIRA_SANTOS.ITEM_RENDICION ir on ir.itemr_viaje = v.viaj_id where v.viaj_auto = @auto and v.viaj_turno= @TURNOV and v.viaj_chofer = @choferv and ir.itemr_pago is null))
+		IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE chof_id = @CHOFERN and turn_id = @TURNON))
+			RAISERROR('El chofer ya tiene un auto asignado en ese turno', 16, 217) WITH SETERROR
+		ELSE
+			BEGIN
+				IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE @AUTO = auto_id AND @TURNON = turn_id)) 
+					INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO (auto_id, chof_id, turn_id, turn_turnoActivo) VALUES (@AUTO, @CHOFERN, @TURNON, @TURNON) 
+				ELSE
+					UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET @CHOFERN = CHOF_ID, @TURNON = turn_turnoactivo where auto_id = @AUTO and turn_id = @TURNON 
+			END
+	ELSE 
+		RAISERROR('El chofer tiene viajes sin rendir. Debe rendir los viajes antes de quitarle el auto.', 16, 217) WITH SETERROR
+		
 END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.MODIFICAR_AUTO(@auto int, @nuevaMarca int,@modelo nvarchar(255), @patente nvarchar(255)) AS
+BEGIN
+	IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTOMOVIL WHERE auto_patente = @patente AND auto_id <> @AUTO))
+		UPDATE RUBIRA_SANTOS.AUTOMOVIL SET auto_marca = @nuevaMarca, auto_modelo = @modelo, auto_patente = @patente WHERE auto_id = @auto
+	ELSE
+		RAISERROR('Ya existe esa patente para otro auto.', 16, 217) WITH SETERROR
+	END
 
 GO
 CREATE PROCEDURE RUBIRA_SANTOS.BAJA_AUTOMOVIL(@ID INT)
@@ -940,9 +963,11 @@ go
 CREATE PROCEDURE RUBIRA_SANTOS.filtro_automovil(@marca int, @modelo varchar(255), @patente varchar(10) , @chofer int)
 AS
 BEGIN
-	SELECT DISTINCT a.auto_id, a.auto_marca MARCA, a.auto_modelo MODELO, a.auto_patente PATENTE, tu.turn_descripcion TURNO
-	FROM RUBIRA_SANTOS.AUTOMOVIL a JOIN RUBIRA_SANTOS.AUTO_POR_TURNO t ON a.auto_id = t.auto_id
+	SELECT DISTINCT a.auto_id, a.auto_marca MARCA, a.auto_modelo MODELO, a.auto_patente PATENTE, tu.turn_id, tu.turn_descripcion TURNO, ch.chof_id, ch.chof_nombre + ' ' + ch.chof_apellido  NOMBRE_CHOFER
+	FROM RUBIRA_SANTOS.AUTOMOVIL a 
+	JOIN RUBIRA_SANTOS.AUTO_POR_TURNO t ON a.auto_id = t.auto_id
 	JOIN RUBIRA_SANTOS.TURNO tu ON tu.turn_id = t.turn_turnoActivo
+	JOIN RUBIRA_SANTOS.CHOFER ch on ch.chof_id = t.chof_id
 	WHERE (@marca = 0 OR @marca = a.auto_marca) AND
 		(@modelo = '' OR a.auto_modelo LIKE '%' + @modelo + '%') AND
 		(@patente = '' OR a.auto_patente LIKE '%' + @patente + '%') AND

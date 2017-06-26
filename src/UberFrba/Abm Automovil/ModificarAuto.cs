@@ -12,16 +12,22 @@ namespace UberFrba.Abm_Automovil {
             InitializeComponent();
             LlenarCombos();
             labelEstado.Text = "" ;
+            button6.Enabled = false;
+            button3.Enabled = false;
         }
+
         public void editarAuto(string id)
         {
-            textBox4.Text = id;
-            SqlDataReader reader = Conexion.ejecutarQuery("select auto_habilitado from RUBIRA_SANTOS.AUTOMOVIL where auto_id  like '%" + textBox4.Text + "%'");
+            auto.Text = id;
+            SqlDataReader reader = Conexion.ejecutarQuery("select auto_habilitado from RUBIRA_SANTOS.AUTOMOVIL where auto_id  like '%" + auto.Text + "%'");
             reader.Read();
             string estadoAuto = (reader["auto_habilitado"].ToString());
             reader.Close();
             if (estadoAuto.Equals("True"))
+            {
                 labelEstado.Text = "HABILITADO";
+                button6.Enabled = false;
+            }
             else
                 labelEstado.Text = "INHABILITADO";
            
@@ -34,47 +40,33 @@ namespace UberFrba.Abm_Automovil {
         {
 
         }
-        public void guardarMarca(string marca)
-        {
-            comboBox1.Text = marca;
-
-        }
-        public void guardarPatente(string patente)
-        {
-            textBox2.Text = patente;
-
-        }
-        public void guardarModelo(string modelo)
-        {
-            textBox1.Text = modelo;
-
-        }
-        public void editarTurno(string turno)
-        {
-            comboBox2.Text = turno;
-         
+        public void editarTurno(string id) {
+            turnos.SelectedValue = id;
         }
         public void editarChofer(string id)
         {
-            textBox3.Text = id;
+            chofer.Text = id;
         }
         
         private void LlenarCombos()
         {
-            Funciones.llenarCombo_Marca(comboBox1);
-            Funciones.llenarCombo_Turno(comboBox2);
+            Funciones.llenarCombo_Marca(marcas);
+            Funciones.llenarCombo_Turno(turnos);
         }
         
         private void botonBuscar(object sender, EventArgs e)
         {
             Abm_Automovil.BusquedaAuto buscar = new Abm_Automovil.BusquedaAuto();
-
             buscar.Show(this);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            Abm_Automovil.Modificar_Chofer_Auto mca = new Modificar_Chofer_Auto();
+            mca.setChofOriginal(chofer.Text);
+            mca.setTurnoOriginal(turnos);
+            mca.setAuto(auto.Text);
+            mca.Show(this);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -91,8 +83,8 @@ namespace UberFrba.Abm_Automovil {
         {
             if( validaciones())
             {
-                bool conex = Conexion.executeProcedure("MODIFICAR_AUTO", Conexion.generarArgumentos("@auto", "@nuevaMarca","@modelo","@patente","@chofer","@turno"),
-                 textBox4.Text, comboBox1.Text,textBox1.Text,textBox2.Text,textBox3.Text,comboBox2.Text);
+                bool conex = Conexion.executeProcedure("MODIFICAR_AUTO", Conexion.generarArgumentos("@auto", "@nuevaMarca","@modelo","@patente"),
+                 auto.Text, marcas.SelectedValue,modelo.Text,patente.Text);
                 if (conex)
                 {
                     MessageBox.Show("Auto modificado correctamente");
@@ -101,29 +93,29 @@ namespace UberFrba.Abm_Automovil {
         }
         private bool validaciones()
         {
-            if (comboBox1.SelectedIndex == -1)
+            if (marcas.SelectedIndex == -1)
             {
                 MessageBox.Show("El campo Marca no puede estar vacio");
                 return false;
             }
-            if (comboBox2.SelectedIndex == -1)
+            if (turnos.SelectedIndex == -1)
             {
                 MessageBox.Show("El campo Turno no puede estar vacio");
                 return false;
             }
-            if (textBox1.Text == "")
+            if (modelo.Text == "")
             {
                 MessageBox.Show("El campo Modelo no puede estar vacio");
                 return false;
             }
 
-            if (textBox2.Text == "")
+            if (patente.Text == "")
             {
                 MessageBox.Show("El campo Patente no puede estar vacio");
                 return false;
             }
 
-            if (textBox3.Text == "")
+            if (chofer.Text == "")
             {
                 MessageBox.Show("El campo Chofer no puede estar vacio");
                 return false;
@@ -132,23 +124,52 @@ namespace UberFrba.Abm_Automovil {
         }   
         private void button5_Click(object sender, EventArgs e)
         {
-            Funciones.llenarCombo_Marca(comboBox1);
-            Funciones.llenarCombo_Turno(comboBox2);
-            textBox1.Clear();
-            textBox2.Clear();
-            textBox3.Clear();
-            textBox4.Clear();
-            labelEstado.Text = "";
-
+            Limpiar();
         }
 
+        private void Limpiar() {
+            Funciones.llenarCombo_Marca(marcas);
+            Funciones.llenarCombo_Turno(turnos);
+            modelo.Clear();
+            patente.Clear();
+            chofer.Clear();
+            auto.Clear();
+            labelEstado.Text = "";
+            button6.Enabled = false;
+            button3.Enabled = false;
+        }
         private void botonHabili(object sender, EventArgs e)
         {
-            bool conex = Conexion.executeProcedure("HABILITAR_AUTO", Conexion.generarArgumentos("@id"), textBox4.Text);
+            bool conex = Conexion.executeProcedure("HABILITAR_AUTO", Conexion.generarArgumentos("@idAuto"), auto.Text);
             if (conex)
             {
                 MessageBox.Show("Automovil habilitado correctamente");
             }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            if (auto.Text != "")
+            {
+                button6.Enabled = true;
+                string query = "SELECT auto_marca, auto_modelo, auto_patente from RUBIRA_SANTOS.AUTOMOVIL where auto_id=" + auto.Text;
+                SqlDataReader reader = Conexion.ejecutarQuery(query);
+                reader.Read();
+                modelo.Text = (reader["auto_modelo"].ToString());
+                patente.Text = (reader["auto_patente"].ToString());
+                marcas.SelectedValue= (Int32.Parse(reader["auto_marca"].ToString()));
+                reader.Close();
+            }
+        }
+
+        private void chofer_TextChanged(object sender, EventArgs e)
+        {
+            if (chofer.Text != "") button3.Enabled = true;
+        }
+
+        private void labelEstado_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

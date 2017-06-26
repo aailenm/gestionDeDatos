@@ -34,8 +34,9 @@ namespace UberFrba.Abm_Rol {
         }
         private void Limpiar() {
             descripcion.Clear();
-            checkedListBox1.SelectedItems.Clear();
-            MostrarFuncionalidades();
+            int i;
+            for (i = 0; (checkedListBox1.Items.Count - 1) > i; i++) checkedListBox1.SetItemChecked(i, false);
+                MostrarFuncionalidades();
 
         }
         private void button1_Click(object sender, EventArgs e)

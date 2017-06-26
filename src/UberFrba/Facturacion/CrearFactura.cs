@@ -21,7 +21,8 @@ namespace UberFrba.Facturacion {
         {
 
         }
-        public void editarTurno(string id) {
+        public void editarTurno(string id)
+        {
         
         }
 
