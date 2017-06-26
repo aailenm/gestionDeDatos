@@ -9,27 +9,28 @@ namespace UberFrba.Abm_Turno {
         }
 
         private bool validaciones() {
+            Double valor = 0;
             if (txtValorKm.Text == "") {
                 MessageBox.Show("El valor del kilómetro no puede estar vacio");
                 return false;
             }
-            if (!Funciones.esNumero(txtValorKm.Text)) {
+            if (!Double.TryParse(txtValorKm.Text, out valor)) {
                 MessageBox.Show("El valor del kilómetro debe ser un número");
                 return false;
             }
-            if (Int32.Parse(txtValorKm.Text) < 0) {
+            if (valor <= 0) {
                 MessageBox.Show("El valor del kilómetro debe ser mayor a 0");
                 return false;
             }
             if (txtPrecioBase.Text == "") {
-                MessageBox.Show("El campo Precio Base no puede estar vacio");
+                MessageBox.Show("El campo Precio Base no puede estar vacío");
                 return false;
             }
-            if (!Funciones.esNumero(txtPrecioBase.Text)) {
+            if (!Double.TryParse(txtPrecioBase.Text, out valor)) {
                 MessageBox.Show("El campo Precio Base debe ser un número");
                 return false;
             }
-            if (Int32.Parse(txtPrecioBase.Text) < 0) {
+            if (valor <= 0) {
                 MessageBox.Show("El valor del precio base debe ser mayor a 0");
                 return false;
             }
