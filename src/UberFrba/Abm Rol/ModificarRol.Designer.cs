@@ -29,6 +29,7 @@
             this.txtDesc = new System.Windows.Forms.TextBox();
             this.btnMod = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.clbFuncionalidades = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // lblRol
@@ -70,7 +71,7 @@
             // 
             // btnMod
             // 
-            this.btnMod.Location = new System.Drawing.Point(14, 67);
+            this.btnMod.Location = new System.Drawing.Point(10, 407);
             this.btnMod.Name = "btnMod";
             this.btnMod.Size = new System.Drawing.Size(117, 23);
             this.btnMod.TabIndex = 4;
@@ -80,7 +81,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(155, 67);
+            this.btnVolver.Location = new System.Drawing.Point(155, 407);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(117, 23);
             this.btnVolver.TabIndex = 4;
@@ -88,18 +89,27 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
-            // ModificarRol
+            // clbFuncionalidades
+            // 
+            this.clbFuncionalidades.FormattingEnabled = true;
+            this.clbFuncionalidades.Location = new System.Drawing.Point(7, 67);
+            this.clbFuncionalidades.Name = "clbFuncionalidades";
+            this.clbFuncionalidades.Size = new System.Drawing.Size(265, 334);
+            this.clbFuncionalidades.TabIndex = 5;
+            // 
+            // Modificar_Rol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 99);
+            this.ClientSize = new System.Drawing.Size(284, 437);
+            this.Controls.Add(this.clbFuncionalidades);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnMod);
             this.Controls.Add(this.txtDesc);
             this.Controls.Add(this.lblDesc);
             this.Controls.Add(this.cmbRol);
             this.Controls.Add(this.lblRol);
-            this.Name = "ModificarRol";
+            this.Name = "Modificar_Rol";
             this.Text = "Modificación de Rol";
             this.Load += new System.EventHandler(this.ModificarRol_Load);
             this.ResumeLayout(false);
@@ -115,5 +125,6 @@
         private System.Windows.Forms.TextBox txtDesc;
         private System.Windows.Forms.Button btnMod;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.CheckedListBox clbFuncionalidades;
     }
 }
