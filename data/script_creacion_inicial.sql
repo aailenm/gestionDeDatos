@@ -138,6 +138,15 @@ DROP PROCEDURE RUBIRA_SANTOS.ALTA_CHOFER
 IF OBJECT_ID('RUBIRA_SANTOS.HABILITAR_CHOFER') IS NOT NULL
 DROP PROCEDURE RUBIRA_SANTOS.HABILITAR_CHOFER
 
+IF OBJECT_ID ('RUBIRA_SANTOS.MODIFICAR_CLIENTE') is not null 
+DROP PROCEDURE RUBIRA_SANTOS.MODIFICAR_CLIENTE
+
+IF OBJECT_ID ('RUBIRA_SANTOS.INHABILITAR_CLIENTE') is not null 
+DROP PROCEDURE RUBIRA_SANTOS.MODIFICAR_CLIENTE
+
+IF OBJECT_ID ('RUBIRA_SANTOS.INHABILITAR_CHOFER') is not null 
+DROP PROCEDURE RUBIRA_SANTOS.MODIFICAR_CLIENTE
+
 IF OBJECT_ID ('RUBIRA_SANTOS.MODIFICAR_CHOFER') is not null 
 DROP PROCEDURE RUBIRA_SANTOS.MODIFICAR_CHOFER
 
@@ -652,11 +661,33 @@ BEGIN
 END
 
 GO
-CREATE PROCEDURE RUBIRA_SANTOS.MODIFICAR_CHOFER(@idChofer int, @NOMBRE nvarchar(255), @APELLIDO nvarchar(255), @DNI bigint, @MAIL nvarchar(255), @TELEFONO bigint, @FECHA_NACIMIENTO smalldatetime, @CALLE nvarchar(255), @PISO nvarchar(255), @DPTO nvarchar(255), @LOCALIDAD nvarchar(255), @CP nvarchar(255)) AS
+CREATE PROCEDURE RUBIRA_SANTOS.MODIFICAR_CHOFER(@usuaChofer int, @NOMBRE nvarchar(255), @APELLIDO nvarchar(255), @DNI bigint, @MAIL nvarchar(255), @TELEFONO bigint, @FECHA_NACIMIENTO smalldatetime, @CALLE nvarchar(255), @PISO nvarchar(255), @DPTO nvarchar(255), @LOCALIDAD nvarchar(255), @CP nvarchar(255)) AS
 BEGIN
-	UPDATE RUBIRA_SANTOS.CHOFER SET chof_nombre = @nombre, chof_apellido = @apellido, chof_dni = @dni, chof_mail= @mail, chof_telefono = @telefono, chof_fechaNacimiento = @FECHA_NACIMIENTO WHERE chof_id = @idChofer
-	UPDATE RUBIRA_SANTOS.DIRECCION SET dire_calle=@CALLE, dire_piso=@PISO, dire_depto=@DPTO, dire_localidad=@LOCALIDAD, dire_cp = @CP WHERE dire_id = (SELECT chof_direccion FROM rubira_santos.CHOFER WHERE chof_id=@idChofer)
+	UPDATE RUBIRA_SANTOS.CHOFER SET chof_nombre = @nombre, chof_apellido = @apellido, chof_dni = @dni, chof_mail= @mail, chof_telefono = @telefono, chof_fechaNacimiento = @FECHA_NACIMIENTO WHERE chof_usua = @usuaChofer
+	UPDATE RUBIRA_SANTOS.DIRECCION SET dire_calle=@CALLE, dire_piso=@PISO, dire_depto=@DPTO, dire_localidad=@LOCALIDAD, dire_cp = @CP WHERE dire_id = (SELECT chof_direccion FROM rubira_santos.CHOFER WHERE chof_usua=@usuaChofer)
 	
+END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.MODIFICAR_CLIENTE(@usuaCliente int, @NOMBRE nvarchar(255), @APELLIDO nvarchar(255), @DNI bigint, @MAIL nvarchar(255), @TELEFONO bigint, @FECHA_NACIMIENTO smalldatetime, @CALLE nvarchar(255), @PISO nvarchar(255), @DPTO nvarchar(255), @LOCALIDAD nvarchar(255), @CP nvarchar(255)) AS
+BEGIN
+	UPDATE RUBIRA_SANTOS.CLIENTE SET clie_nombre = @nombre, clie_apellido = @apellido, clie_dni = @dni, clie_mail= @mail, clie_telefono = @telefono, clie_fechaNacimiento = @FECHA_NACIMIENTO WHERE clie_usua = @usuaCliente
+	UPDATE RUBIRA_SANTOS.DIRECCION SET dire_calle=@CALLE, dire_piso=@PISO, dire_depto=@DPTO, dire_localidad=@LOCALIDAD, dire_cp = @CP WHERE dire_id = (SELECT clie_direccion FROM rubira_santos.CLIENTE WHERE clie_usua=@usuaCliente)
+
+END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.INHABILITAR_CHOFER(@idUsuario int)
+AS
+BEGIN
+	UPDATE RUBIRA_SANTOS.CHOFER SET chof_habilitado = 0 WHERE chof_usua=@idUsuario
+END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.INHABILITAR_CLIENTE(@idUsuario int)
+AS
+BEGIN
+	UPDATE RUBIRA_SANTOS.CLIENTE SET clie_habilitado = 0 WHERE clie_usua=@idUsuario
 END
 
 GO
