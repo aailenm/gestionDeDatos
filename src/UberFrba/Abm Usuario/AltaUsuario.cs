@@ -18,8 +18,23 @@ namespace UberFrba.Abm_Usuario
             InitializeComponent();
             mostrarRoles();
             fechanac.Value = Funciones.ObtenerFecha();
+            habilitarDatos(false);
         }
 
+        private void habilitarDatos(bool estado)
+        {
+            nomb.Enabled = estado;
+            apell.Enabled = estado; 
+            dni.Enabled = estado; 
+            mail.Enabled = estado; 
+            fechanac.Enabled = estado;
+            calle.Enabled = estado;
+            piso.Enabled = estado;
+            dpto.Enabled = estado;
+            local.Enabled = estado;
+            cp.Enabled = estado;
+
+        }
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -194,6 +209,15 @@ namespace UberFrba.Abm_Usuario
         private void fechanac_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void roles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (roles.CheckedIndices.Contains(1) || roles.CheckedIndices.Contains(2)) //si chequea cliente o usuario
+            {
+                habilitarDatos(true);
+            }
+            else habilitarDatos(false);
         }
     }
 }

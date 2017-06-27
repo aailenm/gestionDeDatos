@@ -92,6 +92,7 @@
             this.roles.Name = "roles";
             this.roles.Size = new System.Drawing.Size(266, 79);
             this.roles.TabIndex = 52;
+            this.roles.SelectedIndexChanged += new System.EventHandler(this.roles_SelectedIndexChanged);
             // 
             // label2
             // 

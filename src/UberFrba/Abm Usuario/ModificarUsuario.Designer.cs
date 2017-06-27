@@ -67,6 +67,8 @@
             this.btnChofer = new System.Windows.Forms.Button();
             this.btnCliente = new System.Windows.Forms.Button();
             this.labelCli = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.habilitusua = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -183,7 +185,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.roles);
+            this.groupBox1.Controls.Add(this.habilitusua);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.linkLabel1);
@@ -199,15 +203,16 @@
             // roles
             // 
             this.roles.FormattingEnabled = true;
-            this.roles.Location = new System.Drawing.Point(324, 19);
+            this.roles.Location = new System.Drawing.Point(364, 19);
             this.roles.Name = "roles";
             this.roles.Size = new System.Drawing.Size(266, 79);
             this.roles.TabIndex = 81;
+            this.roles.SelectedIndexChanged += new System.EventHandler(this.roles_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(284, 19);
+            this.label4.Location = new System.Drawing.Point(332, 19);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 13);
             this.label4.TabIndex = 80;
@@ -215,7 +220,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(92, 75);
+            this.button1.Location = new System.Drawing.Point(82, 59);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(157, 23);
             this.button1.TabIndex = 79;
@@ -411,6 +416,7 @@
             this.labelCh.Size = new System.Drawing.Size(51, 16);
             this.labelCh.TabIndex = 82;
             this.labelCh.Text = "Estado";
+            this.labelCh.Click += new System.EventHandler(this.labelCh_Click);
             // 
             // btnChofer
             // 
@@ -442,6 +448,28 @@
             this.labelCli.Size = new System.Drawing.Size(51, 16);
             this.labelCli.TabIndex = 85;
             this.labelCli.Text = "Estado";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Red;
+            this.label8.Location = new System.Drawing.Point(222, 33);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(51, 16);
+            this.label8.TabIndex = 86;
+            this.label8.Text = "Estado";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
+            // 
+            // habilitusua
+            // 
+            this.habilitusua.Location = new System.Drawing.Point(82, 88);
+            this.habilitusua.Name = "habilitusua";
+            this.habilitusua.Size = new System.Drawing.Size(157, 24);
+            this.habilitusua.TabIndex = 87;
+            this.habilitusua.Text = "Habilitar Usuario";
+            this.habilitusua.UseVisualStyleBackColor = true;
+            this.habilitusua.Click += new System.EventHandler(this.habilitusua_Click);
             // 
             // Modificar_Usuario
             // 
@@ -511,6 +539,8 @@
          private System.Windows.Forms.Button btnChofer;
          private System.Windows.Forms.Button btnCliente;
          private System.Windows.Forms.Label labelCli;
+         private System.Windows.Forms.Label label8;
+         private System.Windows.Forms.Button habilitusua;
 
      }
  }
