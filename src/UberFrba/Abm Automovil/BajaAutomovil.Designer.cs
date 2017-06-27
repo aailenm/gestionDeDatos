@@ -61,13 +61,14 @@
             // 
             // cmbPatente
             // 
+            this.cmbPatente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPatente.FormattingEnabled = true;
             this.cmbPatente.Location = new System.Drawing.Point(64, 12);
             this.cmbPatente.Name = "cmbPatente";
             this.cmbPatente.Size = new System.Drawing.Size(208, 21);
             this.cmbPatente.TabIndex = 8;
             // 
-            // BajaAutomovil
+            // Baja_Automovil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -76,7 +77,7 @@
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnInhabilitar);
             this.Controls.Add(this.lblPatente);
-            this.Name = "BajaAutomovil";
+            this.Name = "Baja_Automovil";
             this.Text = "Baja de Automóvil";
             this.Load += new System.EventHandler(this.BajaAutomovil_Load);
             this.ResumeLayout(false);

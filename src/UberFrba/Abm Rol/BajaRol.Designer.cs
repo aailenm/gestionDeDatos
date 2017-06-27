@@ -61,13 +61,14 @@
             // 
             // cmbRol
             // 
+            this.cmbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRol.FormattingEnabled = true;
             this.cmbRol.Location = new System.Drawing.Point(64, 12);
             this.cmbRol.Name = "cmbRol";
             this.cmbRol.Size = new System.Drawing.Size(208, 21);
             this.cmbRol.TabIndex = 7;
             // 
-            // BajaRol
+            // Baja_Rol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -76,7 +77,7 @@
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnInhabilitar);
             this.Controls.Add(this.lblRol);
-            this.Name = "BajaRol";
+            this.Name = "Baja_Rol";
             this.Text = "Baja de Rol";
             this.Load += new System.EventHandler(this.BajaRol_Load);
             this.ResumeLayout(false);

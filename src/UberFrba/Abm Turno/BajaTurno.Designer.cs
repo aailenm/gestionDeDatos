@@ -31,6 +31,7 @@
             // 
             // cmbDesc
             // 
+            this.cmbDesc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDesc.FormattingEnabled = true;
             this.cmbDesc.Location = new System.Drawing.Point(83, 12);
             this.cmbDesc.Name = "cmbDesc";
@@ -71,7 +72,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 117);
+            this.ClientSize = new System.Drawing.Size(284, 70);
             this.Controls.Add(this.cmbDesc);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnInhabilitar);
