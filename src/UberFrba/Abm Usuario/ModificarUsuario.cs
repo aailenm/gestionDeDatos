@@ -12,6 +12,12 @@ namespace UberFrba.Abm_Usuario
         {
             InitializeComponent();
             mostrarRoles();
+            labelCh.Text = "";
+            labelCli.Text = "";
+            label8.Text = "";
+            btnCliente.Enabled = false;
+            btnChofer.Enabled = false;
+            habilitusua.Enabled = false;
         }
 
         private void mostrarRoles()
@@ -30,21 +36,21 @@ namespace UberFrba.Abm_Usuario
 
         public void traerRoles()
         {
-
             SqlDataReader reader = Conexion.ejecutarQuery("Select rol_id from RUBIRA_SANTOS.ROL_POR_USUARIO where usua_id = " + cmbUsuario.SelectedValue);
             while (reader.Read())
             {
                 int rol = Int32.Parse(reader["rol_id"].ToString());
                 roles.SetItemChecked(rol - 1, true);
                 rolesIniciales.Add(rol);
-                traerDatos(rol);
+                btnMod.Enabled = true;
             }
+            traerDatos(rolesIniciales);
             reader.Close();
         }
 
         private void refrescarUsuarios()
         {
-            cmbUsuario.DataSource = Conexion.cargarTablaConsulta("GET_USUARIOS");
+            cmbUsuario.DataSource = Conexion.cargarTablaConsulta("GET_USUARIOS_TOTALES");
             cmbUsuario.SelectedIndex = 0;
             cmbUsuario.Focus();
         }
@@ -83,77 +89,101 @@ namespace UberFrba.Abm_Usuario
                 MessageBox.Show("Debe ingresar el usuario a modificar.", "Hay campos incompletos",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            traerRoles();
 
+            traerRoles();
+            SqlDataReader reader = Conexion.ejecutarQuery("Select usua_habilitado from RUBIRA_SANTOS.USUARIO where usua_id = " + cmbUsuario.SelectedValue);
+            reader.Read();
+            string usuahabi = reader["usua_habilitado"].ToString();
+            if(usuahabi.Equals("True")){
+                label8.Text = "Usuario Habilitado";
+                habilitusua.Enabled = false;
+            }
+            else {
+                label8.Text = "Usuario Inhabilitado";
+                habilitusua.Enabled = true;
+            }
+            reader.Close();
             //traerDatos();
         }
-        private void traerDatos(int rol)
+        private void traerDatos(List<int> roles)
         {
-            if (rol == 1)
+            int cant = roles.Count;
+            while (cant >= 0)
             {
-                habilitarDatos(false);
-                button2.Enabled = false;
-            }
-            if (rol == 2)
-            {
-                habilitarDatos(true); //por si es administrador
-                SqlDataReader reader = Conexion.ejecutarQuery("select C.clie_nombre, C.clie_apellido, C.clie_dni, C.clie_mail, C.clie_telefono, C.clie_fechaNacimiento,D.dire_calle,D.dire_piso,D.dire_depto, D.dire_localidad,D.dire_cp, C.clie_habilitado from RUBIRA_SANTOS.CLIENTE C join RUBIRA_SANTOS.DIRECCION D on C.clie_direccion=D.dire_id where C.clie_usua=" + cmbUsuario.SelectedValue);
-                reader.Read();
-                nomb.Text = reader["clie_nombre"].ToString();
-                apell.Text = reader["clie_apellido"].ToString();
-                dni.Text = reader["clie_dni"].ToString();
-                mail.Text = reader["clie_mail"].ToString();
-                tel.Text = reader["clie_telefono"].ToString();
-                dtpFechaNac.Text = reader["clie_fechaNacimiento"].ToString();
-                calle.Text = reader["dire_calle"].ToString();
-                piso.Text = reader["dire_piso"].ToString();
-                dpto.Text = reader["dire_depto"].ToString();
-                local.Text = reader["dire_localidad"].ToString();
-                cp.Text = reader["dire_cp"].ToString();
-                string hab = reader["clie_habilitado"].ToString();
-                if (hab.Equals("True"))
+                if (roles.Contains(2)) // si es cliente
                 {
-                    estado.Text = "Cliente habilitado";
-                    button2.Enabled = false;
+                    habilitarDatos(true); //por si es administrador
+                    SqlDataReader reader = Conexion.ejecutarQuery("select C.clie_nombre, C.clie_apellido, C.clie_dni, C.clie_mail, C.clie_telefono, C.clie_fechaNacimiento,D.dire_calle,D.dire_piso,D.dire_depto, D.dire_localidad,D.dire_cp, C.clie_habilitado from RUBIRA_SANTOS.CLIENTE C join RUBIRA_SANTOS.DIRECCION D on C.clie_direccion=D.dire_id where C.clie_usua=" + cmbUsuario.SelectedValue);
+                    reader.Read();
+                    nomb.Text = reader["clie_nombre"].ToString();
+                    apell.Text = reader["clie_apellido"].ToString();
+                    dni.Text = reader["clie_dni"].ToString();
+                    mail.Text = reader["clie_mail"].ToString();
+                    tel.Text = reader["clie_telefono"].ToString();
+                    dtpFechaNac.Text = reader["clie_fechaNacimiento"].ToString();
+                    calle.Text = reader["dire_calle"].ToString();
+                    piso.Text = reader["dire_piso"].ToString();
+                    dpto.Text = reader["dire_depto"].ToString();
+                    local.Text = reader["dire_localidad"].ToString();
+                    cp.Text = reader["dire_cp"].ToString();
+                    string hab = reader["clie_habilitado"].ToString();
+                    reader.Close();
+                    if (hab.Equals("True"))
+                    {
+                        labelCli.Text = "Cliente habilitado";
+                        btnCliente.Enabled = false;
+                    }
+                    else
+                    {
+                        labelCli.Text = "Cliente inhabilitado";
+                        btnCliente.Enabled = true;
+                    }
+                    cant--;
                 }
                 else
                 {
-                    estado.Text = "Cliente deshabilitado";
-                    button2.Enabled = true;
-                }
-                reader.Close();
+                    if (roles.Contains(3))
+                    {
+                        habilitarDatos(true); //por si es administrador
+                        SqlDataReader reader = Conexion.ejecutarQuery("select C.chof_nombre, C.chof_apellido, C.chof_dni, C.chof_mail, C.chof_telefono, C.chof_fechaNacimiento,D.dire_calle,D.dire_piso,D.dire_depto, D.dire_localidad,D.dire_cp, C.chof_habilitado from RUBIRA_SANTOS.CHOFER C join RUBIRA_SANTOS.DIRECCION D on C.chof_direccion=D.dire_id where C.chof_usua=" + cmbUsuario.SelectedValue);
+                        reader.Read();
+                        nomb.Text = reader["chof_nombre"].ToString();
+                        apell.Text = reader["chof_apellido"].ToString();
+                        dni.Text = reader["chof_dni"].ToString();
+                        mail.Text = reader["chof_mail"].ToString();
+                        tel.Text = reader["chof_telefono"].ToString();
+                        dtpFechaNac.Text = reader["chof_fechaNacimiento"].ToString();
+                        calle.Text = reader["dire_calle"].ToString();
+                        piso.Text = reader["dire_piso"].ToString();
+                        dpto.Text = reader["dire_depto"].ToString();
+                        local.Text = reader["dire_localidad"].ToString();
+                        cp.Text = reader["dire_cp"].ToString();
+                        string hab = reader["chof_habilitado"].ToString();
+                        reader.Close();
+                        if (hab.Equals("True"))
+                        {
+                            labelCh.Text = "Chofer habilitado";
+                            btnChofer.Enabled = false;
+                        }
+                        else
+                        {
+                            labelCh.Text = "Chofer inhabilitado";
+                            btnChofer.Enabled = true;
+                        }
+                        cant--;
+                    }
+                    else
+                    {
+                            habilitarDatos(false);
+                            btnChofer.Enabled = false;
+                            btnCliente.Enabled = false;
+                            cant--;
+                    }//si no es cliente ni chofer, los trato a todos por igual
+                } // cierro al else del cliente
 
-            }
-            if (rol == 3)
-            {
-                habilitarDatos(true); //por si es administrador
-                SqlDataReader reader = Conexion.ejecutarQuery("select C.chof_nombre, C.chof_apellido, C.chof_dni, C.chof_mail, C.chof_telefono, C.chof_fechaNacimiento,D.dire_calle,D.dire_piso,D.dire_depto, D.dire_localidad,D.dire_cp, C.chof_habilitado from RUBIRA_SANTOS.CHOFER C join RUBIRA_SANTOS.DIRECCION D on C.chof_direccion=D.dire_id on where C.chof_usua=" + cmbUsuario.SelectedValue);
-                reader.Read();
-                nomb.Text = reader["chof_nombre"].ToString();
-                apell.Text = reader["chof_apellido"].ToString();
-                dni.Text = reader["chof_dni"].ToString();
-                mail.Text = reader["chof_mail"].ToString();
-                tel.Text = reader["chof_telefono"].ToString();
-                dtpFechaNac.Text = reader["chof_fechaNacimiento"].ToString();
-                calle.Text = reader["dire_calle"].ToString();
-                piso.Text = reader["dire_piso"].ToString();
-                dpto.Text = reader["dire_depto"].ToString();
-                local.Text = reader["dire_localidad"].ToString();
-                cp.Text = reader["dire_cp"].ToString();
-                string hab = reader["chof_habilitado"].ToString();
-                if (hab.Equals("True"))
-                {
-                    estado.Text = "Chofer habilitado";
-                    button2.Enabled = false;
-                }
-                else
-                {
-                    estado.Text = "Chofer deshabilitado";
-                    button2.Enabled = true;
-                }
-                reader.Close();
-            }
+            }//cierro while
         }
+
         private void habilitarDatos(bool estado)
         {
             nomb.Enabled = estado;
@@ -183,40 +213,109 @@ namespace UberFrba.Abm_Usuario
 
         private void habilitar(object sender, EventArgs e)
         {
-            habilitarUsuario();
+            habilitarChofer();
         }
-        private void habilitarUsuario()
+        private void habilitarChofer()
         {
-            if (estado.Text == "Chofer inhabilitado")
-            {
-                if (Conexion.executeProcedure("HABILITAR_CHOFER", Conexion.generarArgumentos("@ID"), cmbUsuario.SelectedValue))
+            if (Conexion.executeProcedure("HABILITAR_CHOFER", Conexion.generarArgumentos("@idChofer"), cmbUsuario.SelectedValue)) 
+                MessageBox.Show("Rol modificado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                labelCh.Text = "Chofer habilitado";
+                btnChofer.Enabled = false;
+        }
+        private void habilitarCliente(){
+                    if (Conexion.executeProcedure("HABILITAR_CLIENTE", Conexion.generarArgumentos("@idCliente"), cmbUsuario.SelectedValue))
                     MessageBox.Show("Rol modificado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
-            if (estado.Text == "Cliente inhabilitado")
-            {
-
-                if (Conexion.executeProcedure("HABILITAR_CLIENTE", Conexion.generarArgumentos("@ID"), cmbUsuario.SelectedValue))
-                    MessageBox.Show("Rol modificado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+                    labelCli.Text = "Cliente habilitado";
+                    btnCliente.Enabled = false;
         }
 
 
         private void btnMod_Click(object sender, EventArgs e)
         {
-            /*if (validaciones())
-            {
-                for(int i =0; i<roles.Items.Count; i++)
-                {   
-                    int rol = roles.
-                    if(rolesIniciales.Contains())
-                }
-                bool modif = Conexion.ejecutarQuery("")
-            }*/
-
-
+            modificarPorRol();
 
         }
+        private void modificarPorRol()
+        {
+            if (validaciones())
+            {
+                
+                foreach (DataRowView rowView in roles.CheckedItems){
+                    int rol = Int32.Parse(rowView["rol_id"].ToString());
+                    if (rolesIniciales.Contains(rol)){
+                    //si estaba en los roles que ya tenia y sigue tildado
+                        modificarUsuario(rol);
+                        }
+                    else
+                        {//es un rol nuevo a agregar
+                            //INSERT EN ROL POR USUARIO Y EN ROL
+                            modificarRol(rol);    
+                        agregarNuevoRol(rol);
+                            
+                        }
+                }
+                foreach(DataRowView rowView in roles.Items){
+                    int rol = Int32.Parse(rowView["rol_id"].ToString());
+                        //si el rol no esta chequeado pero lo estaba
+                    if(!roles.CheckedItems.Contains(rol)){
+                        if (rolesIniciales.Contains(rol)) {
+                            modificarUsuario(rol);
+                            inhabilitarUsuario(rol);
+                         
+                        }
+                    }
+                      
+                }//llave del foreach
+            
+                MessageBox.Show("Usuario modificado correctamente.");
+                Close();
+
+            }//del if
+
+        }
+        private void inhabilitarUsuario(int rol)
+        {
+            Conexion.executeProcedure("INHABILITAR_USUARIO_ROL", Conexion.generarArgumentos("@IDUSUARIO", "@IDROL"), cmbUsuario.SelectedValue, rol);
+            if (rol == 2)
+            {
+                Conexion.executeProcedure("INHABILITAR_CLIENTE", Conexion.generarArgumentos("@idUsuario"), cmbUsuario.SelectedValue);
+            }
+            if (rol == 3)
+            {
+                Conexion.executeProcedure("INHABILITAR_CHOFER", Conexion.generarArgumentos("@idUsuario"), cmbUsuario.SelectedValue);
+            }
+        }
+        private void modificarUsuario(int rol)
+        {
+            if (rol == 2)
+            {
+                Conexion.executeProcedure("MODIFICAR_CLIENTE", Conexion.generarArgumentos("@usuaCliente", "@NOMBRE", "@APELLIDO", "@DNI", "@MAIL", "@TELEFONO", "@FECHA_NACIMIENTO", "@CALLE", "@PISO", "@DPTO", "@LOCALIDAD", "@CP"), cmbUsuario.SelectedValue, nomb.Text, apell.Text, dni.Text, mail.Text, tel.Text, dtpFechaNac.Value.ToShortDateString(), calle.Text, piso.Text, dpto.Text, local.Text, cp.Text);
+
+            }//cierra if de rol
+            if (rol == 3)
+            {
+                Conexion.executeProcedure("MODIFICAR_CHOFER", Conexion.generarArgumentos("@usuaChofer", "@NOMBRE", "@APELLIDO", "@DNI", "@MAIL", "@TELEFONO", "@FECHA_NACIMIENTO", "@CALLE", "@PISO", "@DPTO", "@LOCALIDAD", "@CP"), cmbUsuario.SelectedValue, nomb.Text, apell.Text, dni.Text, mail.Text, tel.Text, dtpFechaNac.Value.ToShortDateString(), calle.Text, piso.Text, dpto.Text, local.Text, cp.Text);
+            }//cierra if de rol
+        }
+        private void modificarRol(int rol) {
+            Conexion.executeProcedure("AGREGAR_ROLES", Conexion.generarArgumentos("@USUARIO", "@ROL"), cmbUsuario.SelectedValue, rol);
+            
+        }
+        private void agregarNuevoRol(int rol)
+        {
+            if (rol == 2)
+            {
+                Conexion.executeProcedure("ALTA_CLIENTE", Conexion.generarArgumentos("@NOMBRE", "@APELLIDO", "@DNI", "@MAIL", "@TELEFONO", "@FECHA_NACIMIENTO", "@CALLE", "@PISO", "@DPTO", "@LOCALIDAD", "@CP", "@USUARIO"), nomb.Text, apell.Text, dni.Text, mail.Text, tel.Text, dtpFechaNac.Value.ToShortDateString(), calle.Text, piso.Text, dpto.Text, local.Text, cp.Text, cmbUsuario.SelectedValue);
+
+
+            }
+            if (rol == 3)
+            {
+                Conexion.executeProcedure("ALTA_CHOFER", Conexion.generarArgumentos("@NOMBRE", "@APELLIDO", "@DNI", "@MAIL", "@TELEFONO", "@FECHA_NACIMIENTO", "@CALLE", "@PISO", "@DPTO", "@LOCALIDAD", "@CP", "@USUARIO"), nomb.Text, apell.Text, dni.Text, mail.Text, tel.Text, dtpFechaNac.Value.ToShortDateString(), calle.Text, piso.Text, dpto.Text, local.Text, cp.Text, cmbUsuario.SelectedValue);
+
+            }
+        }
+
         private bool validaciones()
         {
             if (roles.CheckedItems.Count == 0)
@@ -291,6 +390,34 @@ namespace UberFrba.Abm_Usuario
                 return false;
             }
             return true;
+        }
+
+        private void btnCliente_Click(object sender, EventArgs e)
+        {
+            habilitarCliente();
+        }
+
+        private void labelCh_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void habilitusua_Click(object sender, EventArgs e)
+        {
+            if (Conexion.executeProcedure("HABILITAR_USUARIO", Conexion.generarArgumentos("@ID"), cmbUsuario.SelectedValue))
+                MessageBox.Show("Usuario habilitado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            labelCh.Text = "Usuario Habilitado";
+            btnChofer.Enabled = false;
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void roles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

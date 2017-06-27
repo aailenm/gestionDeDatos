@@ -102,6 +102,9 @@ DROP PROCEDURE RUBIRA_SANTOS.GET_PATENTES
 IF OBJECT_ID('RUBIRA_SANTOS.GET_USUARIOS') IS NOT NULL
 DROP PROCEDURE RUBIRA_SANTOS.GET_USUARIOS
 
+IF OBJECT_ID('RUBIRA_SANTOS.GET_USUARIOS_TOTALES') IS NOT NULL
+DROP PROCEDURE RUBIRA_SANTOS.GET_USUARIOS_TOTALES
+
 IF OBJECT_ID('RUBIRA_SANTOS.GET_CHOFERES') IS NOT NULL
 DROP PROCEDURE RUBIRA_SANTOS.GET_CHOFERES
 
@@ -137,6 +140,18 @@ DROP PROCEDURE RUBIRA_SANTOS.ALTA_CHOFER
 
 IF OBJECT_ID('RUBIRA_SANTOS.HABILITAR_CHOFER') IS NOT NULL
 DROP PROCEDURE RUBIRA_SANTOS.HABILITAR_CHOFER
+
+IF OBJECT_ID ('RUBIRA_SANTOS.MODIFICAR_CLIENTE') is not null 
+DROP PROCEDURE RUBIRA_SANTOS.MODIFICAR_CLIENTE
+
+IF OBJECT_ID ('RUBIRA_SANTOS.INHABILITAR_CLIENTE') is not null 
+DROP PROCEDURE RUBIRA_SANTOS.INHABILITAR_CLIENTE
+
+IF OBJECT_ID ('RUBIRA_SANTOS.INHABILITAR_USUARIO_ROL') is not null 
+DROP PROCEDURE RUBIRA_SANTOS.INHABILITAR_USUARIO_ROL
+
+IF OBJECT_ID ('RUBIRA_SANTOS.INHABILITAR_CHOFER') is not null 
+DROP PROCEDURE RUBIRA_SANTOS.INHABILITAR_CHOFER
 
 IF OBJECT_ID ('RUBIRA_SANTOS.MODIFICAR_CHOFER') is not null 
 DROP PROCEDURE RUBIRA_SANTOS.MODIFICAR_CHOFER
@@ -215,6 +230,9 @@ DROP PROCEDURE RUBIRA_SANTOS.GET_HABILITADOS_TURNOS
 
 IF OBJECT_ID('RUBIRA_SANTOS.HABILITAR_ROL') IS NOT NULL
 DROP PROCEDURE RUBIRA_SANTOS.HABILITAR_ROL
+
+IF OBJECT_ID('RUBIRA_SANTOS.HABILITAR_USUARIO') IS NOT NULL
+DROP PROCEDURE RUBIRA_SANTOS.HABILITAR_USUARIO
 
 /* ================================================
 				DROP DE TRIGGERS
@@ -437,11 +455,13 @@ ALTER TABLE RUBIRA_SANTOS.AUTO_POR_TURNO ADD FOREIGN KEY (chof_id) REFERENCES RU
    ================================================
  */
 
- --/*
---====================================
---		    ALTA PROCEDURES
---====================================
---*/
+GO
+CREATE PROCEDURE INHABILITAR_USUARIO_ROL(@IDUSUARIO INT, @IDROL INT)
+AS
+BEGIN
+DELETE FROM RUBIRA_SANTOS.ROL_POR_USUARIO WHERE usua_id = @IDUSUARIO AND rol_id = @IDROL
+END
+
 GO 
 CREATE PROCEDURE RUBIRA_SANTOS.GET_MARCAS
 AS 
@@ -560,6 +580,22 @@ BEGIN
 END
 
 GO
+CREATE PROCEDURE RUBIRA_SANTOS.GET_USUARIOS_TOTALES
+AS
+BEGIN 
+	SELECT usua_id, usua_usuario
+	FROM RUBIRA_SANTOS.USUARIO
+	
+END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.HABILITAR_USUARIO(@ID INT)
+AS
+BEGIN
+	UPDATE RUBIRA_SANTOS.USUARIO SET usua_habilitado = 1 WHERE usua_id= @ID
+END
+
+GO
 CREATE PROCEDURE RUBIRA_SANTOS.GET_CHOFERES
 AS
 BEGIN 
@@ -613,7 +649,7 @@ BEGIN
 			AND dire_piso = @PISO
 			
 			INSERT INTO RUBIRA_SANTOS.CLIENTE(clie_nombre, clie_apellido, clie_dni, clie_fechaNacimiento, clie_mail, clie_telefono,clie_direccion, clie_usua)
-			VALUES(@nombre,UPPER(@APELLIDO), @DNI, CAST(@FECHA_NACIMIENTO AS smalldatetime), @MAIL, @TELEFONO, @iddirec,@USUARIO)
+			VALUES(UPPER(@nombre),UPPER(@APELLIDO), @DNI, CAST(@FECHA_NACIMIENTO AS smalldatetime), @MAIL, @TELEFONO, @iddirec,@USUARIO)
 		END
 	ELSE
 		RAISERROR ('El cliente ya existe', 16, 217) WITH SETERROR
@@ -624,6 +660,7 @@ CREATE PROCEDURE RUBIRA_SANTOS.HABILITAR_CLIENTE(@idCliente int)
 AS
 BEGIN
 	UPDATE RUBIRA_SANTOS.CLIENTE SET clie_habilitado = 1 WHERE clie_usua=@idCliente
+	UPDATE RUBIRA_SANTOS.USUARIO SET usua_habilitado = 1 WHERE usua_id = @idCliente
 END
 
 GO
@@ -645,18 +682,40 @@ BEGIN
 			AND dire_piso = @PISO
 
 			INSERT INTO RUBIRA_SANTOS.CHOFER(chof_nombre, chof_apellido, chof_dni, chof_mail, chof_telefono, chof_fechaNacimiento,chof_direccion,chof_usua) 
-			VALUES(@NOMBRE, UPPER(@APELLIDO), @DNI, @MAIL, @TELEFONO, CAST(@FECHA_NACIMIENTO AS SMALLDATETIME),@iddirec, @USUARIO)
+			VALUES(upper(@NOMBRE), UPPER(@APELLIDO), @DNI, @MAIL, @TELEFONO, CAST(@FECHA_NACIMIENTO AS SMALLDATETIME),@iddirec, @USUARIO)
 		END
 	ELSE
 		 RAISERROR ('El chofer ya existe', 16, 217) WITH SETERROR
 END
 
 GO
-CREATE PROCEDURE RUBIRA_SANTOS.MODIFICAR_CHOFER(@idChofer int, @NOMBRE nvarchar(255), @APELLIDO nvarchar(255), @DNI bigint, @MAIL nvarchar(255), @TELEFONO bigint, @FECHA_NACIMIENTO smalldatetime, @CALLE nvarchar(255), @PISO nvarchar(255), @DPTO nvarchar(255), @LOCALIDAD nvarchar(255), @CP nvarchar(255)) AS
+CREATE PROCEDURE RUBIRA_SANTOS.MODIFICAR_CHOFER(@usuaChofer int, @NOMBRE nvarchar(255), @APELLIDO nvarchar(255), @DNI bigint, @MAIL nvarchar(255), @TELEFONO bigint, @FECHA_NACIMIENTO smalldatetime, @CALLE nvarchar(255), @PISO nvarchar(255), @DPTO nvarchar(255), @LOCALIDAD nvarchar(255), @CP nvarchar(255)) AS
 BEGIN
-	UPDATE RUBIRA_SANTOS.CHOFER SET chof_nombre = @nombre, chof_apellido = @apellido, chof_dni = @dni, chof_mail= @mail, chof_telefono = @telefono, chof_fechaNacimiento = @FECHA_NACIMIENTO WHERE chof_id = @idChofer
-	UPDATE RUBIRA_SANTOS.DIRECCION SET dire_calle=@CALLE, dire_piso=@PISO, dire_depto=@DPTO, dire_localidad=@LOCALIDAD, dire_cp = @CP WHERE dire_id = (SELECT chof_direccion FROM rubira_santos.CHOFER WHERE chof_id=@idChofer)
+	UPDATE RUBIRA_SANTOS.CHOFER SET chof_nombre = UPPER(@nombre), chof_apellido = UPPER(@apellido), chof_dni = @dni, chof_mail= @mail, chof_telefono = @telefono, chof_fechaNacimiento = @FECHA_NACIMIENTO WHERE chof_usua = @usuaChofer
+	UPDATE RUBIRA_SANTOS.DIRECCION SET dire_calle=@CALLE, dire_piso=@PISO, dire_depto=@DPTO, dire_localidad=@LOCALIDAD, dire_cp = @CP WHERE dire_id = (SELECT chof_direccion FROM rubira_santos.CHOFER WHERE chof_usua=@usuaChofer)
 	
+END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.MODIFICAR_CLIENTE(@usuaCliente int, @NOMBRE nvarchar(255), @APELLIDO nvarchar(255), @DNI bigint, @MAIL nvarchar(255), @TELEFONO bigint, @FECHA_NACIMIENTO smalldatetime, @CALLE nvarchar(255), @PISO nvarchar(255), @DPTO nvarchar(255), @LOCALIDAD nvarchar(255), @CP nvarchar(255)) AS
+BEGIN
+	UPDATE RUBIRA_SANTOS.CLIENTE SET clie_nombre = UPPER(@nombre), clie_apellido = UPPER(@apellido), clie_dni = @dni, clie_mail= @mail, clie_telefono = @telefono, clie_fechaNacimiento = @FECHA_NACIMIENTO WHERE clie_usua = @usuaCliente
+	UPDATE RUBIRA_SANTOS.DIRECCION SET dire_calle=@CALLE, dire_piso=@PISO, dire_depto=@DPTO, dire_localidad=@LOCALIDAD, dire_cp = @CP WHERE dire_id = (SELECT clie_direccion FROM rubira_santos.CLIENTE WHERE clie_usua=@usuaCliente)
+
+END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.INHABILITAR_CHOFER(@idUsuario int)
+AS
+BEGIN
+	UPDATE RUBIRA_SANTOS.CHOFER SET chof_habilitado = 0 WHERE chof_usua=@idUsuario
+END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.INHABILITAR_CLIENTE(@idUsuario int)
+AS
+BEGIN
+	UPDATE RUBIRA_SANTOS.CLIENTE SET clie_habilitado = 0 WHERE clie_usua=@idUsuario
 END
 
 GO
@@ -664,6 +723,7 @@ CREATE PROCEDURE RUBIRA_SANTOS.HABILITAR_CHOFER(@idChofer int)
 AS
 BEGIN
 	UPDATE RUBIRA_SANTOS.CHOFER SET chof_habilitado = 1 WHERE chof_usua=@idChofer
+	UPDATE RUBIRA_SANTOS.USUARIO SET usua_habilitado = 1 WHERE usua_id = @idChofer
 END
 
 GO
@@ -806,6 +866,10 @@ BEGIN
 	UPDATE RUBIRA_SANTOS.USUARIO SET usua_habilitado = 0 WHERE usua_id = @ID
 	IF @@ROWCOUNT = 0
 		RAISERROR('Ese usuario no existe', 16, 217) WITH SETERROR
+	IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.CHOFER WHERE chof_usua = @ID))
+		UPDATE RUBIRA_SANTOS.CHOFER SET chof_habilitado = 1 WHERE chof_usua = @ID
+	IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.CLIENTE WHERE cLIE_usua = @ID))
+		UPDATE RUBIRA_SANTOS.CLIENTE SET CLIE_HABILITADO= 1 WHERE cLIE_usua = @ID
 END
 
 GO
@@ -929,7 +993,7 @@ AS
 DECLARE @idFact int
 BEGIN
 	IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.FACTURA F WHERE fact_fecha_inicio = @FECHAI AND fact_fecha_fin = @FECHAF AND @CLIENT = fact_cliente))
-		IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.USUARIO JOIN RUBIRA_SANTOS.CLIENTE ON clie_usua = usua_id WHERE cLIE_id = @CLIENT AND USUA_habilitado = 1)) 
+		IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.USUARIO JOIN RUBIRA_SANTOS.CLIENTE ON clie_usua = usua_id WHERE cLIE_id = @CLIENT AND USUA_habilitado = 1 and clie_habilitado = 1)) 
 			BEGIN
 				INSERT INTO RUBIRA_SANTOS.FACTURA(fact_cliente, fact_fecha_inicio, fact_fecha_fin, fact_total)
 				VALUES (@CLIENT, @FECHAI, @FECHAF, @TOTAL)
@@ -948,7 +1012,7 @@ BEGIN
 				AND viaj_fyh_fin BETWEEN @FECHAI AND DATEADD(day,1,@FECHAF)
 			END
 		ELSE
-			RAISERROR('Usuario inhabilitado',16,217) WITH SETERROR
+			RAISERROR('Usuario o cliente inhabilitado',16,217) WITH SETERROR
 	ELSE
 		RAISERROR ('Ya existe una factura para este cliente en dicha fecha', 16, 217) WITH SETERROR
 END
@@ -959,7 +1023,7 @@ AS
 DECLARE @REND INT
 BEGIN
 	IF(EXISTS(SELECT turn_id, apt.chof_id FROM RUBIRA_SANTOS.AUTO_POR_TURNO apt  WHERE turn_turnoActivo = @TURNO AND apt.chof_id = @CHOFER))
-		IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.USUARIO JOIN RUBIRA_SANTOS.CHOFER ON chof_usua = usua_id WHERE chof_id = @CHOFER AND USUA_habilitado = 1)) 
+		IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.USUARIO JOIN RUBIRA_SANTOS.CHOFER ON chof_usua = usua_id WHERE chof_id = @CHOFER AND USUA_habilitado = 1 and chof_habilitado = 1)) 
 			BEGIN
 			INSERT INTO RUBIRA_SANTOS.RENDICION_VIAJE(pago_chofer, pago_importe_total, pago_turno, pago_fecha,pago_porcentaje)
 			VALUES(@CHOFER, @TOTAL, @TURNO,@FECHA, @PORCENTAJE)
@@ -981,7 +1045,7 @@ BEGIN
 			AND DAY(viaj_fyh_fin) = DAY(@FECHA) 
 			END
 		ELSE
-			RAISERROR('Usuario inhabilitado', 16, 217) WITH SETERROR
+			RAISERROR('Usuario o chofer inhabilitado', 16, 217) WITH SETERROR
 	ELSE
 		RAISERROR ('No existe un chofer con ese auto. Verifique que el chofer este habilitado', 16, 217) WITH SETERROR
 END

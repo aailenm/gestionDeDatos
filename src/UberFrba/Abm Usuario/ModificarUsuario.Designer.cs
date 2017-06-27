@@ -1,33 +1,33 @@
-﻿namespace UberFrba.Abm_Usuario
-{
-    partial class Modificar_Usuario
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+﻿﻿namespace UberFrba.Abm_Usuario
+ {
+     partial class Modificar_Usuario
+     {
+         /// <summary>
+         /// Required designer variable.
+         /// </summary>
+         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+         /// <summary>
+         /// Clean up any resources being used.
+         /// </summary>
+         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+         protected override void Dispose(bool disposing)
+         {
+             if (disposing && (components != null))
+             {
+                 components.Dispose();
+             }
+             base.Dispose(disposing);
+         }
 
-        #region Windows Form Designer generated code
+         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
+         /// <summary>
+         /// Required method for Designer support - do not modify
+         /// the contents of this method with the code editor.
+         /// </summary>
+         private void InitializeComponent()
+         {
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.calle = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -63,8 +63,12 @@
             this.dtpFechaNac = new System.Windows.Forms.DateTimePicker();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnMod = new System.Windows.Forms.Button();
-            this.estado = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.labelCh = new System.Windows.Forms.Label();
+            this.btnChofer = new System.Windows.Forms.Button();
+            this.btnCliente = new System.Windows.Forms.Button();
+            this.labelCli = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.habilitusua = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -181,7 +185,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.roles);
+            this.groupBox1.Controls.Add(this.habilitusua);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.linkLabel1);
@@ -197,15 +203,16 @@
             // roles
             // 
             this.roles.FormattingEnabled = true;
-            this.roles.Location = new System.Drawing.Point(324, 19);
+            this.roles.Location = new System.Drawing.Point(364, 19);
             this.roles.Name = "roles";
             this.roles.Size = new System.Drawing.Size(266, 79);
             this.roles.TabIndex = 81;
+            this.roles.SelectedIndexChanged += new System.EventHandler(this.roles_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(284, 19);
+            this.label4.Location = new System.Drawing.Point(332, 19);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 13);
             this.label4.TabIndex = 80;
@@ -213,7 +220,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(92, 75);
+            this.button1.Location = new System.Drawing.Point(82, 59);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(157, 23);
             this.button1.TabIndex = 79;
@@ -399,34 +406,80 @@
             this.btnMod.UseVisualStyleBackColor = true;
             this.btnMod.Click += new System.EventHandler(this.btnMod_Click);
             // 
-            // estado
+            // labelCh
             // 
-            this.estado.AutoSize = true;
-            this.estado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.estado.ForeColor = System.Drawing.Color.Red;
-            this.estado.Location = new System.Drawing.Point(46, 438);
-            this.estado.Name = "estado";
-            this.estado.Size = new System.Drawing.Size(51, 16);
-            this.estado.TabIndex = 82;
-            this.estado.Text = "Estado";
+            this.labelCh.AutoSize = true;
+            this.labelCh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCh.ForeColor = System.Drawing.Color.Red;
+            this.labelCh.Location = new System.Drawing.Point(46, 438);
+            this.labelCh.Name = "labelCh";
+            this.labelCh.Size = new System.Drawing.Size(51, 16);
+            this.labelCh.TabIndex = 82;
+            this.labelCh.Text = "Estado";
+            this.labelCh.Click += new System.EventHandler(this.labelCh_Click);
             // 
-            // button2
+            // btnChofer
             // 
-            this.button2.Location = new System.Drawing.Point(213, 434);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(98, 24);
-            this.button2.TabIndex = 83;
-            this.button2.Text = "Habilitar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.habilitar);
+            this.btnChofer.Location = new System.Drawing.Point(213, 434);
+            this.btnChofer.Name = "btnChofer";
+            this.btnChofer.Size = new System.Drawing.Size(98, 24);
+            this.btnChofer.TabIndex = 83;
+            this.btnChofer.Text = "Habilitar chofer";
+            this.btnChofer.UseVisualStyleBackColor = true;
+            this.btnChofer.Click += new System.EventHandler(this.habilitar);
+            // 
+            // btnCliente
+            // 
+            this.btnCliente.Location = new System.Drawing.Point(213, 464);
+            this.btnCliente.Name = "btnCliente";
+            this.btnCliente.Size = new System.Drawing.Size(98, 24);
+            this.btnCliente.TabIndex = 84;
+            this.btnCliente.Text = "Habilitar cliente";
+            this.btnCliente.UseVisualStyleBackColor = true;
+            this.btnCliente.Click += new System.EventHandler(this.btnCliente_Click);
+            // 
+            // labelCli
+            // 
+            this.labelCli.AutoSize = true;
+            this.labelCli.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCli.ForeColor = System.Drawing.Color.Red;
+            this.labelCli.Location = new System.Drawing.Point(46, 468);
+            this.labelCli.Name = "labelCli";
+            this.labelCli.Size = new System.Drawing.Size(51, 16);
+            this.labelCli.TabIndex = 85;
+            this.labelCli.Text = "Estado";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Red;
+            this.label8.Location = new System.Drawing.Point(222, 33);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(51, 16);
+            this.label8.TabIndex = 86;
+            this.label8.Text = "Estado";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
+            // 
+            // habilitusua
+            // 
+            this.habilitusua.Location = new System.Drawing.Point(82, 88);
+            this.habilitusua.Name = "habilitusua";
+            this.habilitusua.Size = new System.Drawing.Size(157, 24);
+            this.habilitusua.TabIndex = 87;
+            this.habilitusua.Text = "Habilitar Usuario";
+            this.habilitusua.UseVisualStyleBackColor = true;
+            this.habilitusua.Click += new System.EventHandler(this.habilitusua_Click);
             // 
             // Modificar_Usuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(714, 528);
-            this.Controls.Add(this.estado);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.labelCli);
+            this.Controls.Add(this.btnCliente);
+            this.Controls.Add(this.labelCh);
+            this.Controls.Add(this.btnChofer);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnMod);
@@ -443,47 +496,51 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
+         }
 
-        #endregion
+         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox calle;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox cp;
-        private System.Windows.Forms.LinkLabel linkLabel3;
-        private System.Windows.Forms.TextBox local;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox piso;
-        private System.Windows.Forms.TextBox dpto;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cmbUsuario;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.TextBox nomb;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox dni;
-        private System.Windows.Forms.TextBox apell;
-        private System.Windows.Forms.TextBox mail;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox tel;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.DateTimePicker dtpFechaNac;
-        private System.Windows.Forms.Button btnVolver;
-        private System.Windows.Forms.Button btnMod;
-        private System.Windows.Forms.CheckedListBox roles;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label estado;
-        private System.Windows.Forms.Button button2;
+         private System.Windows.Forms.GroupBox groupBox3;
+         private System.Windows.Forms.TextBox calle;
+         private System.Windows.Forms.Label label7;
+         private System.Windows.Forms.Label label1;
+         private System.Windows.Forms.TextBox cp;
+         private System.Windows.Forms.LinkLabel linkLabel3;
+         private System.Windows.Forms.TextBox local;
+         private System.Windows.Forms.Label label11;
+         private System.Windows.Forms.Label label5;
+         private System.Windows.Forms.Label label12;
+         private System.Windows.Forms.TextBox piso;
+         private System.Windows.Forms.TextBox dpto;
+         private System.Windows.Forms.GroupBox groupBox1;
+         private System.Windows.Forms.Button button1;
+         private System.Windows.Forms.LinkLabel linkLabel1;
+         private System.Windows.Forms.Label label6;
+         private System.Windows.Forms.ComboBox cmbUsuario;
+         private System.Windows.Forms.GroupBox groupBox2;
+         private System.Windows.Forms.LinkLabel linkLabel2;
+         private System.Windows.Forms.TextBox nomb;
+         private System.Windows.Forms.Label label2;
+         private System.Windows.Forms.Label label3;
+         private System.Windows.Forms.Label label9;
+         private System.Windows.Forms.TextBox dni;
+         private System.Windows.Forms.TextBox apell;
+         private System.Windows.Forms.TextBox mail;
+         private System.Windows.Forms.Label label10;
+         private System.Windows.Forms.TextBox tel;
+         private System.Windows.Forms.Label label13;
+         private System.Windows.Forms.Label label14;
+         private System.Windows.Forms.DateTimePicker dtpFechaNac;
+         private System.Windows.Forms.Button btnVolver;
+         private System.Windows.Forms.Button btnMod;
+         private System.Windows.Forms.CheckedListBox roles;
+         private System.Windows.Forms.Label label4;
+         private System.Windows.Forms.Label labelCh;
+         private System.Windows.Forms.Button btnChofer;
+         private System.Windows.Forms.Button btnCliente;
+         private System.Windows.Forms.Label labelCli;
+         private System.Windows.Forms.Label label8;
+         private System.Windows.Forms.Button habilitusua;
 
-    }
-}
+     }
+ }
