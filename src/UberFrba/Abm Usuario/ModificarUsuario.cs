@@ -39,6 +39,7 @@ namespace UberFrba.Abm_Usuario
                 rolesIniciales.Add(rol);
                 traerDatos(rol);
             }
+
             reader.Close();
         }
 
