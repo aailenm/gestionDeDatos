@@ -112,23 +112,22 @@ namespace UberFrba.Abm_Usuario
                 local.Text = reader["dire_localidad"].ToString();
                 cp.Text = reader["dire_cp"].ToString();
                 string hab = reader["clie_habilitado"].ToString();
+                reader.Close();
                 if (hab.Equals("True"))
                 {
-                    estado.Text = "Cliente habilitado";
+                    estado.Text = "";
                     button2.Enabled = false;
                 }
                 else
                 {
-                    estado.Text = "Cliente deshabilitado";
+                    estado.Text = "Cliente inhabilitado";
                     button2.Enabled = true;
                 }
-                reader.Close();
-
             }
             if (rol == 3)
             {
                 habilitarDatos(true); //por si es administrador
-                SqlDataReader reader = Conexion.ejecutarQuery("select C.chof_nombre, C.chof_apellido, C.chof_dni, C.chof_mail, C.chof_telefono, C.chof_fechaNacimiento,D.dire_calle,D.dire_piso,D.dire_depto, D.dire_localidad,D.dire_cp, C.chof_habilitado from RUBIRA_SANTOS.CHOFER C join RUBIRA_SANTOS.DIRECCION D on C.chof_direccion=D.dire_id on where C.chof_usua=" + cmbUsuario.SelectedValue);
+                SqlDataReader reader = Conexion.ejecutarQuery("select C.chof_nombre, C.chof_apellido, C.chof_dni, C.chof_mail, C.chof_telefono, C.chof_fechaNacimiento,D.dire_calle,D.dire_piso,D.dire_depto, D.dire_localidad,D.dire_cp, C.chof_habilitado from RUBIRA_SANTOS.CHOFER C join RUBIRA_SANTOS.DIRECCION D on C.chof_direccion=D.dire_id where C.chof_usua=" + cmbUsuario.SelectedValue);
                 reader.Read();
                 nomb.Text = reader["chof_nombre"].ToString();
                 apell.Text = reader["chof_apellido"].ToString();
@@ -142,17 +141,17 @@ namespace UberFrba.Abm_Usuario
                 local.Text = reader["dire_localidad"].ToString();
                 cp.Text = reader["dire_cp"].ToString();
                 string hab = reader["chof_habilitado"].ToString();
+                reader.Close();
                 if (hab.Equals("True"))
                 {
-                    estado.Text = "Chofer habilitado";
+                    estado.Text = "";
                     button2.Enabled = false;
                 }
                 else
                 {
-                    estado.Text = "Chofer deshabilitado";
+                    estado.Text = "Chofer inhabilitado";
                     button2.Enabled = true;
                 }
-                reader.Close();
             }
         }
         private void habilitarDatos(bool estado)
@@ -190,15 +189,18 @@ namespace UberFrba.Abm_Usuario
         {
             if (estado.Text == "Chofer inhabilitado")
             {
-                if (Conexion.executeProcedure("HABILITAR_CHOFER", Conexion.generarArgumentos("@ID"), cmbUsuario.SelectedValue))
+                if (Conexion.executeProcedure("HABILITAR_CHOFER", Conexion.generarArgumentos("@idChofer"), cmbUsuario.SelectedValue)) 
                     MessageBox.Show("Rol modificado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
             }
 
             if (estado.Text == "Cliente inhabilitado")
             {
 
-                if (Conexion.executeProcedure("HABILITAR_CLIENTE", Conexion.generarArgumentos("@ID"), cmbUsuario.SelectedValue))
+                if (Conexion.executeProcedure("HABILITAR_CLIENTE", Conexion.generarArgumentos("@idCliente"), cmbUsuario.SelectedValue))
                     MessageBox.Show("Rol modificado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
+
             }
         }
 
@@ -212,37 +214,33 @@ namespace UberFrba.Abm_Usuario
         {
             if (validaciones())
             {
-                for (int i = 0; i < roles.Items.Count; i++)
-                {   //ACA ROMPE JE
-                    int rol = Int32.Parse(roles.Items[i].ToString());
-                    if (roles.GetItemChecked(i))
-                    {//si el rol está chequeado
-                        if (rolesIniciales.Contains(rol))
-                        { //me fijo si estaba en los roles que ya tenia
-                            modificarUsuario(rol);
-                            i++;
+                
+                foreach (DataRowView rowView in roles.CheckedItems){
+                    int rol = Int32.Parse(rowView["rol_id"].ToString());
+                    if (rolesIniciales.Contains(rol)){
+                    //si estaba en los roles que ya tenia y sigue tildado
+                        modificarUsuario(rol);
                         }
-                        else
+                    else
                         {//es un rol nuevo a agregar
                             //INSERT EN ROL POR USUARIO Y EN ROL
                             agregarNuevoRol(rol);
-                            i++;
+                            
                         }
-                    }
-                    else
-                    {//el rol no esta chequeado
-                        if (rolesIniciales.Contains(rol))
-                        {
-
+                }
+                foreach(DataRowView rowView in roles.Items){
+                    int rol = Int32.Parse(rowView["rol_id"].ToString());
+                        //si el rol no esta chequeado pero lo estaba
+                    if(!roles.CheckedItems.Contains(rowView["rol_id"])){
+                        if (rolesIniciales.Contains(rol)) {
                             modificarUsuario(rol);
                             inhabilitarUsuario(rol);
-                            i++;
+                         
                         }
-                        //No hago nada porque antes no estaba
-                        i++;
-                    }//del else
-
-                }//llave del for
+                    }
+                      
+                }//llave del foreach
+            
                 MessageBox.Show("Usuario modificado correctamente.");
                 Close();
 
@@ -253,11 +251,11 @@ namespace UberFrba.Abm_Usuario
         {
             if (rol == 2)
             {
-                Conexion.executeProcedure("INHABILITAR_CLIENTE", Conexion.generarArgumentos("@idUsu"), cmbUsuario.SelectedValue);
+                Conexion.executeProcedure("INHABILITAR_CLIENTE", Conexion.generarArgumentos("@idUsuario"), cmbUsuario.SelectedValue);
             }
             if (rol == 3)
             {
-                Conexion.executeProcedure("INHABILITAR_CHOFER", Conexion.generarArgumentos("@idUsu"), cmbUsuario.SelectedValue);
+                Conexion.executeProcedure("INHABILITAR_CHOFER", Conexion.generarArgumentos("@idUsuario"), cmbUsuario.SelectedValue);
             }
         }
         private void modificarUsuario(int rol)
