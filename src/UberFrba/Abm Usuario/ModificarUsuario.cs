@@ -13,7 +13,7 @@ namespace UberFrba.Abm_Usuario
             InitializeComponent();
             mostrarRoles();
         }
-
+        
         private void mostrarRoles()
         {
             roles.DataSource = Conexion.obtenerTablaProcedure("GET_ROLES", Conexion.generarArgumentos("@DESCRIPCION"), "");
@@ -39,7 +39,6 @@ namespace UberFrba.Abm_Usuario
                 rolesIniciales.Add(rol);
                 traerDatos(rol);
             }
-
             reader.Close();
         }
 
@@ -296,4 +295,3 @@ namespace UberFrba.Abm_Usuario
 
     }
 }
-
