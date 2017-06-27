@@ -13,7 +13,7 @@ namespace UberFrba.Abm_Usuario
             InitializeComponent();
             mostrarRoles();
         }
-        
+
         private void mostrarRoles()
         {
             roles.DataSource = Conexion.obtenerTablaProcedure("GET_ROLES", Conexion.generarArgumentos("@DESCRIPCION"), "");
@@ -38,6 +38,7 @@ namespace UberFrba.Abm_Usuario
                 roles.SetItemChecked(rol - 1, true);
                 rolesIniciales.Add(rol);
                 traerDatos(rol);
+                btnMod.Enabled = true;
             }
             reader.Close();
         }
@@ -204,19 +205,89 @@ namespace UberFrba.Abm_Usuario
 
         private void btnMod_Click(object sender, EventArgs e)
         {
-            /*if (validaciones())
-            {
-                for(int i =0; i<roles.Items.Count; i++)
-                {   
-                    int rol = roles.
-                    if(rolesIniciales.Contains())
-                }
-                bool modif = Conexion.ejecutarQuery("")
-            }*/
-
-
+            modificarPorRol();
 
         }
+        private void modificarPorRol()
+        {
+            if (validaciones())
+            {
+                for (int i = 0; i < roles.Items.Count; i++)
+                {   //ACA ROMPE JE
+                    int rol = Int32.Parse(roles.Items[i].ToString());
+                    if (roles.GetItemChecked(i))
+                    {//si el rol está chequeado
+                        if (rolesIniciales.Contains(rol))
+                        { //me fijo si estaba en los roles que ya tenia
+                            modificarUsuario(rol);
+                            i++;
+                        }
+                        else
+                        {//es un rol nuevo a agregar
+                            //INSERT EN ROL POR USUARIO Y EN ROL
+                            agregarNuevoRol(rol);
+                            i++;
+                        }
+                    }
+                    else
+                    {//el rol no esta chequeado
+                        if (rolesIniciales.Contains(rol))
+                        {
+
+                            modificarUsuario(rol);
+                            inhabilitarUsuario(rol);
+                            i++;
+                        }
+                        //No hago nada porque antes no estaba
+                        i++;
+                    }//del else
+
+                }//llave del for
+                MessageBox.Show("Usuario modificado correctamente.");
+                Close();
+
+            }//del if
+
+        }
+        private void inhabilitarUsuario(int rol)
+        {
+            if (rol == 2)
+            {
+                Conexion.executeProcedure("INHABILITAR_CLIENTE", Conexion.generarArgumentos("@idUsu"), cmbUsuario.SelectedValue);
+            }
+            if (rol == 3)
+            {
+                Conexion.executeProcedure("INHABILITAR_CHOFER", Conexion.generarArgumentos("@idUsu"), cmbUsuario.SelectedValue);
+            }
+        }
+        private void modificarUsuario(int rol)
+        {
+            if (rol == 2)
+            {
+                Conexion.executeProcedure("MODIFICAR_CLIENTE", Conexion.generarArgumentos("@usuaCliente", "@NOMBRE", "@APELLIDO", "@DNI", "@MAIL", "@TELEFONO", "@FECHA_NACIMIENTO", "@CALLE", "@PISO", "@DPTO", "@LOCALIDAD", "@CP"), cmbUsuario.SelectedValue, nomb.Text, apell.Text, dni.Text, mail.Text, tel.Text, dtpFechaNac.Value.ToShortDateString(), calle.Text, piso.Text, dpto.Text, local.Text, cp.Text);
+
+            }//cierra if de rol
+            if (rol == 3)
+            {
+                Conexion.executeProcedure("MODIFICAR_CHOFER", Conexion.generarArgumentos("@usuaChofer", "@NOMBRE", "@APELLIDO", "@DNI", "@MAIL", "@TELEFONO", "@FECHA_NACIMIENTO", "@CALLE", "@PISO", "@DPTO", "@LOCALIDAD", "@CP"), cmbUsuario.SelectedValue, nomb.Text, apell.Text, dni.Text, mail.Text, tel.Text, dtpFechaNac.Value.ToShortDateString(), calle.Text, piso.Text, dpto.Text, local.Text, cp.Text);
+            }//cierra if de rol
+        }
+        private void agregarNuevoRol(int rol)
+        {
+            Conexion.executeProcedure("AGREGAR_ROLES", Conexion.generarArgumentos("@USUARIO", "@ROL"), cmbUsuario.SelectedValue, rol);
+            if (rol == 2)
+            {
+                Conexion.executeProcedure("ALTA_CLIENTE", Conexion.generarArgumentos("@NOMBRE", "@APELLIDO", "@DNI", "@MAIL", "@TELEFONO", "@FECHA_NACIMIENTO", "@CALLE", "@PISO", "@DPTO", "@LOCALIDAD", "@CP", "@USUARIO"), nomb.Text, apell.Text, dni.Text, mail.Text, tel.Text, dtpFechaNac.Value.ToShortDateString(), calle.Text, piso.Text, dpto.Text, local.Text, cp.Text, cmbUsuario.SelectedValue);
+
+
+            }
+            if (rol == 3)
+            {
+                Conexion.executeProcedure("ALTA_CHOFER", Conexion.generarArgumentos("@NOMBRE", "@APELLIDO", "@DNI", "@MAIL", "@TELEFONO", "@FECHA_NACIMIENTO", "@CALLE", "@PISO", "@DPTO", "@LOCALIDAD", "@CP", "@USUARIO"), nomb.Text, apell.Text, dni.Text, mail.Text, tel.Text, dtpFechaNac.Value.ToShortDateString(), calle.Text, piso.Text, dpto.Text, local.Text, cp.Text, cmbUsuario.SelectedValue);
+
+            }
+        }
+
         private bool validaciones()
         {
             if (roles.CheckedItems.Count == 0)
@@ -295,3 +366,4 @@ namespace UberFrba.Abm_Usuario
 
     }
 }
+
