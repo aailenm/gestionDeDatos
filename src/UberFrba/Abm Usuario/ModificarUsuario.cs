@@ -18,6 +18,7 @@ namespace UberFrba.Abm_Usuario
             btnCliente.Enabled = false;
             btnChofer.Enabled = false;
             habilitusua.Enabled = false;
+            btnMod.Enabled = true;
         }
 
         private void mostrarRoles()
@@ -42,7 +43,6 @@ namespace UberFrba.Abm_Usuario
                 int rol = Int32.Parse(reader["rol_id"].ToString());
                 roles.SetItemChecked(rol - 1, true);
                 rolesIniciales.Add(rol);
-                btnMod.Enabled = true;
             }
             traerDatos(rolesIniciales);
             reader.Close();
@@ -237,39 +237,43 @@ namespace UberFrba.Abm_Usuario
         }
         private void modificarPorRol()
         {
+
             if (validaciones())
             {
-                
-                foreach (DataRowView rowView in roles.CheckedItems){
-                    int rol = Int32.Parse(rowView["rol_id"].ToString());
-                    if (rolesIniciales.Contains(rol)){
-                    //si estaba en los roles que ya tenia y sigue tildado
-                        modificarUsuario(rol);
+                foreach (DataRowView rowView in roles.Items)
+                {
+                    int rol = Int32.Parse(rowView.Row["rol_id"].ToString());
+                    if (roles.CheckedItems.Contains(rowView))
+                    {
+                        if (rolesIniciales.Contains(rol))
+                        {
+                            //si estaba en los roles que ya tenia y sigue tildado
+                            modificarUsuario(rol);
                         }
-                    else
+                        else
                         {//es un rol nuevo a agregar
                             //INSERT EN ROL POR USUARIO Y EN ROL
-                            modificarRol(rol);    
-                        agregarNuevoRol(rol);
-                            
-                        }
-                }
-                foreach(DataRowView rowView in roles.Items){
-                    int rol = Int32.Parse(rowView["rol_id"].ToString());
-                        //si el rol no esta chequeado pero lo estaba
-                    if(!roles.CheckedItems.Contains(rol)){
-                        if (rolesIniciales.Contains(rol)) {
-                            modificarUsuario(rol);
-                            inhabilitarUsuario(rol);
-                         
+                            modificarRol(rol);
+                            agregarNuevoRol(rol);
+
                         }
                     }
-                      
-                }//llave del foreach
-            
+                    else
+                    //si el rol no esta chequeado pero lo estaba
+                    {
+                        if (rolesIniciales.Contains(rol))
+                        {
+                            modificarUsuario(rol);
+                            inhabilitarUsuario(rol);
+
+                        }
+
+                    }//llave del foreach
+                  
+
+                }
                 MessageBox.Show("Usuario modificado correctamente.");
                 Close();
-
             }//del if
 
         }

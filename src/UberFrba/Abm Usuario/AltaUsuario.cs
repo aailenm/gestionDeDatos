@@ -213,11 +213,24 @@ namespace UberFrba.Abm_Usuario
 
         private void roles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (roles.CheckedIndices.Contains(1) || roles.CheckedIndices.Contains(2)) //si chequea cliente o usuario
-            {
+
+        }
+
+        private void roles_SelectedValueChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void roles_CausesValidationChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void roles_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            /*if (roles.CheckedItems.Contains(roles.Items[1]) || roles.CheckedItems.Contains(roles.Items[2])) {
                 habilitarDatos(true);
-            }
-            else habilitarDatos(false);
+            }else habilitarDatos(false);*/
         }
     }
 }

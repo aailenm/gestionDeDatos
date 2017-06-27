@@ -92,7 +92,10 @@
             this.roles.Name = "roles";
             this.roles.Size = new System.Drawing.Size(266, 79);
             this.roles.TabIndex = 52;
+            this.roles.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.roles_ItemCheck);
             this.roles.SelectedIndexChanged += new System.EventHandler(this.roles_SelectedIndexChanged);
+            this.roles.SelectedValueChanged += new System.EventHandler(this.roles_SelectedValueChanged);
+            this.roles.CausesValidationChanged += new System.EventHandler(this.roles_CausesValidationChanged);
             // 
             // label2
             // 
