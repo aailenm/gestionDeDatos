@@ -111,8 +111,8 @@ namespace UberFrba.Login {
 
         private void choferToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Abm_Usuario.AltaUsuario usu = new Abm_Usuario.AltaUsuario();
-            usu.Show();
+            Abm_Chofer.BajaChofer form = new Abm_Chofer.BajaChofer();
+            form.ShowDialog();
         }
 
         private void automovilToolStripMenuItem_Click(object sender, EventArgs e)
@@ -136,14 +136,14 @@ namespace UberFrba.Login {
         private void usuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Abm_Usuario.AltaUsuario usu = new Abm_Usuario.AltaUsuario();
-            usu.Show();
+            usu.ShowDialog();
         }
 
         private void choferToolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
             Abm_Usuario.AltaUsuario usu = new Abm_Usuario.AltaUsuario();
-            usu.Show();
+            usu.ShowDialog();
         }
 
         private void usuarioToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -238,21 +238,6 @@ namespace UberFrba.Login {
             form.ShowDialog();
         }
 
-        private void choferToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void clienteBaja_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void clienteToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void cerrarProgramaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -292,6 +277,11 @@ namespace UberFrba.Login {
 
         private void usuarioToolStripMenuItem2_Click(object sender, EventArgs e) {
             Abm_Usuario.BajaUsuario form = new Abm_Usuario.BajaUsuario();
+            form.ShowDialog();
+        }
+
+        private void clienteToolStripMenuItem_Click(object sender, EventArgs e) {
+            Abm_Cliente.BajaCliente form = new Abm_Cliente.BajaCliente();
             form.ShowDialog();
         }
     }

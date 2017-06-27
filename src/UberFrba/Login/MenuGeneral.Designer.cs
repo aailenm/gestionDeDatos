@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.altaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.automovilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuarioToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.rolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.turnoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.automovilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuarioToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.rolToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,9 +41,9 @@
             this.búsquedaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.choferToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.clienteToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.automovilToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.rolToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.turnoToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.automovilToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.facturaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crearFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rendiciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,13 +55,14 @@
             this.cerrarProgramaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.bajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuarioToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.rolBaja = new System.Windows.Forms.ToolStripMenuItem();
             this.turnoBaja = new System.Windows.Forms.ToolStripMenuItem();
             this.automovilBaja = new System.Windows.Forms.ToolStripMenuItem();
+            this.choferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarViajeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usuarioToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.usuarioToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.clienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,26 +77,33 @@
             this.altaToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.altaToolStripMenuItem.Text = "Alta";
             // 
-            // automovilToolStripMenuItem
+            // usuarioToolStripMenuItem3
             // 
-            this.automovilToolStripMenuItem.Name = "automovilToolStripMenuItem";
-            this.automovilToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.automovilToolStripMenuItem.Text = "Automovil";
-            this.automovilToolStripMenuItem.Click += new System.EventHandler(this.automovilToolStripMenuItem_Click);
+            this.usuarioToolStripMenuItem3.Name = "usuarioToolStripMenuItem3";
+            this.usuarioToolStripMenuItem3.Size = new System.Drawing.Size(130, 22);
+            this.usuarioToolStripMenuItem3.Text = "Usuario";
+            this.usuarioToolStripMenuItem3.Click += new System.EventHandler(this.usuarioToolStripMenuItem3_Click);
             // 
             // rolToolStripMenuItem
             // 
             this.rolToolStripMenuItem.Name = "rolToolStripMenuItem";
-            this.rolToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rolToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.rolToolStripMenuItem.Text = "Rol";
             this.rolToolStripMenuItem.Click += new System.EventHandler(this.rolToolStripMenuItem_Click);
             // 
             // turnoToolStripMenuItem
             // 
             this.turnoToolStripMenuItem.Name = "turnoToolStripMenuItem";
-            this.turnoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.turnoToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.turnoToolStripMenuItem.Text = "Turno";
             this.turnoToolStripMenuItem.Click += new System.EventHandler(this.turnoToolStripMenuItem_Click);
+            // 
+            // automovilToolStripMenuItem
+            // 
+            this.automovilToolStripMenuItem.Name = "automovilToolStripMenuItem";
+            this.automovilToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.automovilToolStripMenuItem.Text = "Automovil";
+            this.automovilToolStripMenuItem.Click += new System.EventHandler(this.automovilToolStripMenuItem_Click);
             // 
             // modificacionToolStripMenuItem
             // 
@@ -111,28 +120,28 @@
             // usuarioToolStripMenuItem1
             // 
             this.usuarioToolStripMenuItem1.Name = "usuarioToolStripMenuItem1";
-            this.usuarioToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.usuarioToolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
             this.usuarioToolStripMenuItem1.Text = "Usuario";
             this.usuarioToolStripMenuItem1.Click += new System.EventHandler(this.usuarioToolStripMenuItem1_Click_1);
             // 
             // rolToolStripMenuItem2
             // 
             this.rolToolStripMenuItem2.Name = "rolToolStripMenuItem2";
-            this.rolToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.rolToolStripMenuItem2.Size = new System.Drawing.Size(130, 22);
             this.rolToolStripMenuItem2.Text = "Rol";
             this.rolToolStripMenuItem2.Click += new System.EventHandler(this.rolToolStripMenuItem2_Click);
             // 
             // turnoToolStripMenuItem2
             // 
             this.turnoToolStripMenuItem2.Name = "turnoToolStripMenuItem2";
-            this.turnoToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.turnoToolStripMenuItem2.Size = new System.Drawing.Size(130, 22);
             this.turnoToolStripMenuItem2.Text = "Turno";
             this.turnoToolStripMenuItem2.Click += new System.EventHandler(this.turnoToolStripMenuItem2_Click);
             // 
             // automovilToolStripMenuItem2
             // 
             this.automovilToolStripMenuItem2.Name = "automovilToolStripMenuItem2";
-            this.automovilToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.automovilToolStripMenuItem2.Size = new System.Drawing.Size(130, 22);
             this.automovilToolStripMenuItem2.Text = "Automovil";
             this.automovilToolStripMenuItem2.Click += new System.EventHandler(this.automovilToolStripMenuItem2_Click);
             // 
@@ -151,37 +160,37 @@
             // choferToolStripMenuItem4
             // 
             this.choferToolStripMenuItem4.Name = "choferToolStripMenuItem4";
-            this.choferToolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.choferToolStripMenuItem4.Size = new System.Drawing.Size(130, 22);
             this.choferToolStripMenuItem4.Text = "Chofer";
             this.choferToolStripMenuItem4.Click += new System.EventHandler(this.choferToolStripMenuItem4_Click);
             // 
             // clienteToolStripMenuItem2
             // 
             this.clienteToolStripMenuItem2.Name = "clienteToolStripMenuItem2";
-            this.clienteToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.clienteToolStripMenuItem2.Size = new System.Drawing.Size(130, 22);
             this.clienteToolStripMenuItem2.Text = "Cliente";
             this.clienteToolStripMenuItem2.Click += new System.EventHandler(this.clienteToolStripMenuItem2_Click);
-            // 
-            // automovilToolStripMenuItem3
-            // 
-            this.automovilToolStripMenuItem3.Name = "automovilToolStripMenuItem3";
-            this.automovilToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
-            this.automovilToolStripMenuItem3.Text = "Automovil";
-            this.automovilToolStripMenuItem3.Click += new System.EventHandler(this.automovilToolStripMenuItem3_Click);
             // 
             // rolToolStripMenuItem3
             // 
             this.rolToolStripMenuItem3.Name = "rolToolStripMenuItem3";
-            this.rolToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.rolToolStripMenuItem3.Size = new System.Drawing.Size(130, 22);
             this.rolToolStripMenuItem3.Text = "Rol";
             this.rolToolStripMenuItem3.Click += new System.EventHandler(this.rolToolStripMenuItem3_Click);
             // 
             // turnoToolStripMenuItem3
             // 
             this.turnoToolStripMenuItem3.Name = "turnoToolStripMenuItem3";
-            this.turnoToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.turnoToolStripMenuItem3.Size = new System.Drawing.Size(130, 22);
             this.turnoToolStripMenuItem3.Text = "Turno";
             this.turnoToolStripMenuItem3.Click += new System.EventHandler(this.turnoToolStripMenuItem3_Click);
+            // 
+            // automovilToolStripMenuItem3
+            // 
+            this.automovilToolStripMenuItem3.Name = "automovilToolStripMenuItem3";
+            this.automovilToolStripMenuItem3.Size = new System.Drawing.Size(130, 22);
+            this.automovilToolStripMenuItem3.Text = "Automovil";
+            this.automovilToolStripMenuItem3.Click += new System.EventHandler(this.automovilToolStripMenuItem3_Click);
             // 
             // facturaciónToolStripMenuItem
             // 
@@ -195,7 +204,7 @@
             // crearFacturaToolStripMenuItem
             // 
             this.crearFacturaToolStripMenuItem.Name = "crearFacturaToolStripMenuItem";
-            this.crearFacturaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.crearFacturaToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.crearFacturaToolStripMenuItem.Text = "Crear Factura";
             this.crearFacturaToolStripMenuItem.Click += new System.EventHandler(this.crearFacturaToolStripMenuItem_Click);
             // 
@@ -279,10 +288,19 @@
             this.usuarioToolStripMenuItem2,
             this.rolBaja,
             this.turnoBaja,
-            this.automovilBaja});
+            this.automovilBaja,
+            this.choferToolStripMenuItem,
+            this.clienteToolStripMenuItem});
             this.bajaToolStripMenuItem.Name = "bajaToolStripMenuItem";
             this.bajaToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.bajaToolStripMenuItem.Text = "Baja";
+            // 
+            // usuarioToolStripMenuItem2
+            // 
+            this.usuarioToolStripMenuItem2.Name = "usuarioToolStripMenuItem2";
+            this.usuarioToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.usuarioToolStripMenuItem2.Text = "Usuario";
+            this.usuarioToolStripMenuItem2.Click += new System.EventHandler(this.usuarioToolStripMenuItem2_Click);
             // 
             // rolBaja
             // 
@@ -305,6 +323,13 @@
             this.automovilBaja.Text = "Automovil";
             this.automovilBaja.Click += new System.EventHandler(this.automovilToolStripMenuItem1_Click);
             // 
+            // choferToolStripMenuItem
+            // 
+            this.choferToolStripMenuItem.Name = "choferToolStripMenuItem";
+            this.choferToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.choferToolStripMenuItem.Text = "Chofer";
+            this.choferToolStripMenuItem.Click += new System.EventHandler(this.choferToolStripMenuItem_Click);
+            // 
             // registrarViajeToolStripMenuItem
             // 
             this.registrarViajeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -316,23 +341,16 @@
             // registrarToolStripMenuItem
             // 
             this.registrarToolStripMenuItem.Name = "registrarToolStripMenuItem";
-            this.registrarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.registrarToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.registrarToolStripMenuItem.Text = "Registrar";
             this.registrarToolStripMenuItem.Click += new System.EventHandler(this.registrarToolStripMenuItem_Click);
             // 
-            // usuarioToolStripMenuItem2
+            // clienteToolStripMenuItem
             // 
-            this.usuarioToolStripMenuItem2.Name = "usuarioToolStripMenuItem2";
-            this.usuarioToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
-            this.usuarioToolStripMenuItem2.Text = "Usuario";
-            this.usuarioToolStripMenuItem2.Click += new System.EventHandler(this.usuarioToolStripMenuItem2_Click);
-            // 
-            // usuarioToolStripMenuItem3
-            // 
-            this.usuarioToolStripMenuItem3.Name = "usuarioToolStripMenuItem3";
-            this.usuarioToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
-            this.usuarioToolStripMenuItem3.Text = "Usuario";
-            this.usuarioToolStripMenuItem3.Click += new System.EventHandler(this.usuarioToolStripMenuItem3_Click);
+            this.clienteToolStripMenuItem.Name = "clienteToolStripMenuItem";
+            this.clienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clienteToolStripMenuItem.Text = "Cliente";
+            this.clienteToolStripMenuItem.Click += new System.EventHandler(this.clienteToolStripMenuItem_Click);
             // 
             // MenuGeneral
             // 
@@ -384,5 +402,7 @@
         private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem choferToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clienteToolStripMenuItem;
     }
 }

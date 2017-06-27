@@ -77,11 +77,23 @@
     <Compile Include="Abm Automovil\Modificar_Chofer_Auto.Designer.cs">
       <DependentUpon>Modificar_Chofer_Auto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Chofer\BajaChofer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Chofer\BajaChofer.Designer.cs">
+      <DependentUpon>BajaChofer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Chofer\BusquedaChofer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Abm Chofer\BusquedaChofer.Designer.cs">
       <DependentUpon>BusquedaChofer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Cliente\BajaCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\BajaCliente.Designer.cs">
+      <DependentUpon>BajaCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Cliente\BusquedaCliente.cs">
       <SubType>Form</SubType>
@@ -217,8 +229,14 @@
     <EmbeddedResource Include="Abm Automovil\Modificar_Chofer_Auto.resx">
       <DependentUpon>Modificar_Chofer_Auto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Chofer\BajaChofer.resx">
+      <DependentUpon>BajaChofer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Chofer\BusquedaChofer.resx">
       <DependentUpon>BusquedaChofer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\BajaCliente.resx">
+      <DependentUpon>BajaCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\BusquedaCliente.resx">
       <DependentUpon>BusquedaCliente.cs</DependentUpon>
