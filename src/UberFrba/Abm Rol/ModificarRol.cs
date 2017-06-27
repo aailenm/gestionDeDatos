@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
-
+using System.Data.SqlClient;
 namespace UberFrba.Abm_Rol {
     public partial class Modificar_Rol : Form {
         public Modificar_Rol() {
             InitializeComponent();
+            habilitar.Enabled = false;
+            labelEstado.Text = "";
         }
 
         private void getFuncionalidades() {
@@ -14,11 +16,27 @@ namespace UberFrba.Abm_Rol {
             clbFuncionalidades.DisplayMember = "func_descripcion";
         }
 
+        private void estadoRol() {
+            SqlDataReader reader = Conexion.ejecutarQuery("Select rol_habilitado from RUBIRA_SANTOS.ROL where rol_id = " + cmbRol.SelectedValue);
+            reader.Read();
+            string rol = (reader["rol_habilitado"].ToString());
+            reader.Close();
+            if (rol.Equals("True")) {
+                labelEstado.Text = "HABILITADO";
+                habilitar.Enabled = false; 
+            }
+            else {
+                labelEstado.Text = "DESHABILITADO";
+                habilitar.Enabled = true;
+            }
+        }
+
         private void refrescarRoles() {
-            cmbRol.DataSource = Conexion.obtenerTablaProcedure("GET_ROLES", Conexion.generarArgumentos("@DESCRIPCION"), "");
+            cmbRol.DataSource = Conexion.cargarTablaConsulta("GET_TODOS_ROLES");
             cmbRol.SelectedIndex = 0;
             txtDesc.Text = cmbRol.Text;
             cmbRol.Focus();
+            estadoRol();
         }
 
         private void refrescarFuncionalidades() {
@@ -61,10 +79,21 @@ namespace UberFrba.Abm_Rol {
         private void cmbRol_SelectedIndexChanged(object sender, EventArgs e) {
             txtDesc.Text = cmbRol.Text;
             refrescarFuncionalidades();
+            estadoRol();
         }
 
         private void btnVolver_Click(object sender, EventArgs e) {
             Close();
+        }
+
+        private void habilitar_Click(object sender, EventArgs e)
+        {
+            bool resul = Conexion.executeProcedure("HABILITAR_ROL", Conexion.generarArgumentos("@ID"), cmbRol.SelectedValue);
+            if (resul)
+            {
+                MessageBox.Show("Rol Habilitado");
+                estadoRol();
+            }
         }
     }
 }

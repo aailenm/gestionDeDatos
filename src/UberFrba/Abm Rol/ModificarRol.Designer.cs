@@ -30,12 +30,14 @@
             this.btnMod = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
             this.clbFuncionalidades = new System.Windows.Forms.CheckedListBox();
+            this.habilitar = new System.Windows.Forms.Button();
+            this.labelEstado = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblRol
             // 
             this.lblRol.AutoSize = true;
-            this.lblRol.Location = new System.Drawing.Point(52, 16);
+            this.lblRol.Location = new System.Drawing.Point(53, 17);
             this.lblRol.Name = "lblRol";
             this.lblRol.Size = new System.Drawing.Size(23, 13);
             this.lblRol.TabIndex = 0;
@@ -44,10 +46,11 @@
             // 
             // cmbRol
             // 
+            this.cmbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRol.FormattingEnabled = true;
             this.cmbRol.Location = new System.Drawing.Point(82, 13);
             this.cmbRol.Name = "cmbRol";
-            this.cmbRol.Size = new System.Drawing.Size(190, 21);
+            this.cmbRol.Size = new System.Drawing.Size(119, 21);
             this.cmbRol.TabIndex = 1;
             this.cmbRol.SelectedIndexChanged += new System.EventHandler(this.cmbRol_SelectedIndexChanged);
             // 
@@ -71,7 +74,7 @@
             // 
             // btnMod
             // 
-            this.btnMod.Location = new System.Drawing.Point(10, 407);
+            this.btnMod.Location = new System.Drawing.Point(273, 407);
             this.btnMod.Name = "btnMod";
             this.btnMod.Size = new System.Drawing.Size(117, 23);
             this.btnMod.TabIndex = 4;
@@ -81,7 +84,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(155, 407);
+            this.btnVolver.Location = new System.Drawing.Point(7, 407);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(117, 23);
             this.btnVolver.TabIndex = 4;
@@ -94,14 +97,37 @@
             this.clbFuncionalidades.FormattingEnabled = true;
             this.clbFuncionalidades.Location = new System.Drawing.Point(7, 67);
             this.clbFuncionalidades.Name = "clbFuncionalidades";
-            this.clbFuncionalidades.Size = new System.Drawing.Size(265, 334);
+            this.clbFuncionalidades.Size = new System.Drawing.Size(383, 334);
             this.clbFuncionalidades.TabIndex = 5;
+            // 
+            // habilitar
+            // 
+            this.habilitar.Location = new System.Drawing.Point(319, 12);
+            this.habilitar.Name = "habilitar";
+            this.habilitar.Size = new System.Drawing.Size(76, 23);
+            this.habilitar.TabIndex = 6;
+            this.habilitar.Text = "Habilitar";
+            this.habilitar.UseVisualStyleBackColor = true;
+            this.habilitar.Click += new System.EventHandler(this.habilitar_Click);
+            // 
+            // labelEstado
+            // 
+            this.labelEstado.AutoSize = true;
+            this.labelEstado.BackColor = System.Drawing.SystemColors.Control;
+            this.labelEstado.ForeColor = System.Drawing.Color.Red;
+            this.labelEstado.Location = new System.Drawing.Point(207, 17);
+            this.labelEstado.Name = "labelEstado";
+            this.labelEstado.Size = new System.Drawing.Size(51, 13);
+            this.labelEstado.TabIndex = 50;
+            this.labelEstado.Text = "<estado>";
             // 
             // Modificar_Rol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 437);
+            this.ClientSize = new System.Drawing.Size(402, 437);
+            this.Controls.Add(this.labelEstado);
+            this.Controls.Add(this.habilitar);
             this.Controls.Add(this.clbFuncionalidades);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnMod);
@@ -126,5 +152,7 @@
         private System.Windows.Forms.Button btnMod;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.CheckedListBox clbFuncionalidades;
+        private System.Windows.Forms.Button habilitar;
+        private System.Windows.Forms.Label labelEstado;
     }
 }
