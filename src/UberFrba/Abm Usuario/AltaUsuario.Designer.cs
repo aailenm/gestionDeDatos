@@ -255,6 +255,7 @@
             this.apell.Name = "apell";
             this.apell.Size = new System.Drawing.Size(100, 20);
             this.apell.TabIndex = 62;
+            this.apell.TextChanged += new System.EventHandler(this.apell_TextChanged);
             // 
             // label5
             // 
