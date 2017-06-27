@@ -31,7 +31,7 @@ namespace UberFrba.Login {
             comboBox1.ValueMember = "rol_id";
             comboBox1.DisplayMember = "rol_descripcion";
             comboBox1.DataSource = a;
-            comboBox1.SelectedIndex = 0;
+            comboBox1.SelectedIndex = -1;
         }
     }
 }

@@ -41,6 +41,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.btnMod = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.labelEstado = new System.Windows.Forms.Label();
+            this.habilit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTurno
@@ -55,10 +57,11 @@
             // 
             // cmbTurno
             // 
+            this.cmbTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTurno.FormattingEnabled = true;
             this.cmbTurno.Location = new System.Drawing.Point(84, 12);
             this.cmbTurno.Name = "cmbTurno";
-            this.cmbTurno.Size = new System.Drawing.Size(188, 21);
+            this.cmbTurno.Size = new System.Drawing.Size(103, 21);
             this.cmbTurno.TabIndex = 1;
             this.cmbTurno.SelectedIndexChanged += new System.EventHandler(this.cmbTurno_SelectedIndexChanged);
             // 
@@ -181,7 +184,7 @@
             // 
             // btnMod
             // 
-            this.btnMod.Location = new System.Drawing.Point(12, 174);
+            this.btnMod.Location = new System.Drawing.Point(70, 182);
             this.btnMod.Name = "btnMod";
             this.btnMod.Size = new System.Drawing.Size(129, 23);
             this.btnMod.TabIndex = 16;
@@ -191,7 +194,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(143, 174);
+            this.btnVolver.Location = new System.Drawing.Point(201, 182);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(129, 23);
             this.btnVolver.TabIndex = 17;
@@ -199,11 +202,35 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
-            // ModificarTurno
+            // labelEstado
+            // 
+            this.labelEstado.AutoSize = true;
+            this.labelEstado.BackColor = System.Drawing.SystemColors.Control;
+            this.labelEstado.ForeColor = System.Drawing.Color.Red;
+            this.labelEstado.Location = new System.Drawing.Point(193, 15);
+            this.labelEstado.Name = "labelEstado";
+            this.labelEstado.Size = new System.Drawing.Size(51, 13);
+            this.labelEstado.TabIndex = 50;
+            this.labelEstado.Text = "<estado>";
+            this.labelEstado.Click += new System.EventHandler(this.labelEstado_Click);
+            // 
+            // habilit
+            // 
+            this.habilit.Location = new System.Drawing.Point(286, 10);
+            this.habilit.Name = "habilit";
+            this.habilit.Size = new System.Drawing.Size(84, 23);
+            this.habilit.TabIndex = 51;
+            this.habilit.Text = "Habilitar";
+            this.habilit.UseVisualStyleBackColor = true;
+            this.habilit.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // Modificar_Turno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 205);
+            this.ClientSize = new System.Drawing.Size(371, 217);
+            this.Controls.Add(this.habilit);
+            this.Controls.Add(this.labelEstado);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnMod);
             this.Controls.Add(this.label6);
@@ -222,7 +249,7 @@
             this.Controls.Add(this.lblDesc);
             this.Controls.Add(this.cmbTurno);
             this.Controls.Add(this.lblTurno);
-            this.Name = "ModificarTurno";
+            this.Name = "Modificar_Turno";
             this.Text = "Modificación de Turno";
             this.Load += new System.EventHandler(this.ModificarTurno_Load);
             this.ResumeLayout(false);
@@ -250,5 +277,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnMod;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Label labelEstado;
+        private System.Windows.Forms.Button habilit;
     }
 }
