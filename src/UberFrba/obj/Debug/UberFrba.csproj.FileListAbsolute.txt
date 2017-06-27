@@ -69,3 +69,5 @@ C:\Users\Aye\Documents\rubira_santos\src\UberFrba\obj\Debug\UberFrba.exe
 C:\Users\Aye\Documents\rubira_santos\src\UberFrba\obj\Debug\UberFrba.pdb
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Chofer.BajaChofer.resources
 C:\Users\aailenm\Desktop\UTN\rubira_santos\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Cliente.BajaCliente.resources
+C:\Users\Aye\Documents\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Chofer.BajaChofer.resources
+C:\Users\Aye\Documents\rubira_santos\src\UberFrba\obj\Debug\UberFrba.Abm_Cliente.BajaCliente.resources

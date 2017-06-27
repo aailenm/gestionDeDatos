@@ -45,7 +45,7 @@ namespace UberFrba.Abm_Usuario
 
         private void refrescarUsuarios()
         {
-            cmbUsuario.DataSource = Conexion.cargarTablaConsulta("GET_USUARIOS");
+            cmbUsuario.DataSource = Conexion.cargarTablaConsulta("GET_USUARIOS_TOTALES");
             cmbUsuario.SelectedIndex = 0;
             cmbUsuario.Focus();
         }
