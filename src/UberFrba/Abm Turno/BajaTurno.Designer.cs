@@ -36,6 +36,7 @@
             this.cmbDesc.Name = "cmbDesc";
             this.cmbDesc.Size = new System.Drawing.Size(189, 21);
             this.cmbDesc.TabIndex = 12;
+            this.cmbDesc.SelectedIndexChanged += new System.EventHandler(this.cmbDesc_SelectedIndexChanged);
             // 
             // btnVolver
             // 
@@ -71,7 +72,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 117);
+            this.ClientSize = new System.Drawing.Size(284, 73);
             this.Controls.Add(this.cmbDesc);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnInhabilitar);

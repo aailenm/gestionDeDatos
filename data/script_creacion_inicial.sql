@@ -195,6 +195,11 @@ DROP PROCEDURE RUBIRA_SANTOS.filtro_turno
 IF OBJECT_ID('RUBIRA_SANTOS.GET_FUNCIONALIDAD_POR_ROL') IS NOT NULL
 DROP PROCEDURE RUBIRA_SANTOS.GET_FUNCIONALIDAD_POR_ROL
 
+IF OBJECT_ID('RUBIRA_SANTOS.HABILITAR_TURNO') IS NOT NULL
+DROP PROCEDURE RUBIRA_SANTOS.HABILITAR_TURNO
+
+IF OBJECT_ID('RUBIRA_SANTOS.GET_HABILITADOS_TURNOS') IS NOT NULL
+DROP PROCEDURE RUBIRA_SANTOS.GET_HABILITADOS_TURNOS
 /* ================================================
 				DROP DE TRIGGERS
    ================================================
@@ -681,10 +686,11 @@ END
 GO
 CREATE PROCEDURE RUBIRA_SANTOS.ALTA_VIAJE(@CANTIDADKM INT,@FECHAINICIO smalldatetime ,@FECHAFIN smalldatetime, @TURNO INT, @AUTO INT, @CHOFER INT, @CLIENT INT)
 AS
+DECLARE @INICIO TIME, @FIN TIME
 BEGIN
 	IF(NOT EXISTS(SELECT * FROM RUBIRA_SANTOS.VIAJE WHERE viaj_cliente = @CLIENT AND viaj_fyh_inicio = @FECHAINICIO))
 		IF(EXISTS (SELECT auto_id, chof_id, turn_id FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE auto_id = @AUTO AND chof_id = @CHOFER AND turn_turnoActivo = @TURNO))
-			IF(EXISTS(SELECT * FROM RUBIRA_SANTOS.TURNO WHERE @TURNO = turn_id and CAST(@FECHAINICIO as time) between turn_hora_inicio and turn_hora_fin and CAST(@FECHAFIN as time) between turn_hora_inicio and turn_hora_fin  ))
+			IF(EXISTS(SELECT * FROM RUBIRA_SANTOS.TURNO WHERE @TURNO = turn_id and CAST(@FECHAINICIO as time) between turn_hora_inicio and (CASE turn_hora_fin WHEN CAST('00:00' AS TIME) THEN CAST('23:59' AS TIME) ELSE turn_hora_fin END) and CAST(@FECHAFIN as time) between turn_hora_inicio and (CASE turn_hora_fin WHEN CAST('00:00' AS TIME) THEN CAST('23:59' AS TIME) ELSE turn_hora_fin END)))
 				INSERT INTO RUBIRA_SANTOS.VIAJE(viaj_auto, viaj_cantidad_km, viaj_chofer, viaj_cliente, viaj_fyh_inicio, viaj_fyh_fin, viaj_turno, viaj_precio)
 				VALUES(@AUTO, @CANTIDADKM, @CHOFER, @CLIENT, @FECHAINICIO ,@FECHAFIN, @TURNO, (SELECT (@CANTIDADKM * t.turn_valor_km + t.turn_precio_base) FROM RUBIRA_SANTOS.TURNO t WHERE t.turn_id = @TURNO))
 			ELSE
@@ -807,7 +813,20 @@ AS
 BEGIN 
 	SELECT turn_id, turn_descripcion
 	FROM RUBIRA_SANTOS.TURNO
-	WHERE turn_habilitado = 1
+END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.GET_HABILITADOS_TURNOS
+AS
+BEGIN 
+	SELECT * FROM RUBIRA_SANTOS.TURNO WHERE turn_habilitado = 1
+END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.HABILITAR_TURNO(@id int)
+AS
+BEGIN
+	UPDATE RUBIRA_SANTOS.TURNO SET turn_habilitado = 1 WHERE turn_id = @id
 END
 
 GO 
@@ -816,7 +835,7 @@ AS
 BEGIN 
 	SELECT *
 	FROM RUBIRA_SANTOS.TURNO
-	WHERE turn_habilitado = 1 AND turn_id = @ID
+	WHERE turn_id = @ID
 END
 
 GO

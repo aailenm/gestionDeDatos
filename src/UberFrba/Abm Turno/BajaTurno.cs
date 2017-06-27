@@ -8,7 +8,7 @@ namespace UberFrba.Abm_Turno {
         }
 
         private void refrescarTurnos() {
-            cmbDesc.DataSource = Conexion.cargarTablaConsulta("GET_TURNOS");
+            cmbDesc.DataSource = Conexion.cargarTablaConsulta("GET_HABILITADOS_TURNOS");
             cmbDesc.SelectedIndex = 0;
             cmbDesc.Focus();
         }
@@ -27,6 +27,11 @@ namespace UberFrba.Abm_Turno {
             cmbDesc.ValueMember = "turn_id";
             cmbDesc.DisplayMember = "turn_descripcion";
             refrescarTurnos();
+        }
+
+        private void cmbDesc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

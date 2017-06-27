@@ -6,6 +6,7 @@ namespace UberFrba.Abm_Turno {
     public partial class Modificar_Turno : Form {
         public Modificar_Turno() {
             InitializeComponent();
+            Limpiar();
         }
 
         private bool validaciones() {
@@ -81,44 +82,72 @@ namespace UberFrba.Abm_Turno {
             return true;
         }
 
-        private void refrescarCampos() {
-            DataTable dt = Conexion.obtenerTablaProcedure("GET_TURNO", Conexion.generarArgumentos("@ID"), cmbTurno.SelectedValue);
-            string horaInicial = dt.Rows[0][1].ToString();
-            string horaFinal = dt.Rows[0][2].ToString();
-            txtHoraInicialA.Text = horaInicial.Substring(0, 2);
-            txtHoraInicialB.Text = horaInicial.Substring(3, 2);
-            txtHoraFinalA.Text = horaFinal.Substring(0, 2);
-            txtHoraFinalB.Text = horaFinal.Substring(3, 2);
-            txtDesc.Text = dt.Rows[0][3].ToString();
-            txtValorKm.Text = dt.Rows[0][4].ToString();
-            txtPrecioBase.Text = dt.Rows[0][5].ToString();
-        }
-
-        private void refrescarTurnos() {
-            cmbTurno.DataSource = Conexion.cargarTablaConsulta("GET_TURNOS");
-            cmbTurno.SelectedIndex = 0;
-            refrescarCampos();
-            cmbTurno.Focus();
+        private void Limpiar() {
+            Funciones.llenarCombo_Turno(cmbTurno);
+           labelEstado.Text = "";
+           habilit.Enabled = false ;
+            txtHoraInicialA.Clear();
+            txtHoraInicialB.Clear();
+            txtHoraFinalA.Clear();
+            txtHoraFinalB.Clear();
+            txtDesc.Clear();
+            txtValorKm.Clear();
+            txtPrecioBase.Clear();
         }
 
         private void ModificarTurno_Load(object sender, EventArgs e) {
-            cmbTurno.ValueMember = "turn_id";
-            cmbTurno.DisplayMember = "turn_descripcion";
-            refrescarTurnos();
+
         }
 
-        private void cmbTurno_SelectedIndexChanged(object sender, EventArgs e) {
-            refrescarCampos();
+        private void cmbTurno_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbTurno.SelectedIndex != -1)
+            {
+                DataTable dt = Conexion.obtenerTablaProcedure("GET_TURNO", Conexion.generarArgumentos("@ID"), cmbTurno.SelectedValue);
+                if (dt.Rows[0][6].ToString().Equals("True")) labelEstado.Text = "HABILITADO";
+                else
+                {
+                    labelEstado.Text = "DESHABILITADO";
+                    habilit.Enabled = true;
+                }
+                string horaInicial = dt.Rows[0][1].ToString();
+                string horaFinal = dt.Rows[0][2].ToString();
+                txtHoraInicialA.Text = horaInicial.Substring(0, 2);
+                txtHoraInicialB.Text = horaInicial.Substring(3, 2);
+                txtHoraFinalA.Text = horaFinal.Substring(0, 2);
+                txtHoraFinalB.Text = horaFinal.Substring(3, 2);
+                txtDesc.Text = dt.Rows[0][3].ToString();
+                txtValorKm.Text = dt.Rows[0][4].ToString();
+                txtPrecioBase.Text = dt.Rows[0][5].ToString();
+            }
         }
 
         private void btnMod_Click(object sender, EventArgs e) {
             if (validaciones() && Conexion.executeProcedure("MODIFICAR_TURNO", Conexion.generarArgumentos("@ID", "@DESCRIPCION", "@HORA_INICIO", "@HORA_FIN", "@PRECIOBASE", "@VALORKM"), cmbTurno.SelectedValue, txtDesc.Text, txtHoraInicialA.Text + ":" + txtHoraInicialB.Text, txtHoraFinalA.Text + ":" + txtHoraFinalB.Text, Convert.ToDouble(txtPrecioBase.Text), Convert.ToDouble(txtValorKm.Text)))
                 MessageBox.Show("Turno modificado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            refrescarTurnos();
+            Limpiar();
         }
 
         private void btnVolver_Click(object sender, EventArgs e) {
             Close();
+        }
+
+        private void labelEstado_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string id = cmbTurno.SelectedValue.ToString();
+            bool conex = Conexion.executeProcedure("HABILITAR_TURNO", Conexion.generarArgumentos("@id"), id);
+            if (conex)
+            {
+                MessageBox.Show("Turno habilitado correctamente");
+                Limpiar();
+                cmbTurno.SelectedValue = id;
+            }
+    
         }
     }
 }
