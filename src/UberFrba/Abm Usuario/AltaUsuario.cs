@@ -13,6 +13,8 @@ namespace UberFrba.Abm_Usuario
 {
     public partial class AltaUsuario : Form
     {
+        bool choferChequeado = false;
+        bool clienteChequeado = false;
         public AltaUsuario()
         {
             InitializeComponent();
@@ -228,9 +230,19 @@ namespace UberFrba.Abm_Usuario
 
         private void roles_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            /*if (roles.CheckedItems.Contains(roles.Items[1]) || roles.CheckedItems.Contains(roles.Items[2])) {
-                habilitarDatos(true);
-            }else habilitarDatos(false);*/
+            DataRowView data = roles.Items[e.Index] as DataRowView;
+            if (data.Row["rol_id"].ToString() == "2")
+            {
+                if (!roles.CheckedItems.Contains(data)) clienteChequeado = true;
+                else clienteChequeado = false;
+            }
+            if (data.Row["rol_id"].ToString() == "3")
+            {
+                if (!roles.CheckedItems.Contains(data)) choferChequeado = true;
+                else choferChequeado = false;
+            }
+            if (clienteChequeado || choferChequeado) habilitarDatos(true);
+            else habilitarDatos(false);
         }
     }
 }

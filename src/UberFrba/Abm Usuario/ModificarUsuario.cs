@@ -7,6 +7,8 @@ namespace UberFrba.Abm_Usuario
 {
     public partial class Modificar_Usuario : Form
     {
+        bool clienteChequeado= false;
+        bool choferChequeado = false;
         List<int> rolesIniciales = new List<int>();
         public Modificar_Usuario()
         {
@@ -19,6 +21,7 @@ namespace UberFrba.Abm_Usuario
             btnChofer.Enabled = false;
             habilitusua.Enabled = false;
             btnMod.Enabled = true;
+            habilitarDatos(false);
         }
 
         private void mostrarRoles()
@@ -422,6 +425,28 @@ namespace UberFrba.Abm_Usuario
         private void roles_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void roles_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            DataRowView data = roles.Items[e.Index] as DataRowView;
+            if (data.Row["rol_id"].ToString() == "2") {
+                if (!roles.CheckedItems.Contains(data)) clienteChequeado = true;
+                else clienteChequeado = false;
+            }
+            if (data.Row["rol_id"].ToString() == "3")
+            {
+                if (!roles.CheckedItems.Contains(data)) choferChequeado = true;
+                else choferChequeado = false;
+            }
+            if (clienteChequeado || choferChequeado) habilitarDatos(true);
+            else habilitarDatos(false);
+           /*DataRowView data = roles.Items[e.Index] as DataRowView;
+           if (!roles.CheckedItems.Contains(data) && (data.Row["rol_id"].ToString() == "2" || data.Row["rol_id"].ToString() == "3")) habilitarDatos(true);
+           else {
+               if (!roles.CheckedItems.Contains((DataRowView x) => x.Row["rol_id"].ToString())) habilitarDatos(true);
+               else habilitarDatos(false);
+           }*/
         }
 
     }
