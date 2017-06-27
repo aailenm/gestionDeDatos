@@ -83,7 +83,10 @@ namespace UberFrba.Abm_Turno {
         }
 
         private void Limpiar() {
-            Funciones.llenarCombo_Turno(cmbTurno);
+            cmbTurno.ValueMember = "turn_id";
+            cmbTurno.DisplayMember = "turn_descripcion";
+            cmbTurno.DataSource = Conexion.cargarTablaConsulta("GET_TODOS_TURNOS");
+            cmbTurno.SelectedIndex = -1;
            labelEstado.Text = "";
            habilit.Enabled = false ;
             txtHoraInicialA.Clear();
@@ -103,7 +106,7 @@ namespace UberFrba.Abm_Turno {
         {
             if (cmbTurno.SelectedIndex != -1)
             {
-                DataTable dt = Conexion.obtenerTablaProcedure("GET_TURNO", Conexion.generarArgumentos("@ID"), cmbTurno.SelectedValue);
+                DataTable dt = Conexion.obtenerTablaProcedure("GET_TURNO",Conexion.generarArgumentos("@ID"),cmbTurno.SelectedValue);
                 if (dt.Rows[0][6].ToString().Equals("True")) labelEstado.Text = "HABILITADO";
                 else
                 {
@@ -139,13 +142,12 @@ namespace UberFrba.Abm_Turno {
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string id = cmbTurno.SelectedValue.ToString();
-            bool conex = Conexion.executeProcedure("HABILITAR_TURNO", Conexion.generarArgumentos("@id"), id);
+            bool conex = Conexion.executeProcedure("HABILITAR_TURNO", Conexion.generarArgumentos("@ID", "@DESCRIPCION", "@HORA_INICIO", "@HORA_FIN", "@PRECIOBASE", "@VALORKM"),
+                cmbTurno.SelectedValue, txtDesc.Text, txtHoraInicialA.Text + ":" + txtHoraInicialB.Text, txtHoraFinalA.Text + ":" + txtHoraFinalB.Text, Convert.ToDouble(txtPrecioBase.Text), Convert.ToDouble(txtValorKm.Text));
             if (conex)
             {
                 MessageBox.Show("Turno habilitado correctamente");
                 Limpiar();
-                cmbTurno.SelectedValue = id;
             }
     
         }

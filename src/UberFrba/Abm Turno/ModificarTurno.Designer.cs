@@ -216,7 +216,7 @@
             // 
             // habilit
             // 
-            this.habilit.Location = new System.Drawing.Point(286, 10);
+            this.habilit.Location = new System.Drawing.Point(285, 10);
             this.habilit.Name = "habilit";
             this.habilit.Size = new System.Drawing.Size(84, 23);
             this.habilit.TabIndex = 51;
