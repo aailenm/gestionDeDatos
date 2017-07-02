@@ -151,10 +151,27 @@ namespace UberFrba.Registro_Viajes {
                 MessageBox.Show("El campo Cantidad de km solo acepta numeros");
                 return false;
             }
-            if (0 > Int32.Parse(cantkm.Text))
+            if (0 >= Int32.Parse(cantkm.Text))
             {
                 MessageBox.Show("El campo Cantidad de km debe ser mayor a 0");
                 return false;
+            }
+            if(finic.Value==ffin.Value)
+            {
+                if (Int32.Parse(HDH.Text) > Int32.Parse(HHH.Text))
+                {
+                    MessageBox.Show("Hora invalida, hora de inicio no puede ser mayor la hora de fin");
+                    return false;
+                }
+                if (Int32.Parse(HDH.Text) == Int32.Parse(HHH.Text))
+                {
+                    if (Int32.Parse(HDM.Text) > Int32.Parse(HHM.Text))
+                    {
+                        MessageBox.Show("Hora invalida, minutos de inicio no pueden ser mayor a minutos de fin");
+                        return false;
+                    }
+                }
+
             }
             return true;
         }
