@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace UberFrba.Rendicion_Viajes {
+namespace UberFrba.Rendicion_Viajes
+{
     public partial class Crear_Pago : Form, ComunicacionForms
     {
-        double porc = 0;
-        double totalViajes=0;
+        double totalViajes = 0;
         public Crear_Pago()
         {
             InitializeComponent();
             Funciones.llenarCombo_Turno(TURNO);
             dataGridView1.ReadOnly = true;
             FECHA.Value = Funciones.ObtenerFecha();
+            TOTAL.Text = "0";
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -36,8 +37,9 @@ namespace UberFrba.Rendicion_Viajes {
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if(validaciones()){
-                dataGridView1.DataSource = Conexion.obtenerTablaProcedure("VIAJES_RENDICION",Conexion.generarArgumentos("@CHOFER","@TURNO","@FECHA"),
+            if (validaciones())
+            {
+                dataGridView1.DataSource = Conexion.obtenerTablaProcedure("VIAJES_RENDICION", Conexion.generarArgumentos("@CHOFER", "@TURNO", "@FECHA"),
                     CHOF.Text, TURNO.SelectedValue, FECHA.Value.ToShortDateString());
                 foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
@@ -50,22 +52,26 @@ namespace UberFrba.Rendicion_Viajes {
             }
         }
 
-        public void editarChofer(string id) {
+        public void editarChofer(string id)
+        {
             CHOF.Text = id;
         }
 
-        public void editarCliente(string id) { 
-        
+        public void editarCliente(string id)
+        {
+
         }
-        public void editarAuto(string id) { 
-        
+        public void editarAuto(string id)
+        {
+
         }
 
         public void editar(string id)
         {
 
         }
-        public void editarTurno(string id) {
+        public void editarTurno(string id)
+        {
             TURNO.SelectedValue = id;
         }
 
@@ -93,20 +99,29 @@ namespace UberFrba.Rendicion_Viajes {
             porcentaje.Clear();
             TOTAL.Clear();
             FECHA.Value = Funciones.ObtenerFecha();
+            dataGridView1.DataSource = -1;
+            porcentaje.Text = "0";
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (TOTAL.Text == "")
+            if (!validacionPorcentaje(porcentaje.Text))
             {
-                MessageBox.Show("Debe ingresar el total a pagar");
+                MessageBox.Show("El porcentaje solo acepta números y '.' para indicar los decimales. Solo se puede utilizar el . una sola vez");
+            }
+            else if (Double.Parse(porcentaje.Text) <= 0)
+            {
+                MessageBox.Show("Debe ingresar un porcentaje mayor a 0.");
+            }
+            else if (Double.Parse(porcentaje.Text) > 100) {
+                MessageBox.Show("Debe ingresar un porcentaje menor a 100.");
             }
             else
             {
                 if (validaciones())
                 {
                     bool result = Conexion.executeProcedure("CREAR_RENDICION", Conexion.generarArgumentos("@CHOFER", "@TOTAL", "@TURNO", "@FECHA", "@PORCENTAJE"),
-                       CHOF.Text, TOTAL.Text, TURNO.SelectedValue, FECHA.Value.ToShortDateString(), porc);
+                       CHOF.Text, Double.Parse(TOTAL.Text), TURNO.SelectedValue, FECHA.Value.ToShortDateString(), Double.Parse(porcentaje.Text));
                     if (result)
                     {
                         MessageBox.Show("Rendición creada");
@@ -116,9 +131,11 @@ namespace UberFrba.Rendicion_Viajes {
             }
         }
 
-        private bool validaciones() {
+        private bool validaciones()
+        {
 
-            if(CHOF.Text == ""){
+            if (CHOF.Text == "")
+            {
                 MessageBox.Show("Debe seleccionar un chofer");
                 return false;
             }
@@ -127,33 +144,52 @@ namespace UberFrba.Rendicion_Viajes {
                 MessageBox.Show("Fecha inválida");
                 return false;
             }
-            if(TURNO.Text == ""){
+            if (TURNO.Text == "")
+            {
                 MessageBox.Show("Debe seleccionar un turno");
                 return false;
             }
+
             return true;
         }
 
         private void TOTAL_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
-           
+
         }
 
         private void porcentaje_TextChanged(object sender, EventArgs e)
         {
+            if (porcentaje.Text == "") porcentaje.Text = "0";
+            else if (!validacionPorcentaje(porcentaje.Text))
+            {
+                MessageBox.Show("El porcentaje solo acepta números y ',' para indicar los decimales. Solo se puede utilizar la , una sola vez");
+            }
+            else {
+                double totalCalculado = totalViajes + (totalViajes * Double.Parse(porcentaje.Text)*0.01) ;
+                TOTAL.Text = totalCalculado.ToString();
+            }
+        }
 
+        private bool validacionPorcentaje(string porc)
+        {
+            int comas = 0;
+            foreach (char c in porc)
+            {
+                if (!Char.IsDigit(c) && c != ',') return false;
+                else if (c == ',')
+                {
+                    comas++;
+                    if (comas > 1) return false;
+                }
+            }
+            
+            return true;
         }
 
         private void TOTAL_TextChanged(object sender, EventArgs e)
         {
-            if(TOTAL.Text == "") TOTAL.Text = "0";
-            if (!Funciones.esNumero(TOTAL.Text)) MessageBox.Show("Solo se pueden ingresar números en el campo Total");
-            if (totalViajes != 0 && Funciones.esNumero(TOTAL.Text))
-            {
-                porc = Convert.ToDouble(TOTAL.Text) / totalViajes;
-                    porcentaje.Text = (Convert.ToDouble(TOTAL.Text)/totalViajes).ToString();
-                }
-            }
+        }
 
         private void CHOF_TextChanged(object sender, EventArgs e)
         {
@@ -163,5 +199,5 @@ namespace UberFrba.Rendicion_Viajes {
         {
 
         }
-        }
+    }
 }

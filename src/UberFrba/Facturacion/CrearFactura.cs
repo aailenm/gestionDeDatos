@@ -135,5 +135,10 @@ namespace UberFrba.Facturacion {
         {
 
         }
+
+        private void total_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

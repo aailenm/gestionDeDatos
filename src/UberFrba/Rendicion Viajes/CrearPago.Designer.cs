@@ -232,7 +232,6 @@
             // 
             // porcentaje
             // 
-            this.porcentaje.Enabled = false;
             this.porcentaje.Location = new System.Drawing.Point(359, 375);
             this.porcentaje.Name = "porcentaje";
             this.porcentaje.Size = new System.Drawing.Size(100, 20);
@@ -241,6 +240,7 @@
             // 
             // TOTAL
             // 
+            this.TOTAL.Enabled = false;
             this.TOTAL.Location = new System.Drawing.Point(506, 375);
             this.TOTAL.Name = "TOTAL";
             this.TOTAL.Size = new System.Drawing.Size(100, 20);
