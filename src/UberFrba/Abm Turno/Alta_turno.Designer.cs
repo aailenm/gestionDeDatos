@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.HHM = new System.Windows.Forms.NumericUpDown();
+            this.HHH = new System.Windows.Forms.NumericUpDown();
+            this.HDM = new System.Windows.Forms.NumericUpDown();
+            this.HDH = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -42,15 +46,11 @@
             this.DETALLE = new System.Windows.Forms.TextBox();
             this.CANCELAR = new System.Windows.Forms.Button();
             this.CREAR = new System.Windows.Forms.Button();
-            this.HDH = new System.Windows.Forms.NumericUpDown();
-            this.HDM = new System.Windows.Forms.NumericUpDown();
-            this.HHH = new System.Windows.Forms.NumericUpDown();
-            this.HHM = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.HDH)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HDM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HHH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HHM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HHH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HDM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HDH)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -76,6 +76,39 @@
             this.groupBox1.TabIndex = 44;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // HHM
+            // 
+            this.HHM.Location = new System.Drawing.Point(330, 69);
+            this.HHM.Name = "HHM";
+            this.HHM.ReadOnly = true;
+            this.HHM.Size = new System.Drawing.Size(39, 20);
+            this.HHM.TabIndex = 60;
+            // 
+            // HHH
+            // 
+            this.HHH.Location = new System.Drawing.Point(272, 70);
+            this.HHH.Name = "HHH";
+            this.HHH.ReadOnly = true;
+            this.HHH.Size = new System.Drawing.Size(39, 20);
+            this.HHH.TabIndex = 59;
+            // 
+            // HDM
+            // 
+            this.HDM.Location = new System.Drawing.Point(330, 33);
+            this.HDM.Name = "HDM";
+            this.HDM.ReadOnly = true;
+            this.HDM.Size = new System.Drawing.Size(39, 20);
+            this.HDM.TabIndex = 58;
+            // 
+            // HDH
+            // 
+            this.HDH.Location = new System.Drawing.Point(272, 33);
+            this.HDH.Name = "HDH";
+            this.HDH.ReadOnly = true;
+            this.HDH.Size = new System.Drawing.Size(39, 20);
+            this.HDH.TabIndex = 57;
+            this.HDH.ValueChanged += new System.EventHandler(this.HHD_ValueChanged);
             // 
             // label7
             // 
@@ -195,42 +228,9 @@
             this.CREAR.Name = "CREAR";
             this.CREAR.Size = new System.Drawing.Size(75, 23);
             this.CREAR.TabIndex = 44;
-            this.CREAR.Text = "s";
+            this.CREAR.Text = "Aceptar";
             this.CREAR.UseVisualStyleBackColor = true;
             this.CREAR.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // HDH
-            // 
-            this.HDH.Location = new System.Drawing.Point(272, 33);
-            this.HDH.Name = "HDH";
-            this.HDH.ReadOnly = true;
-            this.HDH.Size = new System.Drawing.Size(39, 20);
-            this.HDH.TabIndex = 57;
-            this.HDH.ValueChanged += new System.EventHandler(this.HHD_ValueChanged);
-            // 
-            // HDM
-            // 
-            this.HDM.Location = new System.Drawing.Point(330, 33);
-            this.HDM.Name = "HDM";
-            this.HDM.ReadOnly = true;
-            this.HDM.Size = new System.Drawing.Size(39, 20);
-            this.HDM.TabIndex = 58;
-            // 
-            // HHH
-            // 
-            this.HHH.Location = new System.Drawing.Point(272, 70);
-            this.HHH.Name = "HHH";
-            this.HHH.ReadOnly = true;
-            this.HHH.Size = new System.Drawing.Size(39, 20);
-            this.HHH.TabIndex = 59;
-            // 
-            // HHM
-            // 
-            this.HHM.Location = new System.Drawing.Point(330, 69);
-            this.HHM.Name = "HHM";
-            this.HHM.ReadOnly = true;
-            this.HHM.Size = new System.Drawing.Size(39, 20);
-            this.HHM.TabIndex = 60;
             // 
             // Alta_Turno
             // 
@@ -244,10 +244,10 @@
             this.Text = "Alta de Turno";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.HDH)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HDM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HHH)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HHM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HHH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HDM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HDH)).EndInit();
             this.ResumeLayout(false);
 
         }

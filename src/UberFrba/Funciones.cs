@@ -30,26 +30,41 @@ namespace UberFrba {
             TimeSpan nuevoInicio = new TimeSpan(hd,md,0);
             TimeSpan nuevoFin = new TimeSpan(hh,mh,0) ;
             //hasta aca, validaciones simples
-            SqlDataReader reader = Conexion.ejecutarQuery("select turn_id, turn_habilitado, turn_descripcion, turn_hora_inicio, turn_hora_fin from RUBIRA_SANTOS.TURNO ";
-            reader.Read();
+            SqlDataReader reader = Conexion.ejecutarQuery("select turn_id, turn_habilitado, turn_descripcion, turn_hora_inicio, turn_hora_fin from RUBIRA_SANTOS.TURNO ");
             while(reader.Read()){
-                TimeSpan viejoInicio = TimeSpan.Parse(reader["turn_hora_inicio"].ToString());
-                TimeSpan viejoFin = TimeSpan.Parse(reader["turn_hora_fin"].ToString());
-                if(!existeDescripcionTurno(reader["turn_descripcion"].ToString(), descripcion)){
-                    if(turnoACompararEstaHabilitado(reader["turn_habilitado"].ToString())){
+                TimeSpan viejoInicio = TimeSpan.Parse((reader["turn_hora_inicio"].ToString()).Substring(0,8));
+                TimeSpan viejoFin = TimeSpan.Parse((reader["turn_hora_fin"].ToString()).Substring(0,8));
+                if (turnoACompararEstaHabilitado(reader["turn_habilitado"].ToString())){
+                    if(!existeDescripcionTurno(reader["turn_descripcion"].ToString(), descripcion)){
                         if(!franjaMayor(nuevoInicio, nuevoFin, viejoInicio, viejoFin)){
                             if(!franjaMayor(viejoInicio, viejoFin, nuevoInicio, nuevoFin)){
                                 if(!horaDentroDeRangoExistente(nuevoInicio, viejoInicio, viejoFin)){
                                      if(!horaDentroDeRangoExistente(nuevoFin, viejoInicio, viejoFin)){
-                                     }else {
+                                            // si todo está bien, al salir del método devolvería true
+                                     }else{
                                      MessageBox.Show("La hora fin está dentro de un turno existente");
                                      return false;
                                      }//la nueva hora de fin esta dentro de un rango horario existente
+                                }else{
+                                    MessageBox.Show("La hora inicio está dentro de un turno existente");
+                                    return false;
                                 }// la nueva hora de inicio esta dentro de un rango horario existente
+                            }else{
+                                MessageBox.Show("El nuevo rango horario está dentro de un rango mayor");
+                            return false;
                             }//la franja nueva esta dentro de otra mas grande
+                        }else{
+                            MessageBox.Show("El nuevo rango horario abarca a un turno más pequeño.");
+                            return false;
                         } // la nueva franja abarca a 1 mas chica
-                    }// comparo contra turnos habilitados nomas
-                } // descripcion turno
+                    }else{
+                        MessageBox.Show("Ya existe un turno con esa descripción.");
+                        return false;
+                        //no hago nada, no es un error que un turno no este habilitado
+                    }// descripcion turno
+                } else {
+                    //no hago nada, no es un error que un turno no este habilitado
+                }// comparo contra turnos habilitados nomas
             }
             reader.Close();
             return true;
@@ -62,19 +77,20 @@ namespace UberFrba {
 
         internal static bool turnoACompararEstaHabilitado(string habilitado)
         {
-            if(habilitado.Equals("1")) return true;
+            if(habilitado.Equals("True")) return true;
             else return false;
         }
 
         /*devuelve verdadero si la primera franja abarca (o contiene) a la segunda*/
         internal static bool franjaMayor( TimeSpan menorInicio, TimeSpan mayorFin, TimeSpan mayorInicio, TimeSpan menorFin) {
-            if (menorInicio < mayorInicio && mayorFin > menorFin) return true;
+            if ((TimeSpan.Compare(menorInicio,mayorInicio) == -1) && (TimeSpan.Compare(mayorFin, menorFin) == 1)) return true;
             else return false;
         }
 
-        internal static bool horaDentroDeRangoExistente(TimeSp)
+        internal static bool horaDentroDeRangoExistente(TimeSpan hora, TimeSpan inicioRango, TimeSpan finRango)
         {
-            return true;
+            if ((TimeSpan.Compare(hora, inicioRango) == 1) && (TimeSpan.Compare(hora, finRango) == -1)) return true;
+            else return false;
         }
 
         /*verifica que una cadena text sea solo de numeros*/

@@ -35,7 +35,7 @@ namespace UberFrba.Abm_Turno {
         {
             if (validaciones())
             {
-                if (Funciones.validacionesCrearTurno(HDH.Value, HDM.Value, HHH.Value, HHM.Value))
+                if (Funciones.validacionesCrearTurno(HDH.Value, HDM.Value, HHH.Value, HHM.Value,DETALLE.Text))
                 {
                     bool result = Conexion.executeProcedure("ALTA_TURNO",
                           Conexion.generarArgumentos("@DESCRIPCION", "@HORA_INICIO", "@HORA_FIN", "@PRECIOBASE", "@VALORKM"),
