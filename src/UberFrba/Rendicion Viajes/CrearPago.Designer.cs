@@ -73,6 +73,7 @@
             // TURNO
             // 
             this.TURNO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TURNO.Enabled = false;
             this.TURNO.FormattingEnabled = true;
             this.TURNO.Location = new System.Drawing.Point(74, 65);
             this.TURNO.Name = "TURNO";

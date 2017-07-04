@@ -13,10 +13,18 @@ namespace UberFrba.Abm_Turno {
             cmbDesc.Focus();
         }
 
-        private void btnInhabilitar_Click(object sender, EventArgs e) {
-            if (Conexion.executeProcedure("BAJA_TURNO", Conexion.generarArgumentos("@ID"), cmbDesc.SelectedValue))
-                MessageBox.Show("Turno dado de baja", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            refrescarTurnos();
+        private void btnInhabilitar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(cmbDesc.Text))
+            {
+                MessageBox.Show("Elija un turno");
+            }
+            else
+            {
+                if (Conexion.executeProcedure("BAJA_TURNO", Conexion.generarArgumentos("@ID"), cmbDesc.SelectedValue))
+                    MessageBox.Show("Turno dado de baja", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                refrescarTurnos();
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e) {

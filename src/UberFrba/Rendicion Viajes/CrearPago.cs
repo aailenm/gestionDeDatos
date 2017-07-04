@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
-
+using System.Data.SqlClient;
 namespace UberFrba.Rendicion_Viajes
 {
     public partial class Crear_Pago : Form, ComunicacionForms
     {
-        double totalViajes = 0;
+        double totalViajes = 0;        
         public Crear_Pago()
         {
             InitializeComponent();
@@ -13,6 +13,7 @@ namespace UberFrba.Rendicion_Viajes
             dataGridView1.ReadOnly = true;
             FECHA.Value = Funciones.ObtenerFecha();
             TOTAL.Text = "0";
+            traerDefaultDePorcentaje();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -51,7 +52,12 @@ namespace UberFrba.Rendicion_Viajes
                     textBox1.Text = "$" + totalViajes.ToString();
             }
         }
-
+        public void traerDefaultDePorcentaje()
+        {
+            SqlDataReader reader = Conexion.ejecutarQuery("select TOP 1 r.pago_porcentaje from RUBIRA_SANTOS.RENDICION_VIAJE r order by r.pago_id DESC");
+            reader.Read();
+            porcentaje.Text = (reader["pago_porcentaje"].ToString());
+        }
         public void editarChofer(string id)
         {
             CHOF.Text = id;

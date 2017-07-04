@@ -14,6 +14,10 @@ namespace UberFrba.Abm_Chofer {
         }
 
         private void btnInhabilitar_Click(object sender, EventArgs e) {
+            if (string.IsNullOrEmpty(cmbTeléfonos.Text))
+            {
+                MessageBox.Show("Elija un chofer");
+            }
             if (Conexion.executeProcedure("BAJA_CHOFER", Conexion.generarArgumentos("@ID"), cmbTeléfonos.SelectedValue))
                 MessageBox.Show("Chofer dado de baja", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else MessageBox.Show("No fue posible dar de baja al chofer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
