@@ -7,76 +7,95 @@ namespace UberFrba.Abm_Turno {
         public Modificar_Turno() {
             InitializeComponent();
             Limpiar();
+            HDH.Minimum = 0;
+            HDH.Maximum = 23;
+
+            HDM.Minimum = 0;
+            HDM.Maximum = 59;
+
+            HHH.Minimum = 0;
+            HHH.Maximum = 23;
+
+            HHM.Minimum = 0;
+            HHM.Maximum = 59;
         }
 
         private bool validaciones() {
-            Double valor = 0;
-            if (txtValorKm.Text == "") {
-                MessageBox.Show("El valor del kilómetro no puede estar vacio");
+            if (!Funciones.validacionPrecio(VKM.Text))
+            {
+                MessageBox.Show("El valor del kilometro solo acepta numeros y una sola , para los decimales");
                 return false;
             }
-            if (!Double.TryParse(txtValorKm.Text, out valor)) {
-                MessageBox.Show("El valor del kilómetro debe ser un número");
+            else if (0 >= Double.Parse(VKM.Text))
+            {
+                MessageBox.Show("El valor del kilometro debe ser mayor a 0");
                 return false;
             }
-            if (valor <= 0) {
-                MessageBox.Show("El valor del kilómetro debe ser mayor a 0");
+            if (!Funciones.validacionPrecio(PB.Text))
+            {
+                MessageBox.Show("El campo precio base solo acepta numeros y una sola , para los decimales");
                 return false;
             }
-            if (txtPrecioBase.Text == "") {
-                MessageBox.Show("El campo Precio Base no puede estar vacío");
-                return false;
-            }
-            if (!Double.TryParse(txtPrecioBase.Text, out valor)) {
-                MessageBox.Show("El campo Precio Base debe ser un número");
-                return false;
-            }
-            if (valor <= 0) {
+            else if (0 >= Double.Parse(PB.Text))
+            {
                 MessageBox.Show("El valor del precio base debe ser mayor a 0");
                 return false;
             }
-            if (!Funciones.esNumero(txtHoraInicialA.Text)) {
-                MessageBox.Show("El campo de hora inicial debe ser un número ");
+            if (HDM.Text == "")
+            {
+                MessageBox.Show("El campo Hora desde no puede estar vacio");
                 return false;
             }
-            if (txtHoraInicialA.Text == "") {
-                MessageBox.Show("El campo de hora inicial no puede estar vacio");
+            if (HHM.Text == "")
+            {
+                MessageBox.Show("El campo Hora hasta no puede estar vacio");
                 return false;
             }
-            if (!Funciones.esNumero(txtHoraInicialB.Text)) {
-                MessageBox.Show("El campo de minuto inicial debe ser un número");
+            if (HDH.Text == "")
+            {
+                MessageBox.Show("El campo Hora desde no puede estar vacio");
                 return false;
             }
-            if (txtHoraInicialB.Text == "") {
-                MessageBox.Show("El campo de minuto inicial no puede estar vacio");
+            if (HHH.Text == "")
+            {
+                MessageBox.Show("El campo Hora Hasta no puede estar vacio");
                 return false;
             }
-            if (txtHoraFinalA.Text == "") {
-                MessageBox.Show("El campo de hora final no puede estar vacio");
+
+            if (!Funciones.esNumero(HDH.Text))
+            {
+                MessageBox.Show("El campo horas de Hora desde debe ser un número ");
                 return false;
             }
-            if (!Funciones.esNumero(txtHoraFinalB.Text)) {
-                MessageBox.Show("El campo de hora final debe ser un número");
+            if (!Funciones.esNumero(HDM.Text))
+            {
+                MessageBox.Show("El campo minutos de Hora desde debe ser un número");
                 return false;
             }
-            if (!Funciones.esNumero(txtHoraFinalB.Text)) {
+            if (!Funciones.esNumero(HHH.Text))
+            {
+                MessageBox.Show("El campo de horas Hora Hasta debe ser un número");
+                return false;
+            }
+            if (!Funciones.esNumero(HHM.Text))
+            {
                 MessageBox.Show("El campo de minutos Hora Hasta debe ser un número");
                 return false;
             }
-            if (txtHoraFinalB.Text == "") {
-                MessageBox.Show("El campo de minuto final no puede estar vacio");
+            if (DETALLE.Text == "")
+            {
+                MessageBox.Show("El campo Nombre no puede estar vacio");
                 return false;
             }
-            if ((Int32.Parse(txtHoraInicialB.Text) > 60) || (Int32.Parse(txtHoraFinalB.Text) > 60) || (0 > Int32.Parse(txtHoraInicialB.Text)) || (0 > Int32.Parse(txtHoraFinalB.Text))) {
-                MessageBox.Show("Uno de los campos de minutos es inválido. Por favor ingrese un valor de 0 a 59");
+            if (VKM.Text == "")
+            {
+                MessageBox.Show("El campo Valor del KM no puede estar vacio");
                 return false;
             }
-            if ((Int32.Parse(txtHoraInicialA.Text) > 23) || (Int32.Parse(txtHoraFinalA.Text) > 23) || (0 > Int32.Parse(txtHoraInicialA.Text)) || (0 > Int32.Parse(txtHoraFinalA.Text))) {
-                MessageBox.Show("Uno de los campos de horas es inválido. Por favor ingrese un valor de 0 a 23");
-                return false;
-            }
-            if (txtDesc.Text == "") {
-                MessageBox.Show("El campo descripción no puede estar vacio");
+
+            if (PB.Text == "")
+            {
+                MessageBox.Show("El campo Precio Base no puede estar vacio");
                 return false;
             }
             return true;
@@ -89,13 +108,13 @@ namespace UberFrba.Abm_Turno {
             cmbTurno.SelectedIndex = -1;
            labelEstado.Text = "";
            habilit.Enabled = false ;
-            txtHoraInicialA.Clear();
-            txtHoraInicialB.Clear();
-            txtHoraFinalA.Clear();
-            txtHoraFinalB.Clear();
-            txtDesc.Clear();
-            txtValorKm.Clear();
-            txtPrecioBase.Clear();
+            HHH.ResetText();
+            HHM.ResetText();
+            HDM.ResetText();
+            HDH.ResetText();
+            DETALLE.Clear();
+            VKM.Clear();
+            PB.Clear();
         }
 
         private void ModificarTurno_Load(object sender, EventArgs e) {
@@ -115,20 +134,26 @@ namespace UberFrba.Abm_Turno {
                 }
                 string horaInicial = dt.Rows[0][1].ToString();
                 string horaFinal = dt.Rows[0][2].ToString();
-                txtHoraInicialA.Text = horaInicial.Substring(0, 2);
-                txtHoraInicialB.Text = horaInicial.Substring(3, 2);
-                txtHoraFinalA.Text = horaFinal.Substring(0, 2);
-                txtHoraFinalB.Text = horaFinal.Substring(3, 2);
-                txtDesc.Text = dt.Rows[0][3].ToString();
-                txtValorKm.Text = dt.Rows[0][4].ToString();
-                txtPrecioBase.Text = dt.Rows[0][5].ToString();
+                HDH.Text = horaInicial.Substring(0, 2);
+                HDM.Text = horaInicial.Substring(3, 2);
+                HHH.Text = horaFinal.Substring(0, 2);
+                HHM.Text = horaFinal.Substring(3, 2);
+                DETALLE.Text = dt.Rows[0][3].ToString();
+                VKM.Text = dt.Rows[0][4].ToString();
+                PB.Text = dt.Rows[0][5].ToString();
             }
         }
 
         private void btnMod_Click(object sender, EventArgs e) {
-            if (validaciones() && Conexion.executeProcedure("MODIFICAR_TURNO", Conexion.generarArgumentos("@ID", "@DESCRIPCION", "@HORA_INICIO", "@HORA_FIN", "@PRECIOBASE", "@VALORKM"), cmbTurno.SelectedValue, txtDesc.Text, txtHoraInicialA.Text + ":" + txtHoraInicialB.Text, txtHoraFinalA.Text + ":" + txtHoraFinalB.Text, Convert.ToDouble(txtPrecioBase.Text), Convert.ToDouble(txtValorKm.Text)))
-                MessageBox.Show("Turno modificado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Limpiar();
+            if (validaciones()){
+                if(Funciones.validacionesCrearTurno(HDH.Value, HDM.Value, HHH.Value, HHM.Value,DETALLE.Text)){
+                    bool result = Conexion.executeProcedure("MODIFICAR_TURNO", Conexion.generarArgumentos("@ID", "@DESCRIPCION", "@HORA_INICIO", "@HORA_FIN", "@PRECIOBASE", "@VALORKM"), cmbTurno.SelectedValue, DETALLE.Text, HDH.Text + ":" + HDM.Text, HHH.Text + ":" + HHM.Text, Convert.ToDouble(PB.Text), Convert.ToDouble(VKM.Text));
+                    if(result){
+                        MessageBox.Show("Turno modificado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Limpiar();
+                    }
+                }
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e) {
@@ -142,14 +167,19 @@ namespace UberFrba.Abm_Turno {
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bool conex = Conexion.executeProcedure("HABILITAR_TURNO", Conexion.generarArgumentos("@ID", "@DESCRIPCION", "@HORA_INICIO", "@HORA_FIN", "@PRECIOBASE", "@VALORKM"),
-                cmbTurno.SelectedValue, txtDesc.Text, txtHoraInicialA.Text + ":" + txtHoraInicialB.Text, txtHoraFinalA.Text + ":" + txtHoraFinalB.Text, Convert.ToDouble(txtPrecioBase.Text), Convert.ToDouble(txtValorKm.Text));
-            if (conex)
+            if (validaciones())
             {
-                MessageBox.Show("Turno habilitado correctamente");
-                Limpiar();
+                if (Funciones.validacionesCrearTurno(HDH.Value, HDM.Value, HHH.Value, HHM.Value, DETALLE.Text))
+                {
+                    bool conex = Conexion.executeProcedure("HABILITAR_TURNO", Conexion.generarArgumentos("@ID", "@DESCRIPCION", "@HORA_INICIO", "@HORA_FIN", "@PRECIOBASE", "@VALORKM"),
+                        cmbTurno.SelectedValue, DETALLE.Text, HDH.Text + ":" + HDM.Text, HHH.Text + ":" + HHM.Text, Convert.ToDouble(PB.Text), Convert.ToDouble(VKM.Text));
+                    if (conex)
+                    {
+                        MessageBox.Show("Turno habilitado correctamente");
+                        Limpiar();
+                    }
+                }
             }
-    
         }
     }
 }

@@ -13,8 +13,8 @@ namespace UberFrba.Abm_Turno {
             HDM.Minimum = 0;
             HDM.Maximum = 59;
 
-            HHH.Minimum = 1;
-            HHH.Maximum = 24;
+            HHH.Minimum = 0;
+            HHH.Maximum = 23;
              
             HHM.Minimum = 0;
             HHM.Maximum = 59;
@@ -133,6 +133,11 @@ namespace UberFrba.Abm_Turno {
         }
 
         private void HHD_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void HHH_ValueChanged(object sender, EventArgs e)
         {
 
         }
