@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 
 namespace UberFrba.Abm_Automovil {
@@ -65,9 +64,7 @@ namespace UberFrba.Abm_Automovil {
                 }
             }
         }
-        private bool validacionesCreacionAuto() {
-            SqlDataReader reader = Conexion.ejecutarQuery("select turn_id, turn_habilitado, turn_descripcion, turn_hora_inicio, turn_hora_fin from RUBIRA_SANTOS.TURNO ");
-        }
+        
         private bool validaciones(){
             if (comboBox1.SelectedIndex == -1) { 
                 MessageBox.Show("El campo Marca no puede estar vacio");
