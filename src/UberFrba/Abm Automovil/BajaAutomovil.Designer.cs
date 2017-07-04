@@ -67,6 +67,7 @@
             this.cmbPatente.Name = "cmbPatente";
             this.cmbPatente.Size = new System.Drawing.Size(208, 21);
             this.cmbPatente.TabIndex = 8;
+            this.cmbPatente.SelectedIndexChanged += new System.EventHandler(this.cmbPatente_SelectedIndexChanged);
             // 
             // Baja_Automovil
             // 

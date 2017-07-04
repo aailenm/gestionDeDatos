@@ -9,7 +9,7 @@ namespace UberFrba.Abm_Turno {
 
         private void refrescarTurnos() {
             cmbDesc.DataSource = Conexion.cargarTablaConsulta("GET_HABILITADOS_TURNOS");
-            cmbDesc.SelectedIndex = 0;
+            cmbDesc.SelectedIndex = -1;
             cmbDesc.Focus();
         }
 

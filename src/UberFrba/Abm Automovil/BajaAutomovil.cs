@@ -9,7 +9,7 @@ namespace UberFrba.Abm_Automovil {
 
         private void refrescarPatentes() {
             cmbPatente.DataSource = Conexion.cargarTablaConsulta("GET_PATENTES");
-            cmbPatente.SelectedIndex = 0;
+            cmbPatente.SelectedIndex = -1;
             cmbPatente.Focus();
         }
 
@@ -27,6 +27,11 @@ namespace UberFrba.Abm_Automovil {
             cmbPatente.ValueMember = "auto_id";
             cmbPatente.DisplayMember = "auto_patente";
             refrescarPatentes();
+        }
+
+        private void cmbPatente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

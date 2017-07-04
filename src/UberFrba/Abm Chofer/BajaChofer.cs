@@ -9,7 +9,7 @@ namespace UberFrba.Abm_Chofer {
 
         private void refrescarChoferes() {
             cmbTeléfonos.DataSource = Conexion.cargarTablaConsulta("GET_CHOFERES");
-            cmbTeléfonos.SelectedIndex = 0;
+            cmbTeléfonos.SelectedIndex = -1;
             cmbTeléfonos.Focus();
         }
 

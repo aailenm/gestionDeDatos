@@ -1,9 +1,52 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace UberFrba {
     class Funciones
     {
+
+        internal static bool validacionesCrearTurno(decimal horaDesde, decimal minutosDesde, decimal horaHasta, decimal minutosHasta, string descripcion) {
+            int hd = Int32.Parse(horaDesde.ToString());
+            int md = Int32.Parse(minutosDesde.ToString());
+            int hh = Int32.Parse(horaHasta.ToString());
+            int mh = Int32.Parse(minutosHasta.ToString());
+            
+            if (hd > hh) {
+                MessageBox.Show("El turno debe comenzar y finalizar el mismo dia. La hora de inicio no puede ser mayor a la de fin");
+                return false;
+            }
+            if ((hd == hh) && (md > mh))
+            {
+                MessageBox.Show("El turno debe comenzar y finalizar el mismo dia. La hora de inicio no puede ser mayor a la de fin");
+                return false;
+            }
+            if (hd == hh && md == mh)
+            {
+                MessageBox.Show("La hora inicio y la hora fin no pueden ser iguales, porque no es un rango de horarios validos");
+                return false;
+            }
+            //hasta aca, validaciones simples
+            SqlDataReader reader = Conexion.ejecutarQuery("select turn_id, turn_habilitado, turn_descripcion, turn_hora_inicio, turn_hora_fin from RUBIRA_SANTOS.TURNO ";
+            reader.Read();
+            while(reader.Read()){
+                if (reader["turn_descripcion"]== descripcion)
+                {
+                    MessageBox.Show("Ya existe un turno con esta descripcion");
+                    return false;
+                }else if (reader["turn_habilitado"] == "0" )
+                {
+                    // si el turno no esta habilitado, no hacemos nada, y vuelve a iterar
+                } else if () //el turno esta habilitado. Pregunto si existe una franja mas grande que la actual
+                {
+                    MessageBox.Show("");
+                    return false;
+                }
+            }
+            reader.Close();
+            return true;
+        }
         /*verifica que una cadena text sea solo de numeros*/
         internal static bool esNumero(string s)
         {
@@ -12,6 +55,22 @@ namespace UberFrba {
                 if (!Char.IsDigit(c))
                     return false;
             }
+            return true;
+        }
+
+        internal static bool validacionPrecio(string porc)
+        {
+            int comas = 0;
+            foreach (char c in porc)
+            {
+                if (!Char.IsDigit(c) && c != ',') return false;
+                else if (c == ',')
+                {
+                    comas++;
+                    if (comas > 1) return false;
+                }
+            }
+
             return true;
         }
 

@@ -9,7 +9,7 @@ namespace UberFrba.Abm_Rol {
 
         private void refrescarRoles() {
             cmbRol.DataSource = Conexion.obtenerTablaProcedure("GET_ROLES", Conexion.generarArgumentos("@DESCRIPCION"), "");
-            cmbRol.SelectedIndex = 0;
+            cmbRol.SelectedIndex = -1;
             cmbRol.Focus();
         }
 
