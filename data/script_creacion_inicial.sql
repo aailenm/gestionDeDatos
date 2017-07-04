@@ -746,26 +746,48 @@ BEGIN
 END
 
 GO
-CREATE PROCEDURE RUBIRA_SANTOS.ALTA_AUTOMOVIL(@MARCA INT, @MODELO nvarchar(255), @PATENTE nvarchar(255), @TURNO int, @CHOFER INT)
+CREATE PROCEDURE RUBIRA_SANTOS.ALTA_AUTOMOVIL(@MARCA INT, @MODELO nvarchar(255), @PATENTE nvarchar(255), @CHOFER INT, @AUTO INT, @TURNO INT)
 AS 
+DECLARE @MODELONUEVO NVARCHAR(250), @MARCANUEVO INT, @ID INT, @CHOFER2 int
 BEGIN 
-	DECLARE @AUTOID int
-	IF(NOT EXISTS(SELECT * FROM RUBIRA_SANTOS.AUTOMOVIL WHERE auto_patente = @PATENTE))
-		IF(NOT EXISTS(SELECT * FROM RUBIRA_SANTOS.AUTO_POR_TURNO apt JOIN RUBIRA_SANTOS.AUTOMOVIL a ON apt.auto_id = a.auto_id
-					 WHERE chof_id = @CHOFER AND a.auto_habilitado = 1))
-			BEGIN
-				INSERT INTO RUBIRA_SANTOS.AUTOMOVIL(auto_patente, auto_modelo, auto_marca)
-				VALUES(@PATENTE, @MODELO, @MARCA)
-				
-				SELECT @AUTOID = auto_id FROM RUBIRA_SANTOS.AUTOMOVIL WHERE auto_patente = @PATENTE
-				
-				INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(auto_id, chof_id, turn_id, turn_turnoActivo)
-				VALUES(@AUTOID, @CHOFER, @TURNO, @TURNO)
+	IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTOMOVIL WHERE auto_patente = @PATENTE))
+	BEGIN
+		INSERT INTO RUBIRA_SANTOS.AUTOMOVIL(auto_marca, auto_modelo, auto_patente)
+		values(@MARCA, @MODELO, @PATENTE)
+		INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, auto_id, turn_id, turn_turnoActivo)
+		values(@CHOFER,@AUTO, @TURNO, @TURNO)
+	END
+	ELSE 
+		BEGIN
+		SELECT @ID = AUTO_ID, @MODELONUEVO = auto_modelo, @MARCANUEVO = auto_marca from RUBIRA_SANTOS.AUTOMOVIL where auto_patente = @PATENTE
+		IF(@MODELONUEVO = @MODELO and @MARCANUEVO = @MARCA)
+			IF(EXISTS(SELECT 1 FROM rubira_santos.AUTO_POR_TURNO where auto_id = @ID and turn_id = @TURNO and chof_id IS NULL))
+				UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFER WHERE auto_id = @AUTO AND  turn_id = @TURNO AND turn_turnoActivo = @TURNO
+			ELSE
+				BEGIN
+					IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE auto_id = @AUTO AND @TURNO = turn_id))
+						INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, auto_id, turn_id, turn_turnoActivo)
+						values(@CHOFER,@AUTO, @TURNO, @TURNO)
+					ELSE 
+					BEGIN
+					SELECT @CHOFER2 = CHOF_ID FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE @AUTO = auto_id AND @TURNO = turn_id
+					IF(@CHOFER = @CHOFER2)
+						RAISERROR('Ya está ingresado el auto, con este turno y este chofer',16,217) WITH SETERROR
+					ELSE
+						RAISERROR('El auto en ese turno ya tiene un chofer asignado',16,217) WITH SETERROR
+					END
 			END
 		ELSE
-			RAISERROR ('El chofer ya tiene asignado un auto habilitado', 16, 217) WITH SETERROR
-	ELSE
-		RAISERROR ('El auto ya existe', 16, 217) WITH SETERROR
+			RAISERROR('Ya hay un auto con la misma patente.',16,217) WITH SETERROR
+	END
+END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.ALTA_APT(@CHOFER INT, @AUTO INT, @TURNO INT)
+AS
+BEGIN
+	INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, auto_id, turn_id, turn_turnoActivo)
+	values(@CHOFER,@AUTO, @TURNO, @TURNO)
 END
 
 GO
