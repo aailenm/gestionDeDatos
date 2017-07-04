@@ -27,26 +27,56 @@ namespace UberFrba {
                 MessageBox.Show("La hora inicio y la hora fin no pueden ser iguales, porque no es un rango de horarios validos");
                 return false;
             }
+            TimeSpan nuevoInicio = new TimeSpan(hd,md,0);
+            TimeSpan nuevoFin = new TimeSpan(hh,mh,0) ;
             //hasta aca, validaciones simples
             SqlDataReader reader = Conexion.ejecutarQuery("select turn_id, turn_habilitado, turn_descripcion, turn_hora_inicio, turn_hora_fin from RUBIRA_SANTOS.TURNO ";
             reader.Read();
             while(reader.Read()){
-                if (reader["turn_descripcion"]== descripcion)
-                {
-                    MessageBox.Show("Ya existe un turno con esta descripcion");
-                    return false;
-                }else if (reader["turn_habilitado"] == "0" )
-                {
-                    // si el turno no esta habilitado, no hacemos nada, y vuelve a iterar
-                } else if () //el turno esta habilitado. Pregunto si existe una franja mas grande que la actual
-                {
-                    MessageBox.Show("");
-                    return false;
-                }
+                TimeSpan viejoInicio = TimeSpan.Parse(reader["turn_hora_inicio"].ToString());
+                TimeSpan viejoFin = TimeSpan.Parse(reader["turn_hora_fin"].ToString());
+                if(!existeDescripcionTurno(reader["turn_descripcion"].ToString(), descripcion)){
+                    if(turnoACompararEstaHabilitado(reader["turn_habilitado"].ToString())){
+                        if(!franjaMayor(nuevoInicio, nuevoFin, viejoInicio, viejoFin)){
+                            if(!franjaMayor(viejoInicio, viejoFin, nuevoInicio, nuevoFin)){
+                                if(!horaDentroDeRangoExistente(nuevoInicio, viejoInicio, viejoFin)){
+                                     if(!horaDentroDeRangoExistente(nuevoFin, viejoInicio, viejoFin)){
+                                     }else {
+                                     MessageBox.Show("La hora fin está dentro de un turno existente");
+                                     return false;
+                                     }//la nueva hora de fin esta dentro de un rango horario existente
+                                }// la nueva hora de inicio esta dentro de un rango horario existente
+                            }//la franja nueva esta dentro de otra mas grande
+                        } // la nueva franja abarca a 1 mas chica
+                    }// comparo contra turnos habilitados nomas
+                } // descripcion turno
             }
             reader.Close();
             return true;
         }
+
+        internal static bool existeDescripcionTurno(string turno1, string turno2) {
+            if (turno1.Equals(turno2)) return true;
+            else return false;
+        }
+
+        internal static bool turnoACompararEstaHabilitado(string habilitado)
+        {
+            if(habilitado.Equals("1")) return true;
+            else return false;
+        }
+
+        /*devuelve verdadero si la primera franja abarca (o contiene) a la segunda*/
+        internal static bool franjaMayor( TimeSpan menorInicio, TimeSpan mayorFin, TimeSpan mayorInicio, TimeSpan menorFin) {
+            if (menorInicio < mayorInicio && mayorFin > menorFin) return true;
+            else return false;
+        }
+
+        internal static bool horaDentroDeRangoExistente(TimeSp)
+        {
+            return true;
+        }
+
         /*verifica que una cadena text sea solo de numeros*/
         internal static bool esNumero(string s)
         {
