@@ -54,7 +54,7 @@ namespace UberFrba.Abm_Usuario
         private void refrescarUsuarios()
         {
             cmbUsuario.DataSource = Conexion.cargarTablaConsulta("GET_USUARIOS_TOTALES");
-            cmbUsuario.SelectedIndex = 0;
+            cmbUsuario.SelectedIndex = -1;
             cmbUsuario.Focus();
         }
 
@@ -89,24 +89,28 @@ namespace UberFrba.Abm_Usuario
         {
             if (string.IsNullOrEmpty(cmbUsuario.Text))
             {
-                MessageBox.Show("Debe ingresar el usuario a modificar.", "Hay campos incompletos",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Debe ingresar un usuario a modificar");
             }
+            else
+            {
 
-            traerRoles();
-            SqlDataReader reader = Conexion.ejecutarQuery("Select usua_habilitado from RUBIRA_SANTOS.USUARIO where usua_id = " + cmbUsuario.SelectedValue);
-            reader.Read();
-            string usuahabi = reader["usua_habilitado"].ToString();
-            if(usuahabi.Equals("True")){
-                label8.Text = "Usuario Habilitado";
-                habilitusua.Enabled = false;
+                traerRoles();
+                SqlDataReader reader = Conexion.ejecutarQuery("Select usua_habilitado from RUBIRA_SANTOS.USUARIO where usua_id = " + cmbUsuario.SelectedValue);
+                reader.Read();
+                string usuahabi = reader["usua_habilitado"].ToString();
+                if (usuahabi.Equals("True"))
+                {
+                    label8.Text = "Usuario Habilitado";
+                    habilitusua.Enabled = false;
+                }
+                else
+                {
+                    label8.Text = "Usuario Inhabilitado";
+                    habilitusua.Enabled = true;
+                }
+                reader.Close();
+                //traerDatos();
             }
-            else {
-                label8.Text = "Usuario Inhabilitado";
-                habilitusua.Enabled = true;
-            }
-            reader.Close();
-            //traerDatos();
         }
         private void traerDatos(List<int> roles)
         {
@@ -241,8 +245,14 @@ namespace UberFrba.Abm_Usuario
 
         private void btnMod_Click(object sender, EventArgs e)
         {
-            modificarPorRol();
-
+            if (string.IsNullOrEmpty(cmbUsuario.Text))
+            {
+                MessageBox.Show("Debe ingresar un usuario a modificar");
+            }
+            else
+            {
+                modificarPorRol();
+            }
         }
         private void modificarPorRol()
         {

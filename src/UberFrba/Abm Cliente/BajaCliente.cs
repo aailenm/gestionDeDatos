@@ -13,11 +13,19 @@ namespace UberFrba.Abm_Cliente {
             cmbTeléfonos.Focus();
         }
 
-        private void btnInhabilitar_Click(object sender, EventArgs e) {
-            if (Conexion.executeProcedure("BAJA_CLIENTE", Conexion.generarArgumentos("@ID"), cmbTeléfonos.SelectedValue))
-                MessageBox.Show("Cliente dado de baja", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else MessageBox.Show("No fue posible dar de baja al cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            refrescarClientes();
+        private void btnInhabilitar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(cmbTeléfonos.Text))
+            {
+                MessageBox.Show("Elija un cliente");
+            }
+            else
+            {
+                if (Conexion.executeProcedure("BAJA_CLIENTE", Conexion.generarArgumentos("@ID"), cmbTeléfonos.SelectedValue))
+                    MessageBox.Show("Cliente dado de baja", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBox.Show("No fue posible dar de baja al cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                refrescarClientes();
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e) {

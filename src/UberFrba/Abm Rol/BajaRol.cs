@@ -13,10 +13,18 @@ namespace UberFrba.Abm_Rol {
             cmbRol.Focus();
         }
 
-        private void btnInhabilitar_Click(object sender, EventArgs e) {
-            if (Conexion.executeProcedure("BAJA_ROL", Conexion.generarArgumentos("@ID"), cmbRol.SelectedValue))
-                MessageBox.Show("Rol dado de baja", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            refrescarRoles();
+        private void btnInhabilitar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(cmbRol.Text))
+            {
+                MessageBox.Show("Elija un rol");
+            }
+            else
+            {
+                if (Conexion.executeProcedure("BAJA_ROL", Conexion.generarArgumentos("@ID"), cmbRol.SelectedValue))
+                    MessageBox.Show("Rol dado de baja", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                refrescarRoles();
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e) {

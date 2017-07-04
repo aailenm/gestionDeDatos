@@ -13,10 +13,18 @@ namespace UberFrba.Abm_Automovil {
             cmbPatente.Focus();
         }
 
-        private void btnInhabilitar_Click(object sender, EventArgs e) {
-            if (Conexion.executeProcedure("BAJA_AUTOMOVIL", Conexion.generarArgumentos("@ID"), cmbPatente.SelectedValue))
-                MessageBox.Show("Auto dado de baja", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            refrescarPatentes();
+        private void btnInhabilitar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(cmbPatente.Text))
+            {
+                MessageBox.Show("Elija un auto");
+            }
+            else
+            {
+                if (Conexion.executeProcedure("BAJA_AUTOMOVIL", Conexion.generarArgumentos("@ID"), cmbPatente.SelectedValue))
+                    MessageBox.Show("Auto dado de baja", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                refrescarPatentes();
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e) {
