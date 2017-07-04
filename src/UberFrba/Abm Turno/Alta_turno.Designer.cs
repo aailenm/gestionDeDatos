@@ -92,6 +92,7 @@
             this.HHH.ReadOnly = true;
             this.HHH.Size = new System.Drawing.Size(39, 20);
             this.HHH.TabIndex = 59;
+            this.HHH.ValueChanged += new System.EventHandler(this.HHH_ValueChanged);
             // 
             // HDM
             // 

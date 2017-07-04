@@ -26,23 +26,27 @@
             this.lblTurno = new System.Windows.Forms.Label();
             this.cmbTurno = new System.Windows.Forms.ComboBox();
             this.lblDesc = new System.Windows.Forms.Label();
-            this.txtDesc = new System.Windows.Forms.TextBox();
-            this.txtPrecioBase = new System.Windows.Forms.TextBox();
+            this.DETALLE = new System.Windows.Forms.TextBox();
+            this.PB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtValorKm = new System.Windows.Forms.TextBox();
+            this.VKM = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtHoraInicialA = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtHoraInicialB = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtHoraFinalA = new System.Windows.Forms.TextBox();
-            this.txtHoraFinalB = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.btnMod = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
             this.labelEstado = new System.Windows.Forms.Label();
             this.habilit = new System.Windows.Forms.Button();
+            this.HHM = new System.Windows.Forms.NumericUpDown();
+            this.HHH = new System.Windows.Forms.NumericUpDown();
+            this.HDM = new System.Windows.Forms.NumericUpDown();
+            this.HDH = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.HHM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HHH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HDM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HDH)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTurno
@@ -75,19 +79,19 @@
             this.lblDesc.Text = "Descripción";
             this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txtDesc
+            // DETALLE
             // 
-            this.txtDesc.Location = new System.Drawing.Point(84, 40);
-            this.txtDesc.Name = "txtDesc";
-            this.txtDesc.Size = new System.Drawing.Size(188, 20);
-            this.txtDesc.TabIndex = 3;
+            this.DETALLE.Location = new System.Drawing.Point(84, 40);
+            this.DETALLE.Name = "DETALLE";
+            this.DETALLE.Size = new System.Drawing.Size(188, 20);
+            this.DETALLE.TabIndex = 3;
             // 
-            // txtPrecioBase
+            // PB
             // 
-            this.txtPrecioBase.Location = new System.Drawing.Point(84, 67);
-            this.txtPrecioBase.Name = "txtPrecioBase";
-            this.txtPrecioBase.Size = new System.Drawing.Size(188, 20);
-            this.txtPrecioBase.TabIndex = 4;
+            this.PB.Location = new System.Drawing.Point(84, 67);
+            this.PB.Name = "PB";
+            this.PB.Size = new System.Drawing.Size(188, 20);
+            this.PB.TabIndex = 4;
             // 
             // label1
             // 
@@ -99,12 +103,12 @@
             this.label1.Text = "Precio Base";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txtValorKm
+            // VKM
             // 
-            this.txtValorKm.Location = new System.Drawing.Point(84, 94);
-            this.txtValorKm.Name = "txtValorKm";
-            this.txtValorKm.Size = new System.Drawing.Size(188, 20);
-            this.txtValorKm.TabIndex = 6;
+            this.VKM.Location = new System.Drawing.Point(84, 94);
+            this.VKM.Name = "VKM";
+            this.VKM.Size = new System.Drawing.Size(188, 20);
+            this.VKM.TabIndex = 6;
             // 
             // label2
             // 
@@ -116,13 +120,6 @@
             this.label2.Text = "Valor del Km";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txtHoraInicialA
-            // 
-            this.txtHoraInicialA.Location = new System.Drawing.Point(84, 122);
-            this.txtHoraInicialA.Name = "txtHoraInicialA";
-            this.txtHoraInicialA.Size = new System.Drawing.Size(41, 20);
-            this.txtHoraInicialA.TabIndex = 8;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -133,22 +130,6 @@
             this.label3.Text = "Hora Inicial";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txtHoraInicialB
-            // 
-            this.txtHoraInicialB.Location = new System.Drawing.Point(146, 122);
-            this.txtHoraInicialB.Name = "txtHoraInicialB";
-            this.txtHoraInicialB.Size = new System.Drawing.Size(41, 20);
-            this.txtHoraInicialB.TabIndex = 10;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(131, 125);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(10, 13);
-            this.label4.TabIndex = 11;
-            this.label4.Text = ":";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -158,29 +139,6 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "Hora Final";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtHoraFinalA
-            // 
-            this.txtHoraFinalA.Location = new System.Drawing.Point(84, 148);
-            this.txtHoraFinalA.Name = "txtHoraFinalA";
-            this.txtHoraFinalA.Size = new System.Drawing.Size(41, 20);
-            this.txtHoraFinalA.TabIndex = 13;
-            // 
-            // txtHoraFinalB
-            // 
-            this.txtHoraFinalB.Location = new System.Drawing.Point(146, 148);
-            this.txtHoraFinalB.Name = "txtHoraFinalB";
-            this.txtHoraFinalB.Size = new System.Drawing.Size(41, 20);
-            this.txtHoraFinalB.TabIndex = 14;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(131, 151);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(10, 13);
-            this.label6.TabIndex = 15;
-            this.label6.Text = ":";
             // 
             // btnMod
             // 
@@ -224,34 +182,88 @@
             this.habilit.UseVisualStyleBackColor = true;
             this.habilit.Click += new System.EventHandler(this.button1_Click);
             // 
+            // HHM
+            // 
+            this.HHM.Location = new System.Drawing.Point(148, 149);
+            this.HHM.Name = "HHM";
+            this.HHM.ReadOnly = true;
+            this.HHM.Size = new System.Drawing.Size(39, 20);
+            this.HHM.TabIndex = 66;
+            // 
+            // HHH
+            // 
+            this.HHH.Location = new System.Drawing.Point(90, 150);
+            this.HHH.Name = "HHH";
+            this.HHH.ReadOnly = true;
+            this.HHH.Size = new System.Drawing.Size(39, 20);
+            this.HHH.TabIndex = 65;
+            // 
+            // HDM
+            // 
+            this.HDM.Location = new System.Drawing.Point(148, 120);
+            this.HDM.Name = "HDM";
+            this.HDM.ReadOnly = true;
+            this.HDM.Size = new System.Drawing.Size(39, 20);
+            this.HDM.TabIndex = 64;
+            // 
+            // HDH
+            // 
+            this.HDH.Location = new System.Drawing.Point(90, 120);
+            this.HDH.Name = "HDH";
+            this.HDH.ReadOnly = true;
+            this.HDH.Size = new System.Drawing.Size(39, 20);
+            this.HDH.TabIndex = 63;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(132, 123);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(10, 13);
+            this.label7.TabIndex = 62;
+            this.label7.Text = ":";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(132, 152);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(10, 13);
+            this.label6.TabIndex = 61;
+            this.label6.Text = ":";
+            // 
             // Modificar_Turno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(371, 217);
+            this.Controls.Add(this.HHM);
+            this.Controls.Add(this.HHH);
+            this.Controls.Add(this.HDM);
+            this.Controls.Add(this.HDH);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.habilit);
             this.Controls.Add(this.labelEstado);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnMod);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.txtHoraFinalB);
-            this.Controls.Add(this.txtHoraFinalA);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtHoraInicialB);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtHoraInicialA);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtValorKm);
+            this.Controls.Add(this.VKM);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtPrecioBase);
-            this.Controls.Add(this.txtDesc);
+            this.Controls.Add(this.PB);
+            this.Controls.Add(this.DETALLE);
             this.Controls.Add(this.lblDesc);
             this.Controls.Add(this.cmbTurno);
             this.Controls.Add(this.lblTurno);
             this.Name = "Modificar_Turno";
             this.Text = "Modificación de Turno";
             this.Load += new System.EventHandler(this.ModificarTurno_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.HHM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HHH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HDM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HDH)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,22 +274,22 @@
         private System.Windows.Forms.Label lblTurno;
         private System.Windows.Forms.ComboBox cmbTurno;
         private System.Windows.Forms.Label lblDesc;
-        private System.Windows.Forms.TextBox txtDesc;
-        private System.Windows.Forms.TextBox txtPrecioBase;
+        private System.Windows.Forms.TextBox DETALLE;
+        private System.Windows.Forms.TextBox PB;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtValorKm;
+        private System.Windows.Forms.TextBox VKM;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtHoraInicialA;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtHoraInicialB;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtHoraFinalA;
-        private System.Windows.Forms.TextBox txtHoraFinalB;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnMod;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Label labelEstado;
         private System.Windows.Forms.Button habilit;
+        private System.Windows.Forms.NumericUpDown HHM;
+        private System.Windows.Forms.NumericUpDown HHH;
+        private System.Windows.Forms.NumericUpDown HDM;
+        private System.Windows.Forms.NumericUpDown HDH;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }
