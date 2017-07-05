@@ -750,40 +750,49 @@ BEGIN
 END
 
 GO
-CREATE PROCEDURE RUBIRA_SANTOS.ALTA_AUTOMOVIL(@MARCA INT, @MODELO nvarchar(255), @PATENTE nvarchar(255), @CHOFER INT, @TURNO INT)
-AS 
-DECLARE @MODELONUEVO NVARCHAR(250), @MARCANUEVO INT, @ID INT, @CHOFER2 int, @AUTO INT
-BEGIN 
-	IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTOMOVIL WHERE auto_patente = @PATENTE))
+CREATE PROCEDURE rubira_santos.ALTA_AUTOMOVIL(@MARCA INT, @MODELO nvarchar(255), @PATENTE nvarchar(255), @CHOFER INT, @TURNO INT)
+AS
+DECLARE @MODELONUEVO NVARCHAR(250), @MARCANUEVO INT, @CHOFER2 int, @AUTO INT
+BEGIN
+IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE chof_id = @CHOFER))
+	RAISERROR('El chofer seleccionado ya tiene un auto asignado. La aplicacion no permite que un chofer tenga más de un auto habilitado asignado. Por favor, primero desasocie el chofer del auto',16,217) WITH SETERROR
+ELSE
 	BEGIN
-		INSERT INTO RUBIRA_SANTOS.AUTOMOVIL(auto_marca, auto_modelo, auto_patente)
-		values(@MARCA, @MODELO, @PATENTE)
-		SELECT @AUTO = auto_id FROM RUBIRA_SANTOS.AUTOMOVIL WHERE auto_patente = @PATENTE
-		INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, auto_id, turn_id, turn_turnoActivo)
-		values(@CHOFER,@AUTO, @TURNO, @TURNO)
-	END
-	ELSE 
+	IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTOMOVIL WHERE auto_patente = @PATENTE))
 		BEGIN
-		SELECT @ID = AUTO_ID, @MODELONUEVO = auto_modelo, @MARCANUEVO = auto_marca from RUBIRA_SANTOS.AUTOMOVIL where auto_patente = @PATENTE
-		IF(@MODELONUEVO = @MODELO and @MARCANUEVO = @MARCA)
-			IF(EXISTS(SELECT 1 FROM rubira_santos.AUTO_POR_TURNO where auto_id = @ID and turn_id = @TURNO and chof_id IS NULL))
-				UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFER WHERE auto_id = @AUTO AND  turn_id = @TURNO AND turn_turnoActivo = @TURNO
-			ELSE
+			INSERT INTO RUBIRA_SANTOS.AUTOMOVIL(auto_marca, auto_modelo, auto_patente)
+			values(@MARCA, @MODELO, @PATENTE)
+		
+			SELECT @AUTO = auto_id FROM RUBIRA_SANTOS.AUTOMOVIL WHERE auto_patente = @PATENTE
+		
+			INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, auto_id, turn_id, turn_turnoActivo)
+			values(@CHOFER,@AUTO, @TURNO, @TURNO)	
+		END
+	ELSE
+		BEGIN
+			SELECT @AUTO = AUTO_ID, @MODELONUEVO = auto_modelo, @MARCANUEVO = auto_marca from RUBIRA_SANTOS.AUTOMOVIL where auto_patente = @PATENTE
+			IF(@MODELONUEVO = @MODELO and @MARCANUEVO = @MARCA)
 				BEGIN
-					IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE auto_id = @AUTO AND @TURNO = turn_id))
-						INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, auto_id, turn_id, turn_turnoActivo)
-						values(@CHOFER,@AUTO, @TURNO, @TURNO)
-					ELSE 
-					BEGIN
-					SELECT @CHOFER2 = CHOF_ID FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE @AUTO = auto_id AND @TURNO = turn_id
-					IF(@CHOFER = @CHOFER2)
-						RAISERROR('Ya está ingresado el auto, con este turno y este chofer',16,217) WITH SETERROR
+					IF(EXISTS(SELECT 1 FROM rubira_santos.AUTO_POR_TURNO where auto_id = @AUTO and turn_id = @TURNO and chof_id IS NULL))
+						UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFER WHERE auto_id = @AUTO AND  turn_id = @TURNO AND turn_turnoActivo = @TURNO
 					ELSE
-						RAISERROR('El auto en ese turno ya tiene un chofer asignado',16,217) WITH SETERROR
-					END
-			END
-		ELSE
-			RAISERROR('Ya hay un auto con la misma patente.',16,217) WITH SETERROR
+						BEGIN
+							IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE auto_id = @AUTO AND @TURNO = turn_id))
+								INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, auto_id, turn_id, turn_turnoActivo)
+								values(@CHOFER,@AUTO, @TURNO, @TURNO)
+							ELSE
+								BEGIN
+									SELECT @CHOFER2 = CHOF_ID FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE @AUTO = auto_id AND @TURNO = turn_id
+									IF(@CHOFER = @CHOFER2)
+										RAISERROR('Ya está ingresado el auto, con este turno y este chofer',16,217) WITH SETERROR
+									ELSE
+										RAISERROR('El auto en ese turno ya tiene un chofer asignado',16,217) WITH SETERROR
+								END
+						END
+				END
+			ELSE
+				RAISERROR('Ya hay un auto con la misma patente.',16,217) WITH SETERROR
+		END
 	END
 END
 
