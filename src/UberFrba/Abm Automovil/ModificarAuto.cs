@@ -41,11 +41,16 @@ namespace UberFrba.Abm_Automovil {
 
         }
         public void editarTurno(string id) {
-            turnos.SelectedValue = id;
+            if (id != "")
+            {
+                turnos.SelectedValue = id;
+            }
+            else turnos.SelectedValue  = 0;
         }
         public void editarChofer(string id)
         {
             chofer.Text = id;
+            button3.Enabled = true;
         }
         
         private void LlenarCombos()
@@ -144,6 +149,7 @@ namespace UberFrba.Abm_Automovil {
             if (conex)
             {
                 MessageBox.Show("Automovil habilitado correctamente");
+                button3.Enabled = true;
             }
         }
 
@@ -162,10 +168,7 @@ namespace UberFrba.Abm_Automovil {
             }
         }
 
-        private void chofer_TextChanged(object sender, EventArgs e)
-        {
-            if (chofer.Text != "") button3.Enabled = true;
-        }
+        private void chofer_TextChanged(object sender, EventArgs e) { }
 
         private void labelEstado_Click(object sender, EventArgs e)
         {

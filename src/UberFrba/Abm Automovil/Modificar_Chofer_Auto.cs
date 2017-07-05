@@ -34,14 +34,22 @@ namespace UberFrba.Abm_Automovil
         public void setChofOriginal(string id) {
             this.chofOrigen.Text = id;
         }
+
         public void setTurnoOriginal(ListControl id) {
-            this.turnOrigen.SelectedValue = id.SelectedValue;
+            if (id.SelectedIndex != -1)
+            {
+                this.turnOrigen.SelectedValue = id.SelectedValue;
+            }
+            else this.turnOrigen.SelectedValue = 0;
         }
         private void Aceptar_Click(object sender, EventArgs e)
         {
             if (validaciones())
             {
-                bool conex = Conexion.executeProcedure("MODIFICAR_AUTO_POR_TURNO", Conexion.generarArgumentos("@CHOFERN", "@TURNON", "@CHOFERV","@TURNOV","@AUTO"), chofnNuevo.Text, turnNuevo.SelectedValue, chofOrigen.Text, turnOrigen.SelectedValue, auto);
+                string turnv;
+                if (turnOrigen.SelectedIndex.ToString().Equals("-1")) turnv = "0";
+                else turnv = turnOrigen.SelectedValue.ToString();
+                bool conex = Conexion.executeProcedure("MODIFICAR_AUTO_POR_TURNO", Conexion.generarArgumentos("@CHOFERN", "@TURNON", "@CHOFERV","@TURNOV","@AUTO"), chofnNuevo.Text, turnNuevo.SelectedValue, chofOrigen.Text, turnv, auto);
                 if (conex)
                 {
                     Modificar_Auto modif = this.Owner as Modificar_Auto;
