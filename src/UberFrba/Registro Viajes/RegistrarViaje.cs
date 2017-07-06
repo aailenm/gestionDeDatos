@@ -173,6 +173,7 @@ namespace UberFrba.Registro_Viajes {
                 }
 
             }
+            
             return true;
         }
 
@@ -198,6 +199,11 @@ namespace UberFrba.Registro_Viajes {
         {
             Abm_Cliente.BusquedaCliente cliente = new Abm_Cliente.BusquedaCliente();
             cliente.Show(this);
+        }
+
+        private void finic_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -146,6 +146,7 @@
             this.finic.Name = "finic";
             this.finic.Size = new System.Drawing.Size(200, 20);
             this.finic.TabIndex = 55;
+            this.finic.ValueChanged += new System.EventHandler(this.finic_ValueChanged);
             // 
             // label3
             // 
@@ -331,7 +332,7 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Datos del viaje";
             // 
-            // Form1
+            // Registro_Viajes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -356,7 +357,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Form1";
+            this.Name = "Registro_Viajes";
             this.Text = "Registro de Viajes";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

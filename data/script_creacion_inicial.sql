@@ -895,6 +895,7 @@ CREATE PROCEDURE RUBIRA_SANTOS.ALTA_VIAJE(@CANTIDADKM INT,@FECHAINICIO smalldate
 AS
 DECLARE @INICIO TIME, @FIN TIME
 BEGIN
+IF(CAST(@FECHAINICIO AS date) = CAST(@FECHAFIN))
 	IF(NOT EXISTS(SELECT * FROM RUBIRA_SANTOS.VIAJE WHERE viaj_cliente = @CLIENT AND viaj_fyh_inicio = @FECHAINICIO))
 		IF(EXISTS (SELECT auto_id, chof_id, turn_id FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE auto_id = @AUTO AND chof_id = @CHOFER AND turn_turnoActivo = @TURNO))
 			IF(EXISTS(SELECT * FROM RUBIRA_SANTOS.TURNO WHERE @TURNO = turn_id and CAST(@FECHAINICIO as time) between turn_hora_inicio and (CASE turn_hora_fin WHEN CAST('00:00' AS TIME) THEN CAST('23:59' AS TIME) ELSE turn_hora_fin END) and CAST(@FECHAFIN as time) between turn_hora_inicio and (CASE turn_hora_fin WHEN CAST('00:00' AS TIME) THEN CAST('23:59' AS TIME) ELSE turn_hora_fin END)))
@@ -906,6 +907,8 @@ BEGIN
 			RAISERROR ('No existe un chofer con ese auto en ese turno', 16, 217) WITH SETERROR	
 	ELSE
 		RAISERROR('Ya existe un viaje para este cliente en esta fecha y horario', 16, 217) WITH SETERROR
+ELSE
+	RAISERROR('El viaje tiene que empezar y finalizar en el mismo día. No puede tener fechas diferentes', 16, 217) WITH SETERROR
 END
 
 GO
@@ -1196,12 +1199,12 @@ go
 CREATE PROCEDURE RUBIRA_SANTOS.filtro_chofer(@nombre varchar(255), @apellido varchar(255), @dni bigint)
 AS
 BEGIN
-	SELECT DISTINCT c.chof_id, c.chof_nombre + c.chof_apellido Nombre_Apellido, c.chof_dni DNI, c.chof_mail Mail, c.chof_telefono Teléfono, c.chof_fechaNacimiento Fecha_Nacimiento,
+	SELECT DISTINCT c.chof_id, c.chof_nombre + ' ' + c.chof_apellido Nombre_Apellido, c.chof_dni DNI, c.chof_mail Mail, c.chof_telefono Teléfono, c.chof_fechaNacimiento Fecha_Nacimiento,
 	d.dire_calle Dirección, t.turn_descripcion TURNO_LABORAL, c.chof_habilitado Habilitado,a.turn_turnoActivo ,a.auto_id
 	FROM RUBIRA_SANTOS.CHOFER c
 	JOIN RUBIRA_SANTOS.DIRECCION d ON d.dire_id = c.chof_direccion
 	left JOIN RUBIRA_SANTOS.AUTO_POR_TURNO a ON a.chof_id = c.chof_id
-	join RUBIRA_SANTOS.TURNO t on t.turn_id = a.turn_id
+	join RUBIRA_SANTOS.TURNO t on t.turn_id = a.turn_turnoActivo
 	WHERE (@nombre = '' OR c.chof_nombre LIKE '%' + @nombre + '%') AND
 		(@apellido = '' OR c.chof_apellido LIKE '%' + @apellido + '%') AND
 		(@dni = 0 OR @dni = c.chof_dni)
