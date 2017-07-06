@@ -755,47 +755,40 @@ CREATE PROCEDURE rubira_santos.ALTA_AUTOMOVIL(@MARCA INT, @MODELO nvarchar(255),
 AS
 DECLARE @MODELONUEVO NVARCHAR(250), @MARCANUEVO INT, @CHOFER2 int, @AUTO INT
 BEGIN
-IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE chof_id = @CHOFER))
-	RAISERROR('El chofer seleccionado ya tiene un auto asignado. La aplicacion no permite que un chofer tenga más de un auto habilitado asignado. Por favor, primero desasocie el chofer del auto',16,217) WITH SETERROR
-ELSE
-	BEGIN
 	IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTOMOVIL WHERE auto_patente = @PATENTE))
-		BEGIN
-			INSERT INTO RUBIRA_SANTOS.AUTOMOVIL(auto_marca, auto_modelo, auto_patente)
-			values(@MARCA, @MODELO, @PATENTE)
+		IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO APT WHERE APT.chof_id = @CHOFER))
+			BEGIN
+				INSERT INTO RUBIRA_SANTOS.AUTOMOVIL(auto_marca, auto_modelo, auto_patente)
+				values(@MARCA, @MODELO, @PATENTE)
 		
-			SELECT @AUTO = auto_id FROM RUBIRA_SANTOS.AUTOMOVIL WHERE auto_patente = @PATENTE
+				SELECT @AUTO = auto_id FROM RUBIRA_SANTOS.AUTOMOVIL WHERE auto_patente = @PATENTE
 		
-			INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, auto_id, turn_id, turn_turnoActivo)
-			values(@CHOFER,@AUTO, @TURNO, @TURNO)	
-		END
+				INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, auto_id, turn_id, turn_turnoActivo)
+				values(@CHOFER,@AUTO, @TURNO, @TURNO)	
+			END
+		ELSE 
+			RAISERROR('El chofer ya tiene otro auto asignado.',16,217) WITH SETERROR
 	ELSE
 		BEGIN
 			SELECT @AUTO = AUTO_ID, @MODELONUEVO = auto_modelo, @MARCANUEVO = auto_marca from RUBIRA_SANTOS.AUTOMOVIL where auto_patente = @PATENTE
-			IF(@MODELONUEVO = @MODELO and @MARCANUEVO = @MARCA)
+			IF(@MODELONUEVO = @MODELO and @MARCANUEVO = @MARCA) -- tiene los mismos datos
 				BEGIN
-					IF(EXISTS(SELECT 1 FROM rubira_santos.AUTO_POR_TURNO where auto_id = @AUTO and turn_id = @TURNO and chof_id IS NULL))
-						UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFER WHERE auto_id = @AUTO AND  turn_id = @TURNO AND turn_turnoActivo = @TURNO
+					IF(EXISTS(SELECT 1 FROM rubira_santos.AUTO_POR_TURNO where auto_id = @AUTO and turn_id = @TURNO))
+						RAISERROR('El auto ya tiene el turno asignado. Para cambiar el chofer, vaya a la sección Modificar Automovil',16,217) WITH SETERROR
 					ELSE
 						BEGIN
-							IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE auto_id = @AUTO AND @TURNO = turn_id))
+							IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE chof_id = @CHOFER AND auto_id <> @AUTO)) -- EL CHOFER PUEDE TENER ASIGNADO EL MISMO AUTO EN OTRO TURNO, PERO NO OTRO AUTO
 								INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, auto_id, turn_id, turn_turnoActivo)
 								values(@CHOFER,@AUTO, @TURNO, @TURNO)
 							ELSE
-								BEGIN
-									SELECT @CHOFER2 = CHOF_ID FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE @AUTO = auto_id AND @TURNO = turn_id
-									IF(@CHOFER = @CHOFER2)
-										RAISERROR('Ya está ingresado el auto, con este turno y este chofer',16,217) WITH SETERROR
-									ELSE
-										RAISERROR('El auto en ese turno ya tiene un chofer asignado',16,217) WITH SETERROR
-								END
+								RAISERROR('El chofer tiene otro auto asignado.',16,217) WITH SETERROR
 						END
 				END
 			ELSE
 				RAISERROR('Ya hay un auto con la misma patente.',16,217) WITH SETERROR
 		END
-	END
 END
+
 
 GO
 CREATE PROCEDURE RUBIRA_SANTOS.ALTA_APT(@CHOFER INT, @AUTO INT, @TURNO INT)
@@ -816,26 +809,44 @@ GO
 CREATE PROCEDURE RUBIRA_SANTOS.MODIFICAR_AUTO_POR_TURNO(@CHOFERN int, @TURNON int, @CHOFERV int, @TURNOV int, @AUTO int)
 AS
 BEGIN
-	IF(NOT EXISTS (select 1 from RUBIRA_SANTOS.VIAJE v left join RUBIRA_SANTOS.ITEM_RENDICION ir on ir.itemr_viaje = v.viaj_id where v.viaj_auto = @auto and v.viaj_turno= @TURNOV and v.viaj_chofer = @choferv and ir.itemr_pago is null))
-		--IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE chof_id = @CHOFERN))
-		--	RAISERROR('El chofer ya tiene un auto asignado. Solo se permite un auto por chofer habilitado.', 16, 217) WITH SETERROR
-		--ELSE
-			BEGIN
-				IF(NOT EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE @AUTO = auto_id AND @TURNON = turn_id))
-					IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE @AUTO = auto_id AND @CHOFERN = chof_id)) 
-					begin
-					INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO (auto_id, chof_id, turn_id, turn_turnoActivo) VALUES (@AUTO, @CHOFERN, @TURNON, @TURNON) 
-					update RUBIRA_SANTOS.AUTO_POR_TURNO set chof_id = null where auto_id = @AUTO and @TURNOV = turn_id
-					end
-				ELSE
+IF(NOT EXISTS (select 1 from RUBIRA_SANTOS.VIAJE v left join RUBIRA_SANTOS.ITEM_RENDICION ir on ir.itemr_viaje = v.viaj_id where v.viaj_auto = @auto and v.viaj_turno= @TURNOV and v.viaj_chofer = @choferv and ir.itemr_pago is null))
+	BEGIN
+	IF(@CHOFERN <> @CHOFERV AND @TURNOV <> @TURNON)
+		BEGIN
+			IF(NOT EXISTS(SELECT 1 FROM AUTO_POR_TURNO WHERE @CHOFERN = chof_id AND @AUTO <> auto_id)) -- SI NO TIENE ASIGNADO OTRO AUTO
+				IF(NOT EXISTS(SELECT 1 FROM AUTO_POR_TURNO WHERE @TURNON = turn_id AND @AUTO = auto_id))
+					INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, turn_id, turn_turnoActivo, auto_id)
+					VALUES(@CHOFERN, @TURNON, @TURNON, @AUTO)
+				ELSE --si ya habia una entrada con turno y chofer para este auto, modifico el chofer viejo por el nuevo o digo que no puedo modificarlo porque ya hay otro chofer y deberia ser nulo? Por ahora primrea opcion
+					UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE turn_id = @TURNON and auto_id = @AUTO
+			ELSE
+				RAISERROR('El chofer ya tiene asignado otro auto.',16,217) WITH SETERROR
+		END
+	ELSE
+		BEGIN
+			IF(@CHOFERN<> @CHOFERV)
 				BEGIN
-					UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = null where @AUTO = auto_id and @TURNOV = turn_id
-					UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET @CHOFERN = CHOF_ID, @TURNON = turn_turnoactivo where auto_id = @AUTO and turn_id = @TURNON 
+					IF(NOT EXISTS(SELECT 1 FROM AUTO_POR_TURNO WHERE @CHOFERN = chof_id AND @AUTO <> auto_id))
+						IF(NOT EXISTS(SELECT 1 FROM AUTO_POR_TURNO WHERE @TURNON = turn_id AND @AUTO = auto_id))
+							INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, turn_id, turn_turnoActivo, auto_id)
+							VALUES(@CHOFERN, @TURNON, @TURNON, @AUTO)
+						ELSE --si ya habia una entrada con turno y chofer para este auto, modifico el chofer viejo por el nuevo o digo que no puedo modificarlo porque ya hay otro chofer y deberia ser nulo? Por ahora primrea opcion
+							UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE turn_id = @TURNON and auto_id = @AUTO
+					ELSE
+						RAISERROR('El chofer ya tiene asignado otro auto.',16,217) WITH SETERROR
 				END
-			END
-	ELSE 
-		RAISERROR('El chofer tiene viajes sin rendir. Debe rendir los viajes antes de quitarle el auto.', 16, 217) WITH SETERROR
-		
+			IF(@TURNON <> @TURNOV)
+				BEGIN
+					IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE auto_id = @AUTO AND @TURNON = turn_id))
+						UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE auto_id = @AUTO AND turn_id = @TURNON
+					ELSE
+						INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, turn_id, turn_turnoActivo, auto_id)
+						VALUES(@CHOFERN, @TURNON, @TURNON, @AUTO)
+				END
+		END
+	END
+ELSE
+	RAISERROR('El chofer tiene viajes sin rendir. Debe rendir los viajes antes de quitarle el auto.', 16, 217) WITH SETERROR
 END
 
 GO
@@ -1164,11 +1175,12 @@ go
 CREATE PROCEDURE RUBIRA_SANTOS.filtro_chofer(@nombre varchar(255), @apellido varchar(255), @dni bigint)
 AS
 BEGIN
-	SELECT DISTINCT c.chof_id, c.chof_nombre Nombre, c.chof_apellido Apellido, c.chof_dni DNI, c.chof_mail Mail, c.chof_telefono Teléfono, c.chof_fechaNacimiento Fecha_Nacimiento,
-	d.dire_calle Dirección, d.dire_localidad Localidad, d.dire_cp Código_Postal, c.chof_habilitado Habilitado, a.turn_turnoActivo, a.auto_id
+	SELECT DISTINCT c.chof_id, c.chof_nombre + c.chof_apellido Nombre_Apellido, c.chof_dni DNI, c.chof_mail Mail, c.chof_telefono Teléfono, c.chof_fechaNacimiento Fecha_Nacimiento,
+	d.dire_calle Dirección, t.turn_descripcion TURNO_LABORAL, c.chof_habilitado Habilitado,a.turn_turnoActivo ,a.auto_id
 	FROM RUBIRA_SANTOS.CHOFER c
 	JOIN RUBIRA_SANTOS.DIRECCION d ON d.dire_id = c.chof_direccion
 	left JOIN RUBIRA_SANTOS.AUTO_POR_TURNO a ON a.chof_id = c.chof_id
+	join RUBIRA_SANTOS.TURNO t on t.turn_id = a.turn_id
 	WHERE (@nombre = '' OR c.chof_nombre LIKE '%' + @nombre + '%') AND
 		(@apellido = '' OR c.chof_apellido LIKE '%' + @apellido + '%') AND
 		(@dni = 0 OR @dni = c.chof_dni)

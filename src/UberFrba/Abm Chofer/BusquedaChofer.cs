@@ -26,7 +26,7 @@ namespace UberFrba.Abm_Chofer {
                 dataGridView1.DataSource = Conexion.obtenerTablaProcedure("filtro_chofer", Conexion.generarArgumentos("@nombre", "@apellido", "@dni"),
                     nombre.Text, apellido.Text, dni.Text);
             this.dataGridView1.Columns["chof_id"].Visible = false;
-            this.dataGridView1.Columns["turn_turnoActivo"].Visible = false;
+            this.dataGridView1.Columns["turn_turnActivo"].Visible = false;
             this.dataGridView1.Columns["auto_id"].Visible = false;
                         
         }
