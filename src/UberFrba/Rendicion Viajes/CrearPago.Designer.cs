@@ -46,7 +46,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.totalViajeees = new System.Windows.Forms.TextBox();
             this.porcentaje = new System.Windows.Forms.TextBox();
             this.TOTAL = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
@@ -223,13 +223,14 @@
             this.dataGridView1.Size = new System.Drawing.Size(596, 216);
             this.dataGridView1.TabIndex = 64;
             // 
-            // textBox1
+            // totalViajeees
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(186, 375);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 63;
+            this.totalViajeees.Enabled = false;
+            this.totalViajeees.Location = new System.Drawing.Point(186, 375);
+            this.totalViajeees.Name = "totalViajeees";
+            this.totalViajeees.Size = new System.Drawing.Size(100, 20);
+            this.totalViajeees.TabIndex = 63;
+            this.totalViajeees.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // porcentaje
             // 
@@ -255,7 +256,7 @@
             this.ClientSize = new System.Drawing.Size(620, 444);
             this.Controls.Add(this.TOTAL);
             this.Controls.Add(this.porcentaje);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.totalViajeees);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.button5);
@@ -303,7 +304,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TextBox CHOF;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox totalViajeees;
         private System.Windows.Forms.TextBox porcentaje;
         private System.Windows.Forms.TextBox TOTAL;
     }

@@ -895,7 +895,7 @@ CREATE PROCEDURE RUBIRA_SANTOS.ALTA_VIAJE(@CANTIDADKM INT,@FECHAINICIO smalldate
 AS
 DECLARE @INICIO TIME, @FIN TIME
 BEGIN
-IF(CAST(@FECHAINICIO AS date) = CAST(@FECHAFIN))
+IF(CAST(@FECHAINICIO AS date) = CAST(@FECHAFIN as date))
 	IF(NOT EXISTS(SELECT * FROM RUBIRA_SANTOS.VIAJE WHERE viaj_cliente = @CLIENT AND viaj_fyh_inicio = @FECHAINICIO))
 		IF(EXISTS (SELECT auto_id, chof_id, turn_id FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE auto_id = @AUTO AND chof_id = @CHOFER AND turn_turnoActivo = @TURNO))
 			IF(EXISTS(SELECT * FROM RUBIRA_SANTOS.TURNO WHERE @TURNO = turn_id and CAST(@FECHAINICIO as time) between turn_hora_inicio and (CASE turn_hora_fin WHEN CAST('00:00' AS TIME) THEN CAST('23:59' AS TIME) ELSE turn_hora_fin END) and CAST(@FECHAFIN as time) between turn_hora_inicio and (CASE turn_hora_fin WHEN CAST('00:00' AS TIME) THEN CAST('23:59' AS TIME) ELSE turn_hora_fin END)))
@@ -1204,7 +1204,7 @@ BEGIN
 	FROM RUBIRA_SANTOS.CHOFER c
 	JOIN RUBIRA_SANTOS.DIRECCION d ON d.dire_id = c.chof_direccion
 	left JOIN RUBIRA_SANTOS.AUTO_POR_TURNO a ON a.chof_id = c.chof_id
-	join RUBIRA_SANTOS.TURNO t on t.turn_id = a.turn_turnoActivo
+	left join RUBIRA_SANTOS.TURNO t on t.turn_id = a.turn_turnoActivo
 	WHERE (@nombre = '' OR c.chof_nombre LIKE '%' + @nombre + '%') AND
 		(@apellido = '' OR c.chof_apellido LIKE '%' + @apellido + '%') AND
 		(@dni = 0 OR @dni = c.chof_dni)

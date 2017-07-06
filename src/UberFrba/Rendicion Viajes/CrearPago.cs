@@ -49,7 +49,7 @@ namespace UberFrba.Rendicion_Viajes
                 if (dataGridView1.Rows.Count == 0)
                     MessageBox.Show("No hay viajes realizados en la fecha");
                 else
-                    textBox1.Text = "$" + totalViajes.ToString();
+                    totalViajeees.Text = "$" + totalViajes.ToString();
             }
         }
         public void traerDefaultDePorcentaje()
@@ -101,7 +101,7 @@ namespace UberFrba.Rendicion_Viajes
         {
             Funciones.llenarCombo_Turno(TURNO);
             CHOF.Clear();
-            textBox1.Clear();
+            totalViajeees.Clear();
             porcentaje.Clear();
             TOTAL.Clear();
             FECHA.Value = Funciones.ObtenerFecha();
@@ -204,6 +204,15 @@ namespace UberFrba.Rendicion_Viajes
         private void TURNO_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (totalViajeees.Text != "")
+            {
+                double totalCalculado = totalViajes + (totalViajes * Double.Parse(porcentaje.Text) * 0.01);
+                TOTAL.Text = totalCalculado.ToString();
+            }
         }
     }
 }
