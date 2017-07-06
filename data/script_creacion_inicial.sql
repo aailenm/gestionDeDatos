@@ -809,18 +809,30 @@ GO
 CREATE PROCEDURE RUBIRA_SANTOS.MODIFICAR_AUTO_POR_TURNO(@CHOFERN int, @TURNON int, @CHOFERV int, @TURNOV int, @AUTO int)
 AS
 BEGIN
+DECLARE @AUTOANTERIOR INT 
 IF(NOT EXISTS (select 1 from RUBIRA_SANTOS.VIAJE v left join RUBIRA_SANTOS.ITEM_RENDICION ir on ir.itemr_viaje = v.viaj_id where v.viaj_auto = @auto and v.viaj_turno= @TURNOV and v.viaj_chofer = @choferv and ir.itemr_pago is null))
 	BEGIN
 	IF(@CHOFERN <> @CHOFERV AND @TURNOV <> @TURNON)
 		BEGIN
 			IF(NOT EXISTS(SELECT 1 FROM AUTO_POR_TURNO WHERE @CHOFERN = chof_id AND @AUTO <> auto_id)) -- SI NO TIENE ASIGNADO OTRO AUTO
-				IF(NOT EXISTS(SELECT 1 FROM AUTO_POR_TURNO WHERE @TURNON = turn_id AND @AUTO = auto_id))
-					INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, turn_id, turn_turnoActivo, auto_id)
-					VALUES(@CHOFERN, @TURNON, @TURNON, @AUTO)
-				ELSE --si ya habia una entrada con turno y chofer para este auto, modifico el chofer viejo por el nuevo o digo que no puedo modificarlo porque ya hay otro chofer y deberia ser nulo? Por ahora primrea opcion
-					UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE turn_id = @TURNON and auto_id = @AUTO
+				BEGIN
+					IF(NOT EXISTS(SELECT 1 FROM AUTO_POR_TURNO WHERE @TURNON = turn_id AND @AUTO = auto_id))
+						INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, turn_id, turn_turnoActivo, auto_id)
+						VALUES(@CHOFERN, @TURNON, @TURNON, @AUTO)
+					ELSE --si ya habia una entrada con turno y chofer para este auto, modifico el chofer viejo por el nuevo o digo que no puedo modificarlo porque ya hay otro chofer y deberia ser nulo? Por ahora primrea opcion
+						UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE turn_id = @TURNON and auto_id = @AUTO
+				END
 			ELSE
-				RAISERROR('El chofer ya tiene asignado otro auto.',16,217) WITH SETERROR
+				BEGIN
+				--el chofer tenia asignado otro auto, lo elimino del otro auto y lo inserto en este 
+					SELECT @AUTOANTERIOR = AUTO_ID FROM AUTO_POR_TURNO WHERE @CHOFERN = chof_id AND @AUTO <> auto_id
+					DELETE FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE chof_id = @CHOFERN AND auto_id = @AUTOANTERIOR
+					IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE @AUTO = auto_id AND turn_id = @TURNON))
+						UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE auto_id = @AUTO AND @TURNON = turn_id
+					ELSE
+						INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, turn_id, turn_turnoActivo, auto_id)
+						VALUES(@CHOFERN, @TURNON, @TURNON, @AUTO)
+				END
 		END
 	ELSE
 		BEGIN
@@ -833,7 +845,16 @@ IF(NOT EXISTS (select 1 from RUBIRA_SANTOS.VIAJE v left join RUBIRA_SANTOS.ITEM_
 						ELSE --si ya habia una entrada con turno y chofer para este auto, modifico el chofer viejo por el nuevo o digo que no puedo modificarlo porque ya hay otro chofer y deberia ser nulo? Por ahora primrea opcion
 							UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE turn_id = @TURNON and auto_id = @AUTO
 					ELSE
-						RAISERROR('El chofer ya tiene asignado otro auto.',16,217) WITH SETERROR
+						BEGIN
+							--el chofer tenia asignado otro auto, lo elimino del otro auto y lo inserto en este 
+							SELECT @AUTOANTERIOR = AUTO_ID FROM AUTO_POR_TURNO WHERE @CHOFERN = chof_id AND @AUTO <> auto_id
+							DELETE FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE chof_id = @CHOFERN AND auto_id = @AUTOANTERIOR
+							IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE @AUTO = auto_id AND turn_id = @TURNON))
+								UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE auto_id = @AUTO AND @TURNON = turn_id
+							ELSE
+								INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, turn_id, turn_turnoActivo, auto_id)
+								VALUES(@CHOFERN, @TURNON, @TURNON, @AUTO)
+						END
 				END
 			IF(@TURNON <> @TURNOV)
 				BEGIN
