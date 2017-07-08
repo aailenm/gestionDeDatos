@@ -150,6 +150,7 @@ namespace UberFrba.Abm_Automovil {
             {
                 MessageBox.Show("Automovil habilitado correctamente");
                 button3.Enabled = true;
+                labelEstado.Text = "HABILITADO";
             }
         }
 

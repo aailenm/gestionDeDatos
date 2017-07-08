@@ -1173,7 +1173,7 @@ go
 CREATE PROCEDURE RUBIRA_SANTOS.filtro_automovil(@marca int, @modelo varchar(255), @patente varchar(10) , @chofer int)
 AS
 BEGIN
-	SELECT a.auto_id, a.auto_marca MARCA, a.auto_modelo MODELO, a.auto_patente PATENTE, tu.turn_id, tu.turn_descripcion TURNO, MAX(ch.chof_id) chof_id, ISNULL(MAX(ch.chof_nombre + ' ' + ch.chof_apellido),'SIN CHOFER') NOMBRE_CHOFER
+	SELECT a.auto_id, a.auto_marca MARCA, a.auto_modelo MODELO, a.auto_patente PATENTE, a.auto_habilitado HABILITADO, t.turn_id, tu.turn_descripcion TURNO, MAX(ch.chof_id) chof_id, ISNULL(MAX(ch.chof_nombre + ' ' + ch.chof_apellido),'SIN CHOFER') NOMBRE_CHOFER
 	FROM RUBIRA_SANTOS.AUTOMOVIL a 
 	LEFT JOIN RUBIRA_SANTOS.AUTO_POR_TURNO t ON a.auto_id = t.auto_id
 	LEFT JOIN RUBIRA_SANTOS.TURNO tu ON tu.turn_id = t.turn_turnoActivo
@@ -1532,7 +1532,7 @@ DECLARE @FECHA SMALLDATETIME, @CHOFER INT, @TOTAL DECIMAL(12,2), @TURNO INT, @PO
 BEGIN 
 	SELECT @FECHA = I.pago_fecha, @CHOFER = I.pago_chofer
 	FROM inserted I 
-	IF(NOT EXISTS(SELECT * FROM RUBIRA_SANTOS.RENDICION_VIAJE R WHERE R.pago_chofer = @CHOFER AND R.pago_fecha = @FECHA))
+	IF(NOT EXISTS(SELECT * FROM RUBIRA_SANTOS.RENDICION_VIAJE R WHERE R.pago_chofer = @CHOFER AND R.pago_fecha = @FECHA and R.pago_turno = @TURNO))
 		INSERT INTO RUBIRA_SANTOS.RENDICION_VIAJE(pago_chofer, pago_fecha, pago_importe_total, pago_turno, pago_porcentaje)
 		SELECT i.pago_chofer, i.pago_fecha, i.pago_importe_total, i.pago_turno, i.pago_porcentaje
 		FROM inserted i
@@ -1572,7 +1572,7 @@ OPEN C1
 FETCH NEXT FROM C1 INTO @VIAJE 
 WHILE @@FETCH_STATUS = 0
 	BEGIN
-		IF(EXISTS(SELECT * FROM RUBIRA_SANTOS.ITEM_FACTURA WHERE itemf_viaje = @VIAJE)) RAISERROR ('El viaje ya fue facturado', 16, 217) WITH SETERROR
+		IF(EXISTS(SELECT * FROM RUBIRA_SANTOS.ITEM_FACTURA WHERE itemf_viaje = @VIAJE)) RAISERROR (N'El viaje %d ya fue facturado', 10, 1, @viaje)
 		ELSE
 			INSERT INTO RUBIRA_SANTOS.ITEM_FACTURA(itemf_fact, itemf_precioViaje, itemf_viaje)
 			SELECT itemf_fact, itemf_precioViaje, itemf_viaje

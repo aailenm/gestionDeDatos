@@ -146,7 +146,7 @@ namespace UberFrba.Abm_Turno {
 
         private void btnMod_Click(object sender, EventArgs e) {
             if (validaciones()){
-                if(Funciones.validacionesCrearTurno(HDH.Value, HDM.Value, HHH.Value, HHM.Value,DETALLE.Text)){
+                if(Funciones.validacionesCrearTurno(HDH.Value, HDM.Value, HHH.Value, HHM.Value,DETALLE.Text, cmbTurno.SelectedValue.ToString())){
                     bool result = Conexion.executeProcedure("MODIFICAR_TURNO", Conexion.generarArgumentos("@ID", "@DESCRIPCION", "@HORA_INICIO", "@HORA_FIN", "@PRECIOBASE", "@VALORKM"), cmbTurno.SelectedValue, DETALLE.Text, HDH.Text + ":" + HDM.Text, HHH.Text + ":" + HHM.Text, Convert.ToDouble(PB.Text), Convert.ToDouble(VKM.Text));
                     if(result){
                         MessageBox.Show("Turno modificado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -169,7 +169,7 @@ namespace UberFrba.Abm_Turno {
         {
             if (validaciones())
             {
-                if (Funciones.validacionesCrearTurno(HDH.Value, HDM.Value, HHH.Value, HHM.Value, DETALLE.Text))
+                if (Funciones.validacionesCrearTurno(HDH.Value, HDM.Value, HHH.Value, HHM.Value, DETALLE.Text, cmbTurno.SelectedValue.ToString()))
                 {
                     bool conex = Conexion.executeProcedure("HABILITAR_TURNO", Conexion.generarArgumentos("@ID", "@DESCRIPCION", "@HORA_INICIO", "@HORA_FIN", "@PRECIOBASE", "@VALORKM"),
                         cmbTurno.SelectedValue, DETALLE.Text, HDH.Text + ":" + HDM.Text, HHH.Text + ":" + HHM.Text, Convert.ToDouble(PB.Text), Convert.ToDouble(VKM.Text));
