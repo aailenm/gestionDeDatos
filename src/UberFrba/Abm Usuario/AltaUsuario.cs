@@ -68,6 +68,26 @@ namespace UberFrba.Abm_Usuario
                 MessageBox.Show("Solo se aceptan numeros en el Telefono");
                 return false;
             }
+            if (!(Funciones.esString(local.Text)))
+            {
+                MessageBox.Show("Solo se aceptan letras en la localidad");
+                return false;
+            }
+            if (!(Funciones.esString(calle.Text)))
+            {
+                MessageBox.Show("Solo se aceptan letras en la calle");
+                return false;
+            }
+            if (!(Funciones.esString(nomb.Text)))
+            {
+                MessageBox.Show("Solo se aceptan letras en el nombre ");
+                return false;
+            }
+            if(!(Funciones.esString(apell.Text)))
+            {
+                MessageBox.Show("Solo se aceptan letras en el apellido");
+                return false;
+            }
 
             if (roles.CheckedItems.Count == 0) {
                 MessageBox.Show("Debe seleccionar al menos un rol");

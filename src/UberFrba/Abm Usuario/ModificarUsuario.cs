@@ -391,7 +391,29 @@ namespace UberFrba.Abm_Usuario
                     MessageBox.Show("Solo se aceptan numeros en el Telefono");
                     return false;
                 }
+                //strings
+                if(!(Funciones.esString(local.Text)))
+                {
+                    MessageBox.Show("Solo se aceptan letras en la localidad");
+                    return false;
+                }
+                if (!(Funciones.esString(calle.Text)))
+                {
+                    MessageBox.Show("Solo se aceptan letras en la calle");
+                    return false;
+                }
+                if (!(Funciones.esString(nomb.Text)))
+                {
+                    MessageBox.Show("Solo se aceptan letras en el nombre ");
+                    return false;
+                }
+                if (!(Funciones.esString(apell.Text)))
+                {
+                    MessageBox.Show("Solo se aceptan letras en el apellido");
+                    return false;
+                }
 
+                //fin strings
                 if (nomb.Text == "")
                 {
                     MessageBox.Show("El campo Nombre no puede estar vacio");
