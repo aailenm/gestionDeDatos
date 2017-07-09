@@ -67,6 +67,10 @@ namespace UberFrba.Registro_Viajes {
         }
 
         private bool validaciones() {
+            if(Funciones.esMuyGrande(Int32.Parse(cantkm.Text))){
+                MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
+                return false;
+            }
             if (turn.SelectedIndex == -1)
             {
                 MessageBox.Show("Debe seleccionar un turno");

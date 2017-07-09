@@ -35,7 +35,7 @@ namespace UberFrba.Abm_Automovil
         private void button1_Click(object sender, EventArgs e)
         {
             if (marca.SelectedIndex == -1) MessageBox.Show("Seleccione una marca");
-            else
+            else if(validaciones())
             {
                 dataGridView1.DataSource = Conexion.obtenerTablaProcedure("filtro_automovil", Conexion.generarArgumentos("@marca", "@modelo", "@patente", "@chofer"),
                     marca.SelectedValue, modelo.Text, patente.Text, chofer.Text);
@@ -46,6 +46,20 @@ namespace UberFrba.Abm_Automovil
             }
         }
 
+        private bool validaciones() {
+            if (patente.Text.Length > 10)
+            {
+                MessageBox.Show("El campo Patente no puede tener mas de 10 digitos");
+                return false;
+            }
+            if (modelo.Text.Length > 10)
+            {
+                MessageBox.Show("El campo modelo no puede tener mas de 10 digitos");
+                return false;
+            }
+
+            return true;
+        }
         private void label3_Click(object sender, EventArgs e)
         {
 

@@ -81,6 +81,16 @@ namespace UberFrba.Abm_Automovil {
                 MessageBox.Show("El campo Modelo no puede estar vacio");
                 return false;
             }
+            if (patente.Text.Length > 10)
+            {
+                MessageBox.Show("El campo Patente no puede tener mas de 10 digitos");
+                return false;
+            }
+            if (modelo.Text.Length > 10)
+            {
+                MessageBox.Show("El campo modelo no puede tener mas de 10 digitos");
+                return false;
+            }
 
             if (patente.Text == "")
             {

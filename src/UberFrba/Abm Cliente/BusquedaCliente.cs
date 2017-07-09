@@ -23,6 +23,21 @@ namespace UberFrba.Abm_Cliente
                 MessageBox.Show("El DNI solo puede contener numeros");
                 return false;
             }
+            if (dni.Text.Length > 8)
+            {
+                MessageBox.Show("El numero de dni no puede tener mas de ocho digitos");
+                return false;
+            }
+            if (!Funciones.tieneNumeros(nombre.Text))
+            {
+                MessageBox.Show("El campo nombre no puede tener numeros.");
+                return false;
+            }
+            if (!Funciones.tieneNumeros(apellido.Text))
+            {
+                MessageBox.Show("El campo apellido no puede tener numeros.");
+                return false;
+            }
             return true;
         }
         private void button1_Click(object sender, EventArgs e)

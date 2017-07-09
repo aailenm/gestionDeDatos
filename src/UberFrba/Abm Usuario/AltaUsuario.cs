@@ -73,11 +73,7 @@ namespace UberFrba.Abm_Usuario
                 MessageBox.Show("Solo se aceptan letras en la localidad");
                 return false;
             }
-            if (!(Funciones.esString(calle.Text)))
-            {
-                MessageBox.Show("Solo se aceptan letras en la calle");
-                return false;
-            }
+           
             if (!(Funciones.esString(nomb.Text)))
             {
                 MessageBox.Show("Solo se aceptan letras en el nombre ");
@@ -100,8 +96,33 @@ namespace UberFrba.Abm_Usuario
                     MessageBox.Show("Solo se aceptan numeros en el DNI");
                     return false;
                 }
+                if (!(Funciones.esNumero(cp.Text)))
+                {
+                    MessageBox.Show("Solo se aceptan numeros en el Codigo Postal");
+                    return false;
+                }
+                if (dni.Text.Length > 8)
+                {
+                    MessageBox.Show("El numero de dni no puede tener mas de ocho digitos");
+                    return false;
+                }
+                if (tel.Text.Length > 15)
+                {
+                    MessageBox.Show("El numero de telefono no puede tener mas de quince digitos");
+                    return false;
+                }
 
+                if (piso.Text.Length > 4)
+                {
+                    MessageBox.Show("El piso no puede tener mas de cuatro digitos");
+                    return false;
+                }
 
+                if (dpto.Text.Length > 4)
+                {
+                    MessageBox.Show("El depto no puede tener mas de cuatro digitos");
+                    return false;
+                }
                 if (nomb.Text == "")
                 {
                     MessageBox.Show("El campo Nombre no puede estar vacio");
@@ -148,8 +169,7 @@ namespace UberFrba.Abm_Usuario
                     MessageBox.Show("El campo codigo postal no puede estar vacía");
                     return false;
                 }
-
-
+         
                 if (local.Text == "")
                 {
                     MessageBox.Show("El campo localidad no puede estar vacía");
@@ -270,6 +290,21 @@ namespace UberFrba.Abm_Usuario
         }
 
         private void apell_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dni_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void piso_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void local_TextChanged(object sender, EventArgs e)
         {
 
         }

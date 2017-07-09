@@ -98,6 +98,16 @@ namespace UberFrba.Abm_Turno {
                 MessageBox.Show("El campo Precio Base no puede estar vacio");
                 return false;
             }
+            if (Funciones.esMuyGrande(Int32.Parse(PB.Text)))
+            {
+                MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
+                return false;
+            }
+            if (Funciones.esMuyGrande(Int32.Parse(VKM.Text)))
+            {
+                MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
+                return false;
+            }
             return true;
         }
 
@@ -180,6 +190,11 @@ namespace UberFrba.Abm_Turno {
                     }
                 }
             }
+        }
+
+        private void PB_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

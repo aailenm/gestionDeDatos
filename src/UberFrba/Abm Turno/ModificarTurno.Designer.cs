@@ -92,6 +92,7 @@
             this.PB.Name = "PB";
             this.PB.Size = new System.Drawing.Size(188, 20);
             this.PB.TabIndex = 4;
+            this.PB.TextChanged += new System.EventHandler(this.PB_TextChanged);
             // 
             // label1
             // 

@@ -50,6 +50,17 @@ namespace UberFrba.Abm_Turno {
         }
 
         private bool validaciones() {
+
+            if (Funciones.esMuyGrande(Int32.Parse(PB.Text)))
+            {
+                MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
+                return false;
+            }
+            if (Funciones.esMuyGrande(Int32.Parse(VKM.Text)))
+            {
+                MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
+                return false;
+            }
             if (!Funciones.validacionPrecio(VKM.Text)) {
                 MessageBox.Show("El valor del kilometro solo acepta numeros y una sola , para los decimales");
                 return false;
@@ -138,6 +149,11 @@ namespace UberFrba.Abm_Turno {
         }
 
         private void HHH_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DETALLE_TextChanged(object sender, EventArgs e)
         {
 
         }

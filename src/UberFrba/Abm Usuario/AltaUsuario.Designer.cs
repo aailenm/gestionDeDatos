@@ -191,6 +191,7 @@
             this.piso.Name = "piso";
             this.piso.Size = new System.Drawing.Size(51, 20);
             this.piso.TabIndex = 70;
+            this.piso.TextChanged += new System.EventHandler(this.piso_TextChanged);
             // 
             // local
             // 
@@ -198,6 +199,7 @@
             this.local.Name = "local";
             this.local.Size = new System.Drawing.Size(154, 20);
             this.local.TabIndex = 69;
+            this.local.TextChanged += new System.EventHandler(this.local_TextChanged);
             // 
             // label9
             // 
@@ -239,6 +241,7 @@
             this.dni.Name = "dni";
             this.dni.Size = new System.Drawing.Size(100, 20);
             this.dni.TabIndex = 64;
+            this.dni.TextChanged += new System.EventHandler(this.dni_TextChanged);
             // 
             // label3
             // 

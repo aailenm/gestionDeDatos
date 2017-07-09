@@ -226,5 +226,17 @@ namespace UberFrba {
             DateTime fechaHoy = Convert.ToDateTime(fecha);
             return fechaHoy;
         }
+
+        internal static bool esMuyGrande(int numero) {
+            if (numero > Int32.MaxValue) return true; 
+            else return false;
+        }
+
+        internal static bool tieneNumeros(string text) {
+            foreach (char c in text) {
+                if (Char.IsDigit(c)) return false;
+            }
+            return true;
+        }
     }
 }
