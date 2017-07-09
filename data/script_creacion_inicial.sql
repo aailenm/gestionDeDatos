@@ -66,6 +66,9 @@ DROP TABLE RUBIRA_SANTOS.TURNO
 IF OBJECT_ID('RUBIRA_SANTOS.GET_ROLES_POR_USUARIO') IS NOT NULL
 DROP PROCEDURE RUBIRA_SANTOS.GET_ROLES_POR_USUARIO
 
+IF OBJECT_ID('RUBIRA_SANTOS.TURNO_POR_CHOFER') IS NOT NULL
+DROP PROCEDURE RUBIRA_SANTOS.TURNO_POR_CHOFER
+
 IF OBJECT_ID('RUBIRA_SANTOS.MODIFICAR_ROL') IS NOT NULL
 DROP PROCEDURE RUBIRA_SANTOS.MODIFICAR_ROL
 
@@ -487,6 +490,16 @@ BEGIN
 	JOIN RUBIRA_SANTOS.ROL R ON R.rol_id = RPS.rol_id
 	JOIN RUBIRA_SANTOS.USUARIO U ON U.usua_id = RPS.usua_id
 	WHERE U.usua_usuario = @USUARIO AND rol_habilitado = 1
+END
+
+GO
+CREATE PROCEDURE RUBIRA_SANTOS.TURNO_POR_CHOFER(@ID INT) 
+AS
+BEGIN
+SELECT distinct t.turn_id, t.turn_descripcion
+FROM RUBIRA_SANTOS.AUTO_POR_TURNO apt 
+join RUBIRA_SANTOS.TURNO t on t.turn_id = apt.turn_turnoActivo
+where chof_id = @ID or chof_id = ''
 END
 
 GO
@@ -1173,7 +1186,7 @@ go
 CREATE PROCEDURE RUBIRA_SANTOS.filtro_automovil(@marca int, @modelo varchar(255), @patente varchar(10) , @chofer int)
 AS
 BEGIN
-	SELECT a.auto_id, a.auto_marca MARCA, a.auto_modelo MODELO, a.auto_patente PATENTE, a.auto_habilitado HABILITADO, t.turn_id, tu.turn_descripcion TURNO, MAX(ch.chof_id) chof_id, ISNULL(MAX(ch.chof_nombre + ' ' + ch.chof_apellido),'SIN CHOFER') NOMBRE_CHOFER
+	SELECT distinct a.auto_id, a.auto_marca MARCA, a.auto_modelo MODELO, a.auto_patente PATENTE, a.auto_habilitado HABILITADO, t.turn_turnoActivo, tu.turn_descripcion TURNO, MAX(ch.chof_id) chof_id, ISNULL(MAX(ch.chof_nombre + ' ' + ch.chof_apellido),'SIN CHOFER') NOMBRE_CHOFER
 	FROM RUBIRA_SANTOS.AUTOMOVIL a 
 	LEFT JOIN RUBIRA_SANTOS.AUTO_POR_TURNO t ON a.auto_id = t.auto_id
 	LEFT JOIN RUBIRA_SANTOS.TURNO tu ON tu.turn_id = t.turn_turnoActivo
@@ -1182,7 +1195,7 @@ BEGIN
 		(@modelo = '' OR a.auto_modelo LIKE '%' + @modelo + '%') AND
 		(@patente = '' OR a.auto_patente LIKE '%' + @patente + '%') AND
 		(@chofer = 0 OR @chofer = t.chof_id)
-	GROUP BY a.auto_id, a.auto_marca, a.auto_modelo , a.auto_patente, tu.turn_id, tu.turn_descripcion	
+	GROUP BY a.auto_id, a.auto_marca, a.auto_modelo , a.auto_patente, t.turn_turnoActivo, tu.turn_descripcion, a.auto_habilitado	
 END
 
 go
@@ -1200,11 +1213,10 @@ CREATE PROCEDURE RUBIRA_SANTOS.filtro_chofer(@nombre varchar(255), @apellido var
 AS
 BEGIN
 	SELECT DISTINCT c.chof_id, c.chof_nombre + ' ' + c.chof_apellido Nombre_Apellido, c.chof_dni DNI, c.chof_mail Mail, c.chof_telefono Teléfono, c.chof_fechaNacimiento Fecha_Nacimiento,
-	d.dire_calle Dirección, t.turn_descripcion TURNO_LABORAL, c.chof_habilitado Habilitado,a.turn_turnoActivo ,a.auto_id
+	d.dire_calle Dirección, c.chof_habilitado Habilitado, a.auto_id
 	FROM RUBIRA_SANTOS.CHOFER c
 	JOIN RUBIRA_SANTOS.DIRECCION d ON d.dire_id = c.chof_direccion
 	left JOIN RUBIRA_SANTOS.AUTO_POR_TURNO a ON a.chof_id = c.chof_id
-	left join RUBIRA_SANTOS.TURNO t on t.turn_id = a.turn_turnoActivo
 	WHERE (@nombre = '' OR c.chof_nombre LIKE '%' + @nombre + '%') AND
 		(@apellido = '' OR c.chof_apellido LIKE '%' + @apellido + '%') AND
 		(@dni = 0 OR @dni = c.chof_dni)

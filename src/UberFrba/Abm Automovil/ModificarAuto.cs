@@ -1,17 +1,18 @@
-﻿using System;
+﻿﻿using System;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace UberFrba.Abm_Automovil {
+namespace UberFrba.Abm_Automovil
+{
     public partial class Modificar_Auto : Form, ComunicacionForms
     {
-        
-        
+
+
         public Modificar_Auto()
         {
             InitializeComponent();
             LlenarCombos();
-            labelEstado.Text = "" ;
+            labelEstado.Text = "";
             button6.Enabled = false;
             button3.Enabled = false;
         }
@@ -30,35 +31,37 @@ namespace UberFrba.Abm_Automovil {
             }
             else
                 labelEstado.Text = "INHABILITADO";
-           
+
         }
         public void editarCliente(string id)
         {
-                
-          }
+
+        }
         public void editar(string id)
         {
 
         }
-        public void editarTurno(string id) {
+        public void editarTurno(string id)
+        {
             if (id != "")
             {
                 turnos.SelectedValue = id;
             }
-            else turnos.SelectedValue  = 0;
+            else turnos.SelectedValue = 0;
         }
         public void editarChofer(string id)
         {
             chofer.Text = id;
             button3.Enabled = true;
+            Funciones.choferPorTurno(turnos, id);
         }
-        
+
         private void LlenarCombos()
         {
             Funciones.llenarCombo_Marca(marcas);
             Funciones.llenarCombo_Turno(turnos);
         }
-        
+
         private void botonBuscar(object sender, EventArgs e)
         {
             Abm_Automovil.BusquedaAuto buscar = new Abm_Automovil.BusquedaAuto();
@@ -86,10 +89,10 @@ namespace UberFrba.Abm_Automovil {
 
         private void botonModificar(object sender, EventArgs e)
         {
-            if( validaciones())
+            if (validaciones())
             {
-                bool conex = Conexion.executeProcedure("MODIFICAR_AUTO", Conexion.generarArgumentos("@auto", "@nuevaMarca","@modelo","@patente"),
-                 auto.Text, marcas.SelectedValue,modelo.Text,patente.Text);
+                bool conex = Conexion.executeProcedure("MODIFICAR_AUTO", Conexion.generarArgumentos("@auto", "@nuevaMarca", "@modelo", "@patente"),
+                 auto.Text, marcas.SelectedValue, modelo.Text, patente.Text);
                 if (conex)
                 {
                     MessageBox.Show("Auto modificado correctamente");
@@ -126,13 +129,14 @@ namespace UberFrba.Abm_Automovil {
                 return false;
             }
             return true;
-        }   
+        }
         private void button5_Click(object sender, EventArgs e)
         {
             Limpiar();
         }
 
-        private void Limpiar() {
+        private void Limpiar()
+        {
             Funciones.llenarCombo_Marca(marcas);
             Funciones.llenarCombo_Turno(turnos);
             modelo.Clear();
@@ -164,7 +168,7 @@ namespace UberFrba.Abm_Automovil {
                 reader.Read();
                 modelo.Text = (reader["auto_modelo"].ToString());
                 patente.Text = (reader["auto_patente"].ToString());
-                marcas.SelectedValue= (Int32.Parse(reader["auto_marca"].ToString()));
+                marcas.SelectedValue = (Int32.Parse(reader["auto_marca"].ToString()));
                 reader.Close();
             }
         }

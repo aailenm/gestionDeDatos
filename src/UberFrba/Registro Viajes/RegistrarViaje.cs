@@ -7,7 +7,6 @@ namespace UberFrba.Registro_Viajes {
         public Registro_Viajes()
         {
             InitializeComponent();
-            Funciones.llenarCombo_Turno(turn);
             finic.Value = Funciones.ObtenerFecha();
             ffin.Value = Funciones.ObtenerFecha();
         }
@@ -19,14 +18,13 @@ namespace UberFrba.Registro_Viajes {
         public void editarChofer(string id)
         {
             chof.Text = id;
+            Funciones.choferPorTurno(turn,id);
         }
         public void editar(string id)
         {
 
         }
-        public void editarTurno(string id) {
-            turn.SelectedValue = id;
-        }
+
         public void editarCliente(string id)
         {
             clie.Text = id;
@@ -51,6 +49,7 @@ namespace UberFrba.Registro_Viajes {
             HDM.Clear();
             finic.Value = Funciones.ObtenerFecha();
             ffin.Value = Funciones.ObtenerFecha();
+            Funciones.choferPorTurno(turn, "");
         }
 
         private void button1_Click(object sender, EventArgs e)

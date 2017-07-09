@@ -61,6 +61,7 @@ namespace UberFrba.Rendicion_Viajes
         public void editarChofer(string id)
         {
             CHOF.Text = id;
+            Funciones.choferPorTurno(TURNO, id);
         }
 
         public void editarCliente(string id)
@@ -76,11 +77,7 @@ namespace UberFrba.Rendicion_Viajes
         {
 
         }
-        public void editarTurno(string id)
-        {
-            TURNO.SelectedValue = id;
-        }
-
+       
         private void button4_Click(object sender, EventArgs e)
         {
             Abm_Chofer.BusquedaChofer chof = new Abm_Chofer.BusquedaChofer();
@@ -107,6 +104,7 @@ namespace UberFrba.Rendicion_Viajes
             FECHA.Value = Funciones.ObtenerFecha();
             dataGridView1.DataSource = -1;
             porcentaje.Text = "0";
+            Funciones.choferPorTurno(TURNO, "");
         }
 
         private void button1_Click(object sender, EventArgs e)

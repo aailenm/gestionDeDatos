@@ -41,7 +41,7 @@ namespace UberFrba.Abm_Automovil
                     marca.SelectedValue, modelo.Text, patente.Text, chofer.Text);
                 this.dataGridView1.Columns["chof_id"].Visible = false;
                 this.dataGridView1.Columns["auto_id"].Visible = false;
-                this.dataGridView1.Columns["turn_id"].Visible = false;
+                this.dataGridView1.Columns["turn_turnoActivo"].Visible = false;
                 this.dataGridView1.Columns["MARCA"].Visible = false;
             }
         }
@@ -87,13 +87,13 @@ namespace UberFrba.Abm_Automovil
         {
             string id_auto = dataGridView1.Rows[e.RowIndex].Cells["auto_id"].Value.ToString();
             string id_chofer = dataGridView1.Rows[e.RowIndex].Cells["chof_id"].Value.ToString();
-            string id_turno = dataGridView1.Rows[e.RowIndex].Cells["turn_id"].Value.ToString();
+            //string id_turno = dataGridView1.Rows[e.RowIndex].Cells["turn_id"].Value.ToString();
             ComunicacionForms comunic = this.Owner as ComunicacionForms;
             if (comunic != null)
             {
                 comunic.editarAuto(id_auto);
                 comunic.editarChofer(id_chofer);
-                comunic.editarTurno(id_turno);
+               // comunic.editarTurno(id_turno);
             }
             Close();
         }

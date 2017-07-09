@@ -127,7 +127,6 @@
             // turnos
             // 
             this.turnos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.turnos.Enabled = false;
             this.turnos.FormattingEnabled = true;
             this.turnos.Location = new System.Drawing.Point(55, 203);
             this.turnos.Name = "turnos";

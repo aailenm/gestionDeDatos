@@ -131,6 +131,15 @@ namespace UberFrba {
             else return false;
         }
 
+        /*muestra todos los turnos que hay para un chofer*/
+        internal static void choferPorTurno(ComboBox combo, string id)
+        {
+            combo.ValueMember = "turn_id";
+            combo.DisplayMember = "turn_descripcion";
+            combo.DataSource = Conexion.obtenerTablaProcedure("TURNO_POR_CHOFER",Conexion.generarArgumentos("@ID"),id);
+            combo.SelectedIndex = -1;
+        }
+
         /*verifica que una cadena text sea solo de numeros*/
         internal static bool esNumero(string s)
         {
