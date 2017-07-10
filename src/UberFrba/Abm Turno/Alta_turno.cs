@@ -39,7 +39,7 @@ namespace UberFrba.Abm_Turno {
                 {
                     bool result = Conexion.executeProcedure("ALTA_TURNO",
                           Conexion.generarArgumentos("@DESCRIPCION", "@HORA_INICIO", "@HORA_FIN", "@PRECIOBASE", "@VALORKM"),
-                          DETALLE.Text, HDH.Text + ':' + HDM.Text, HHH.Text + ':' + HHM.Text, Double.Parse(PB.Text), Double.Parse(VKM.Text));
+                          DETALLE.Text, HDH.Text + ':' + HDM.Text, HHH.Text + ':' + HHM.Text, double.Parse(PB.Text), double.Parse(VKM.Text));
                     if (result)
                     {
                         MessageBox.Show("Turno creado");
@@ -50,33 +50,6 @@ namespace UberFrba.Abm_Turno {
         }
 
         private bool validaciones() {
-
-            if (Funciones.esMuyGrande(Int32.Parse(PB.Text)))
-            {
-                MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
-                return false;
-            }
-            if (Funciones.esMuyGrande(Int32.Parse(VKM.Text)))
-            {
-                MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
-                return false;
-            }
-            if (!Funciones.validacionPrecio(VKM.Text)) {
-                MessageBox.Show("El valor del kilometro solo acepta numeros y una sola , para los decimales");
-                return false;
-            } else if (0 >= Double.Parse(VKM.Text)) {
-                MessageBox.Show("El valor del kilometro debe ser mayor a 0");
-                return false;
-            }
-            if (!Funciones.validacionPrecio(PB.Text))
-            {
-                MessageBox.Show("El campo precio base solo acepta numeros y una sola , para los decimales");
-                 return false;
-            } else if (0 >= Double.Parse(PB.Text))
-            {
-                MessageBox.Show("El valor del precio base debe ser mayor a 0");
-                return false;
-            } 
             if (HDM.Text == "")
             {
                 MessageBox.Show("El campo Hora desde no puede estar vacio");
@@ -97,7 +70,37 @@ namespace UberFrba.Abm_Turno {
                 MessageBox.Show("El campo Hora Hasta no puede estar vacio");
                 return false;
             }
-           
+            if (DETALLE.Text == "")
+            {
+                MessageBox.Show("El campo Nombre no puede estar vacio");
+                return false;
+            }
+            if (VKM.Text == "")
+            {
+                MessageBox.Show("El campo Valor del KM no puede estar vacio");
+                return false;
+            }
+            if (PB.Text == "")
+            {
+                MessageBox.Show("El campo Precio Base no puede estar vacio");
+                return false;
+            }
+            if (!Funciones.validacionPrecio(VKM.Text)) {
+                MessageBox.Show("El valor del kilometro solo acepta numeros y una sola , para los decimales");
+                return false;
+            } else if (0 >= Double.Parse(VKM.Text)) {
+                MessageBox.Show("El valor del kilometro debe ser mayor a 0");
+                return false;
+            }
+            if (!Funciones.validacionPrecio(PB.Text))
+            {
+                MessageBox.Show("El campo precio base solo acepta numeros y una sola , para los decimales");
+                 return false;
+            } else if (0 >= Double.Parse(PB.Text))
+            {
+                MessageBox.Show("El valor del precio base debe ser mayor a 0");
+                return false;
+            } 
              if(!Funciones.esNumero(HDH.Text)){
             MessageBox.Show("El campo horas de Hora desde debe ser un número ");
                  return false;
@@ -114,22 +117,16 @@ namespace UberFrba.Abm_Turno {
             MessageBox.Show("El campo de minutos Hora Hasta debe ser un número");
                 return false;
             }
-             if (DETALLE.Text == "")
-             {
-                 MessageBox.Show("El campo Nombre no puede estar vacio");
-                 return false;
-             }
-             if (VKM.Text == "")
-             {
-                 MessageBox.Show("El campo Valor del KM no puede estar vacio");
-                 return false;
-             }
-
-             if (PB.Text == "")
-             {
-                 MessageBox.Show("El campo Precio Base no puede estar vacio");
-                 return false;
-             }
+            if (Funciones.esMuyGrande(double.Parse(PB.Text)))
+            {
+                MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
+                return false;
+            }
+            if (Funciones.esMuyGrande(double.Parse(VKM.Text)))
+            {
+                MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
+                return false;
+            }
             return true;
         }
 

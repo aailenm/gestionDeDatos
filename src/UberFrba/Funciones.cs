@@ -232,6 +232,10 @@ namespace UberFrba {
             else return false;
         }
 
+        internal static bool esMuyGrande(double numero) {
+            return numero > double.MaxValue;
+        }
+
         internal static bool tieneNumeros(string text) {
             foreach (char c in text) {
                 if (Char.IsDigit(c)) return false;
