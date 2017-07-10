@@ -77,9 +77,7 @@ namespace UberFrba.Facturacion {
             {
              tot = tot + Convert.ToInt32(row.Cells[7].Value);
             }
-            if (dataGridView1.Rows.Count==0)
-                MessageBox.Show("No hay viajes entre las fechas indicadas");
-            else
+            if (dataGridView1.Rows.Count!=0)
                 total.Text = "$" + tot.ToString();
         }
 
@@ -106,6 +104,11 @@ namespace UberFrba.Facturacion {
                 MessageBox.Show("Debe ingresar un cliente");
                 return false;
             }
+            if (tot == 0)
+            {
+                MessageBox.Show("No hay viajes entre las fechas indicadas");
+                return false;
+            }
             return true;
         }
         private void limpiar_Click(object sender, EventArgs e)
@@ -120,7 +123,7 @@ namespace UberFrba.Facturacion {
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            if (validaciones() && dataGridView1.RowCount != 0)
+            if (validaciones())
             {
                 bool result = Conexion.executeProcedure("CREAR_FACTURA", Conexion.generarArgumentos("@CLIENT", "@FECHAI", "@FECHAF", "@TOTAL"),
                       client.Text, fechainicio.Value.ToShortDateString(), fechafin.Value.ToShortDateString(), tot);
@@ -130,7 +133,6 @@ namespace UberFrba.Facturacion {
                     Close();
                 }
             }
-            else MessageBox.Show("No hay datos en la lista");
             }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -139,6 +141,11 @@ namespace UberFrba.Facturacion {
         }
 
         private void total_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
         }
