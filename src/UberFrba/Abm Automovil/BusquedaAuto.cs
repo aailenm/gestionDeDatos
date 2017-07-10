@@ -99,17 +99,21 @@ namespace UberFrba.Abm_Automovil
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string id_auto = dataGridView1.Rows[e.RowIndex].Cells["auto_id"].Value.ToString();
-            string id_chofer = dataGridView1.Rows[e.RowIndex].Cells["chof_id"].Value.ToString();
-            //string id_turno = dataGridView1.Rows[e.RowIndex].Cells["turn_id"].Value.ToString();
-            ComunicacionForms comunic = this.Owner as ComunicacionForms;
-            if (comunic != null)
+
+            if (e.RowIndex != -1)
             {
-                comunic.editarAuto(id_auto);
-                comunic.editarChofer(id_chofer);
-               // comunic.editarTurno(id_turno);
+                string id_auto = dataGridView1.Rows[e.RowIndex].Cells["auto_id"].Value.ToString();
+                string id_chofer = dataGridView1.Rows[e.RowIndex].Cells["chof_id"].Value.ToString();
+                //string id_turno = dataGridView1.Rows[e.RowIndex].Cells["turn_id"].Value.ToString();
+                ComunicacionForms comunic = this.Owner as ComunicacionForms;
+                if (comunic != null)
+                {
+                    comunic.editarAuto(id_auto);
+                    comunic.editarChofer(id_chofer);
+                    // comunic.editarTurno(id_turno);
+                }
+                Close();
             }
-            Close();
         }
 
     }

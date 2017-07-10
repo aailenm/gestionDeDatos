@@ -73,11 +73,14 @@ namespace UberFrba.Abm_Cliente
 
         private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            string id = dataGridView1.Rows[e.RowIndex].Cells["clie_id"].Value.ToString();
-            ComunicacionForms comunic = this.Owner as ComunicacionForms;
-            if (comunic != null)
-                comunic.editarCliente(id);
-            Close();
+            if (e.RowIndex != -1)
+            {
+                string id = dataGridView1.Rows[e.RowIndex].Cells["clie_id"].Value.ToString();
+                ComunicacionForms comunic = this.Owner as ComunicacionForms;
+                if (comunic != null)
+                    comunic.editarCliente(id);
+                Close();
+            }
 
         }
 

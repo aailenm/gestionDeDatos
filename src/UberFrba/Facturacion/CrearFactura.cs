@@ -9,8 +9,10 @@ namespace UberFrba.Facturacion {
         {
             InitializeComponent();
             dataGridView1.ReadOnly = true;
-            fechafin.Value = Funciones.ObtenerFecha();
-            fechainicio.Value = Funciones.ObtenerFecha();
+            fechainicio.Enabled = false;
+            fechafin.Enabled = false;
+            fechainicio.Value = Funciones.ObtenerFecha().AddMonths(-1).AddDays(1-Funciones.ObtenerFecha().Day);
+            fechafin.Value = Funciones.ObtenerFecha().AddDays(-Funciones.ObtenerFecha().Day);
         }
 
         private void Form1_Load(object sender, EventArgs e)

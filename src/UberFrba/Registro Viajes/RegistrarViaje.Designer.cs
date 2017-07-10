@@ -48,16 +48,20 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.HDM = new System.Windows.Forms.TextBox();
-            this.HDH = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.HHM = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.HHH = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.HHM = new System.Windows.Forms.NumericUpDown();
+            this.HHH = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.HDM = new System.Windows.Forms.NumericUpDown();
+            this.HDH = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.HHM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HHH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HDM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HDH)).BeginInit();
             this.SuspendLayout();
             // 
             // cantkm
@@ -239,13 +243,13 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.HDM);
             this.groupBox1.Controls.Add(this.HDH);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.HHM);
             this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.HHM);
             this.groupBox1.Controls.Add(this.HHH);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.linkLabel1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -254,69 +258,10 @@
             this.groupBox1.TabIndex = 70;
             this.groupBox1.TabStop = false;
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(125, 219);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(10, 13);
-            this.label8.TabIndex = 64;
-            this.label8.Text = ":";
-            // 
-            // HDM
-            // 
-            this.HDM.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.HDM.Location = new System.Drawing.Point(141, 216);
-            this.HDM.Name = "HDM";
-            this.HDM.Size = new System.Drawing.Size(32, 20);
-            this.HDM.TabIndex = 63;
-            // 
-            // HDH
-            // 
-            this.HDH.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.HDH.Location = new System.Drawing.Point(90, 216);
-            this.HDH.Name = "HDH";
-            this.HDH.Size = new System.Drawing.Size(32, 20);
-            this.HDH.TabIndex = 62;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(295, 219);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(10, 13);
-            this.label9.TabIndex = 61;
-            this.label9.Text = ":";
-            // 
-            // HHM
-            // 
-            this.HHM.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.HHM.Location = new System.Drawing.Point(311, 216);
-            this.HHM.Name = "HHM";
-            this.HHM.Size = new System.Drawing.Size(32, 20);
-            this.HHM.TabIndex = 60;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(190, 219);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(61, 13);
-            this.label10.TabIndex = 58;
-            this.label10.Text = "Hora Hasta";
-            // 
-            // HHH
-            // 
-            this.HHH.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.HHH.Location = new System.Drawing.Point(260, 216);
-            this.HHH.Name = "HHH";
-            this.HHH.Size = new System.Drawing.Size(32, 20);
-            this.HHH.TabIndex = 59;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(20, 219);
+            this.label11.Location = new System.Drawing.Point(20, 225);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(64, 13);
             this.label11.TabIndex = 57;
@@ -331,6 +276,65 @@
             this.linkLabel1.TabIndex = 0;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Datos del viaje";
+            // 
+            // HHM
+            // 
+            this.HHM.Location = new System.Drawing.Point(306, 223);
+            this.HHM.Name = "HHM";
+            this.HHM.ReadOnly = true;
+            this.HHM.Size = new System.Drawing.Size(39, 20);
+            this.HHM.TabIndex = 64;
+            // 
+            // HHH
+            // 
+            this.HHH.Location = new System.Drawing.Point(245, 223);
+            this.HHH.Name = "HHH";
+            this.HHH.ReadOnly = true;
+            this.HHH.Size = new System.Drawing.Size(39, 20);
+            this.HHH.TabIndex = 63;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(290, 225);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(10, 13);
+            this.label8.TabIndex = 62;
+            this.label8.Text = ":";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(184, 225);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(61, 13);
+            this.label9.TabIndex = 61;
+            this.label9.Text = "Hora Hasta";
+            // 
+            // HDM
+            // 
+            this.HDM.Location = new System.Drawing.Point(139, 223);
+            this.HDM.Name = "HDM";
+            this.HDM.ReadOnly = true;
+            this.HDM.Size = new System.Drawing.Size(39, 20);
+            this.HDM.TabIndex = 67;
+            // 
+            // HDH
+            // 
+            this.HDH.Location = new System.Drawing.Point(81, 223);
+            this.HDH.Name = "HDH";
+            this.HDH.ReadOnly = true;
+            this.HDH.Size = new System.Drawing.Size(39, 20);
+            this.HDH.TabIndex = 66;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(123, 225);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(10, 13);
+            this.label10.TabIndex = 65;
+            this.label10.Text = ":";
             // 
             // Registro_Viajes
             // 
@@ -361,6 +365,10 @@
             this.Text = "Registro de Viajes";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.HHM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HHH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HDM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HDH)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -389,13 +397,13 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         protected System.Windows.Forms.ComboBox turn;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox HDM;
-        private System.Windows.Forms.TextBox HDH;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox HHM;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox HHH;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown HHM;
+        private System.Windows.Forms.NumericUpDown HHH;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown HDM;
+        private System.Windows.Forms.NumericUpDown HDH;
+        private System.Windows.Forms.Label label10;
     }
 }

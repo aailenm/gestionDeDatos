@@ -34,11 +34,14 @@ namespace UberFrba.Abm_Turno
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string id = dataGridView1.Rows[e.RowIndex].Cells["chof_id"].Value.ToString();
-            ComunicacionForms comunic = this.Owner as ComunicacionForms;
-            if (comunic != null)
-                comunic.editar(id);
-            Close();
+            if (e.RowIndex != -1)
+            {
+                string id = dataGridView1.Rows[e.RowIndex].Cells["chof_id"].Value.ToString();
+                ComunicacionForms comunic = this.Owner as ComunicacionForms;
+                if (comunic != null)
+                    comunic.editar(id);
+                Close();
+            }
         }
     }
 }

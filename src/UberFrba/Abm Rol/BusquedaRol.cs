@@ -33,11 +33,14 @@ namespace UberFrba.Abm_Rol
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string id = dataGridView1.Rows[e.RowIndex].Cells["rol_id"].Value.ToString();
-            ComunicacionForms comunic = this.Owner as ComunicacionForms;
-            if (comunic != null)
-                comunic.editar(id);
-            Close();
+            if (e.RowIndex != -1)
+            {
+                string id = dataGridView1.Rows[e.RowIndex].Cells["rol_id"].Value.ToString();
+                ComunicacionForms comunic = this.Owner as ComunicacionForms;
+                if (comunic != null)
+                    comunic.editar(id);
+                Close();
+            }
         }
     }
 }

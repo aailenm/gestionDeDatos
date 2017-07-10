@@ -9,6 +9,22 @@ namespace UberFrba.Registro_Viajes {
             InitializeComponent();
             finic.Value = Funciones.ObtenerFecha();
             ffin.Value = Funciones.ObtenerFecha();
+            HDH.Minimum = 0;
+            HDH.Maximum = 23;
+
+            HDM.Minimum = 0;
+            HDM.Maximum = 59;
+
+            HHH.Minimum = 0;
+            HHH.Maximum = 23;
+
+            HHM.Minimum = 0;
+            HHM.Maximum = 59;
+
+            HHH.Value = 0;
+            HHM.Value = 0;
+            HDH.Value = 0;
+            HDM.Value = 0;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -43,10 +59,10 @@ namespace UberFrba.Registro_Viajes {
             auto.Clear();
             clie.Clear();
             cantkm.Clear();
-            HHH.Clear();
-            HHM.Clear();
-            HDH.Clear();
-            HDM.Clear();
+            HHH.Value =0;
+            HHM.Value = 0;
+            HDH.Value = 0;
+            HDM.Value = 0;
             finic.Value = Funciones.ObtenerFecha();
             ffin.Value = Funciones.ObtenerFecha();
             Funciones.choferPorTurno(turn, "");
@@ -57,7 +73,7 @@ namespace UberFrba.Registro_Viajes {
             if (validaciones())
             {
                 bool result = Conexion.executeProcedure("ALTA_VIAJE", Conexion.generarArgumentos("@CANTIDADKM", "@FECHAINICIO", "@FECHAFIN", "@TURNO", "@AUTO", "@CHOFER", "@CLIENT"),
-                    cantkm.Text, Funciones.TransformarDateConTime(finic.Value.ToShortDateString(), HDH.Text, HDM.Text), Funciones.TransformarDateConTime(ffin.Value.ToShortDateString(), HHH.Text, HHM.Text), turn.SelectedValue, auto.Text, chof.Text, clie.Text);
+                    Double.Parse(cantkm.Text), Funciones.TransformarDateConTime(finic.Value.ToShortDateString(), HDH.Value, HDM.Value), Funciones.TransformarDateConTime(ffin.Value.ToShortDateString(), HHH.Value, HHM.Value), turn.SelectedValue, auto.Text, chof.Text, clie.Text);
                 if (result)
                 {
                     MessageBox.Show("Viaje creado");
@@ -67,7 +83,7 @@ namespace UberFrba.Registro_Viajes {
         }
 
         private bool validaciones() {
-            if(Funciones.esMuyGrande(Int32.Parse(cantkm.Text))){
+            if(Funciones.esMuyGrande(Double.Parse(cantkm.Text))){
                 MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
                 return false;
             }
@@ -108,37 +124,7 @@ namespace UberFrba.Registro_Viajes {
                 MessageBox.Show("El campo Hora Hasta no puede estar vacio");
                 return false;
             }
-            if (!Funciones.esNumero(HDH.Text))
-            {
-                MessageBox.Show("El campo horas de Hora desde debe ser un número ");
-                return false;
-            }
-            if (!Funciones.esNumero(HDM.Text))
-            {
-                MessageBox.Show("El campo minutos de Hora desde debe ser un número");
-                return false;
-            }
-            if (!Funciones.esNumero(HHH.Text))
-            {
-                MessageBox.Show("El campo de horas Hora Hasta debe ser un número");
-                return false;
-            }
-            if (!Funciones.esNumero(HHM.Text))
-            {
-                MessageBox.Show("El campo de minutos Hora Hasta debe ser un número");
-                return false;
-            }
-
-            if ((Int32.Parse(HHM.Text) > 60) || (Int32.Parse(HDM.Text) > 60) || (0 > Int32.Parse(HHM.Text)) || (0 > Int32.Parse(HDM.Text)))
-            {
-                MessageBox.Show("El campo minutos no es valido. Por favor ingrese un valor de 0 a 59");
-                return false;
-            }
-            if ((Int32.Parse(HHH.Text) > 23) || (Int32.Parse(HDH.Text) > 23) || (0 > Int32.Parse(HHH.Text)) || (0 > Int32.Parse(HDH.Text)))
-            {
-                MessageBox.Show("El campo horas no es valido. Por favor ingrese un valor de 0 a 23");
-                return false;
-            }
+           
             if (ffin.Value > Funciones.ObtenerFecha() || finic.Value > Funciones.ObtenerFecha())
             {
             MessageBox.Show("Fechas invalidas");
@@ -149,17 +135,17 @@ namespace UberFrba.Registro_Viajes {
                 MessageBox.Show("El campo Cantidad de km no puede estar vacio");
                 return false;
             }
-            if (!Funciones.esNumero(cantkm.Text))
+            if (!validacionDouble(cantkm.Text))
             {
-                MessageBox.Show("El campo Cantidad de km solo acepta numeros");
+                MessageBox.Show("El campo Cantidad de km solo acepta numeros y una sola ','");
                 return false;
             }
-            if (0 >= Int32.Parse(cantkm.Text))
+            if (0 >= Double.Parse(cantkm.Text))
             {
                 MessageBox.Show("El campo Cantidad de km debe ser mayor a 0");
                 return false;
             }
-            if(finic.Value==ffin.Value)
+            if (finic.Value == ffin.Value)
             {
                 if (Int32.Parse(HDH.Text) > Int32.Parse(HHH.Text))
                 {
@@ -168,13 +154,17 @@ namespace UberFrba.Registro_Viajes {
                 }
                 if (Int32.Parse(HDH.Text) == Int32.Parse(HHH.Text))
                 {
-                    if (Int32.Parse(HDM.Text) > Int32.Parse(HHM.Text))
+                    if (Int32.Parse(HDM.Text) >= Int32.Parse(HHM.Text))
                     {
-                        MessageBox.Show("Hora invalida, minutos de inicio no pueden ser mayor a minutos de fin");
+                        MessageBox.Show("Hora invalida, minutos de inicio no pueden ser mayor o igual a minutos de fin");
                         return false;
                     }
                 }
 
+            }
+            else {
+                MessageBox.Show("El viaje debe comenzar y finalizar el mismo día");
+                return false;
             }
             
             return true;
@@ -207,6 +197,22 @@ namespace UberFrba.Registro_Viajes {
         private void finic_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private bool validacionDouble(string porc)
+        {
+            int comas = 0;
+            foreach (char c in porc)
+            {
+                if (!Char.IsDigit(c) && c != ',') return false;
+                else if (c == ',')
+                {
+                    comas++;
+                    if (comas > 1) return false;
+                }
+            }
+
+            return true;
         }
     }
 }

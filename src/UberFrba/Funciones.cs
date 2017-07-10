@@ -209,10 +209,10 @@ namespace UberFrba {
             combo.SelectedIndex = -1;
         }
         /* los datetimepiker solo ponen fechas, y el horario en 00.00. Para agergarles el horario, se usa esta funcion */
-        internal static DateTime TransformarDateConTime(string fecha, string horas, string minutos) {
+        internal static DateTime TransformarDateConTime(string fecha, decimal horas, decimal minutos) {
             DateTime horaTransformada = new DateTime();
-            int hora = int.Parse(horas);
-            int minuto = int.Parse(minutos);
+            int hora = int.Parse(horas.ToString());
+            int minuto = int.Parse(minutos.ToString());
             horaTransformada = DateTime.Parse(fecha);
             horaTransformada = horaTransformada.AddHours(hora);
             horaTransformada = horaTransformada.AddMinutes(minuto);
