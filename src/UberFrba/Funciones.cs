@@ -154,7 +154,7 @@ namespace UberFrba {
         {
             foreach (char c in s)
             {
-                if (!Char.IsLetter(c))
+                if (!Char.IsLetter(c) && !Char.IsWhiteSpace(c))
                     return false;
             }
             return true;

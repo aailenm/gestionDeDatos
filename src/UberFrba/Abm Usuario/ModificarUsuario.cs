@@ -503,7 +503,7 @@ namespace UberFrba.Abm_Usuario
         {
             if (Conexion.executeProcedure("HABILITAR_USUARIO", Conexion.generarArgumentos("@ID"), cmbUsuario.SelectedValue))
                 MessageBox.Show("Usuario habilitado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            labelCh.Text = "Usuario Habilitado";
+            label8.Text = "Usuario Habilitado";
             btnChofer.Enabled = false;
         }
 
