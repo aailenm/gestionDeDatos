@@ -56,14 +56,16 @@ namespace UberFrba.Abm_Chofer {
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string idchofer = dataGridView1.Rows[e.RowIndex].Cells["chof_id"].Value.ToString();
-            string idauto = dataGridView1.Rows[e.RowIndex].Cells["auto_id"].Value.ToString();
-            ComunicacionForms comunic = this.Owner as ComunicacionForms;
-            if (comunic != null)
-                comunic.editarChofer(idchofer);
-                comunic.editarAuto(idauto);
-            Close();
-           
+            if (e.RowIndex != -1) {
+                string idchofer = dataGridView1.Rows[e.RowIndex].Cells["chof_id"].Value.ToString();
+                string idauto = dataGridView1.Rows[e.RowIndex].Cells["auto_id"].Value.ToString();
+                ComunicacionForms comunic = Owner as ComunicacionForms;
+                if (comunic != null) {
+                    comunic.editarChofer(idchofer);
+                    comunic.editarAuto(idauto);
+                }
+                Close();
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
