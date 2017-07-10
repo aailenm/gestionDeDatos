@@ -22,6 +22,8 @@ namespace UberFrba.Abm_Usuario
             habilitusua.Enabled = false;
             btnMod.Enabled = true;
             habilitarDatos(false);
+            dtpFechaNac.Value = Funciones.ObtenerFecha();
+            roles.Enabled = false;
         }
 
         private void mostrarRoles()
