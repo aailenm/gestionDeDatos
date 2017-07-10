@@ -18,6 +18,12 @@ namespace UberFrba.Abm_Turno {
 
             HHM.Minimum = 0;
             HHM.Maximum = 59;
+
+
+            HHH.Value = 0;
+            HHM.Value = 0;
+            HDH.Value = 0;
+            HDM.Value = 0;
         }
 
         private bool validaciones() {
@@ -98,12 +104,12 @@ namespace UberFrba.Abm_Turno {
                 MessageBox.Show("El campo Precio Base no puede estar vacio");
                 return false;
             }
-            if (Funciones.esMuyGrande(Int32.Parse(PB.Text)))
+            if (Funciones.esMuyGrande(Double.Parse(PB.Text)))
             {
                 MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
                 return false;
             }
-            if (Funciones.esMuyGrande(Int32.Parse(VKM.Text)))
+            if (Funciones.esMuyGrande(Double.Parse(VKM.Text)))
             {
                 MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
                 return false;
