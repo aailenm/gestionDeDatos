@@ -97,6 +97,7 @@ namespace UberFrba.Abm_Usuario
             {
 
                 traerRoles();
+                roles.Enabled = true;
                 SqlDataReader reader = Conexion.ejecutarQuery("Select usua_habilitado from RUBIRA_SANTOS.USUARIO where usua_id = " + cmbUsuario.SelectedValue);
                 reader.Read();
                 string usuahabi = reader["usua_habilitado"].ToString();
