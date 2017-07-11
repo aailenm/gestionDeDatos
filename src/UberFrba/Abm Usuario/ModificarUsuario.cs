@@ -273,8 +273,8 @@ namespace UberFrba.Abm_Usuario
                         else
                         {//es un rol nuevo a agregar
                             //INSERT EN ROL POR USUARIO Y EN ROL
-                            modificarRol(rol);
                             agregarNuevoRol(rol);
+                            modificarRol(rol);
 
                         }
                     }

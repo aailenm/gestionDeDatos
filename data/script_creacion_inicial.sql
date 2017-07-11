@@ -1273,7 +1273,7 @@ BEGIN
 	JOIN RUBIRA_SANTOS.DIRECCION D ON D.dire_id = C.clie_direccion
 	WHERE f.fact_fecha_inicio>= @FECHA_INICIO AND fact_fecha_fin <= @FECHAFIN
 	GROUP BY C.clie_id, C.clie_nombre + ' ' + clie_apellido, C.clie_fechaNacimiento , c.clie_dni, C.clie_telefono, d.dire_calle
-	ORDER BY  SUM(F.fact_total)
+	ORDER BY  SUM(F.fact_total) desc
 END
 
 GO
