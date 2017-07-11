@@ -134,9 +134,7 @@ namespace UberFrba.Abm_Usuario
 
                 }
                 if (!roles.Contains(2) && !roles.Contains(3))
-                {
-                    traerDatosCliente();
-                    traerDatosChofer();
+                {   
                     habilitarDatos(false);
                     btnChofer.Enabled = false;
                     btnCliente.Enabled = false;
