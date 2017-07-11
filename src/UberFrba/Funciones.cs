@@ -121,13 +121,13 @@ namespace UberFrba {
 
         /*devuelve verdadero si la primera franja abarca (o contiene) a la segunda*/
         internal static bool franjaMayor( TimeSpan menorInicio, TimeSpan mayorFin, TimeSpan mayorInicio, TimeSpan menorFin) {
-            if ((TimeSpan.Compare(menorInicio,mayorInicio) == -1) && (TimeSpan.Compare(mayorFin, menorFin) == 1)) return true;
+            if (((TimeSpan.Compare(menorInicio, mayorInicio) == -1) || (TimeSpan.Compare(menorInicio, mayorInicio) == 0)) && ((TimeSpan.Compare(mayorFin, menorFin) == 1) || (TimeSpan.Compare(mayorFin, menorFin) == 0))) return true;
             else return false;
         }
 
         internal static bool horaDentroDeRangoExistente(TimeSpan hora, TimeSpan inicioRango, TimeSpan finRango)
         {
-            if ((TimeSpan.Compare(hora, inicioRango) == 1) && (TimeSpan.Compare(hora, finRango) == -1)) return true;
+            if (((TimeSpan.Compare(hora, inicioRango) == 1) ||(TimeSpan.Compare(hora, inicioRango) == 0)) && ((TimeSpan.Compare(hora, finRango) == -1) || (TimeSpan.Compare(hora, finRango) == 0))) return true;
             else return false;
         }
 
