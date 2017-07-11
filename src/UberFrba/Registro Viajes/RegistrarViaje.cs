@@ -178,20 +178,20 @@ namespace UberFrba.Registro_Viajes {
         private void button3_Click(object sender, EventArgs e)
         {
             Abm_Chofer.BusquedaChofer chofer = new Abm_Chofer.BusquedaChofer();
-            chofer.Show(this);
+            chofer.ShowDialog(this);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             Abm_Automovil.BusquedaAuto auto = new Abm_Automovil.BusquedaAuto();
             auto.editarChofer(chof.Text);
-            auto.Show(this);
+            auto.ShowDialog(this);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             Abm_Cliente.BusquedaCliente cliente = new Abm_Cliente.BusquedaCliente();
-            cliente.Show(this);
+            cliente.ShowDialog(this);
         }
 
         private void finic_ValueChanged(object sender, EventArgs e)

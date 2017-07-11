@@ -36,14 +36,14 @@
             this.cmbDesc.Location = new System.Drawing.Point(83, 12);
             this.cmbDesc.Name = "cmbDesc";
             this.cmbDesc.Size = new System.Drawing.Size(189, 21);
-            this.cmbDesc.TabIndex = 12;
+            this.cmbDesc.TabIndex = 0;
             // 
             // btnVolver
             // 
             this.btnVolver.Location = new System.Drawing.Point(155, 39);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(117, 23);
-            this.btnVolver.TabIndex = 10;
+            this.btnVolver.TabIndex = 2;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
@@ -53,7 +53,7 @@
             this.btnInhabilitar.Location = new System.Drawing.Point(17, 39);
             this.btnInhabilitar.Name = "btnInhabilitar";
             this.btnInhabilitar.Size = new System.Drawing.Size(117, 23);
-            this.btnInhabilitar.TabIndex = 11;
+            this.btnInhabilitar.TabIndex = 1;
             this.btnInhabilitar.Text = "Inhabilitar";
             this.btnInhabilitar.UseVisualStyleBackColor = true;
             this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);

@@ -53,7 +53,7 @@
             this.groupBox1.Controls.Add(this.chofOrigen);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(548, 77);
+            this.groupBox1.Size = new System.Drawing.Size(421, 49);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Originales";
@@ -61,7 +61,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(308, 32);
+            this.label2.Location = new System.Drawing.Point(211, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 3;
@@ -70,7 +70,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 32);
+            this.label1.Location = new System.Drawing.Point(6, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 2;
@@ -80,7 +80,7 @@
             // 
             this.turnOrigen.Enabled = false;
             this.turnOrigen.FormattingEnabled = true;
-            this.turnOrigen.Location = new System.Drawing.Point(382, 29);
+            this.turnOrigen.Location = new System.Drawing.Point(290, 18);
             this.turnOrigen.Name = "turnOrigen";
             this.turnOrigen.Size = new System.Drawing.Size(121, 21);
             this.turnOrigen.TabIndex = 1;
@@ -89,7 +89,7 @@
             // chofOrigen
             // 
             this.chofOrigen.Enabled = false;
-            this.chofOrigen.Location = new System.Drawing.Point(103, 29);
+            this.chofOrigen.Location = new System.Drawing.Point(88, 19);
             this.chofOrigen.Name = "chofOrigen";
             this.chofOrigen.Size = new System.Drawing.Size(100, 20);
             this.chofOrigen.TabIndex = 0;
@@ -101,19 +101,19 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.turnNuevo);
             this.groupBox2.Controls.Add(this.chofnNuevo);
-            this.groupBox2.Location = new System.Drawing.Point(12, 95);
+            this.groupBox2.Location = new System.Drawing.Point(12, 67);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(548, 77);
+            this.groupBox2.Size = new System.Drawing.Size(421, 77);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos a Modificar";
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(209, 35);
+            this.button3.Location = new System.Drawing.Point(88, 46);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 4;
+            this.button3.Size = new System.Drawing.Size(100, 23);
+            this.button3.TabIndex = 2;
             this.button3.Text = "Buscar";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -121,7 +121,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(308, 39);
+            this.label4.Location = new System.Drawing.Point(214, 23);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(70, 13);
             this.label4.TabIndex = 5;
@@ -130,7 +130,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 40);
+            this.label3.Location = new System.Drawing.Point(6, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 13);
             this.label3.TabIndex = 4;
@@ -140,25 +140,25 @@
             // 
             this.turnNuevo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.turnNuevo.FormattingEnabled = true;
-            this.turnNuevo.Location = new System.Drawing.Point(382, 35);
+            this.turnNuevo.Location = new System.Drawing.Point(290, 20);
             this.turnNuevo.Name = "turnNuevo";
             this.turnNuevo.Size = new System.Drawing.Size(121, 21);
-            this.turnNuevo.TabIndex = 2;
+            this.turnNuevo.TabIndex = 3;
             this.turnNuevo.SelectedIndexChanged += new System.EventHandler(this.turnNuevo_SelectedIndexChanged);
             // 
             // chofnNuevo
             // 
             this.chofnNuevo.Enabled = false;
-            this.chofnNuevo.Location = new System.Drawing.Point(103, 36);
+            this.chofnNuevo.Location = new System.Drawing.Point(88, 20);
             this.chofnNuevo.Name = "chofnNuevo";
             this.chofnNuevo.Size = new System.Drawing.Size(100, 20);
             this.chofnNuevo.TabIndex = 1;
             // 
             // Modificar
             // 
-            this.Modificar.Location = new System.Drawing.Point(485, 187);
+            this.Modificar.Location = new System.Drawing.Point(12, 150);
             this.Modificar.Name = "Modificar";
-            this.Modificar.Size = new System.Drawing.Size(75, 23);
+            this.Modificar.Size = new System.Drawing.Size(204, 23);
             this.Modificar.TabIndex = 2;
             this.Modificar.Text = "Modificar";
             this.Modificar.UseVisualStyleBackColor = true;
@@ -166,9 +166,9 @@
             // 
             // Cancelar
             // 
-            this.Cancelar.Location = new System.Drawing.Point(404, 187);
+            this.Cancelar.Location = new System.Drawing.Point(229, 150);
             this.Cancelar.Name = "Cancelar";
-            this.Cancelar.Size = new System.Drawing.Size(75, 23);
+            this.Cancelar.Size = new System.Drawing.Size(204, 23);
             this.Cancelar.TabIndex = 3;
             this.Cancelar.Text = "Cancelar";
             this.Cancelar.UseVisualStyleBackColor = true;
@@ -178,13 +178,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 226);
+            this.ClientSize = new System.Drawing.Size(443, 182);
             this.Controls.Add(this.Cancelar);
             this.Controls.Add(this.Modificar);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Modificar_Chofer_Auto";
-            this.Text = "Modificar_Chofer_Auto";
+            this.Text = "Modificar Chofer-Auto";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

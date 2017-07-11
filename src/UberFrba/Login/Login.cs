@@ -44,7 +44,7 @@ namespace UberFrba.Login {
         private void button3_Click(object sender, EventArgs e)
         {
             Abm_Usuario.AltaUsuario nuevoUsuario = new Abm_Usuario.AltaUsuario();
-            nuevoUsuario.Show();
+            nuevoUsuario.ShowDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)

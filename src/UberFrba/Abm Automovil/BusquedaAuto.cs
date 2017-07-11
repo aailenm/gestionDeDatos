@@ -89,7 +89,7 @@ namespace UberFrba.Abm_Automovil
         private void button4_Click(object sender, EventArgs e)
         {
             Abm_Chofer.BusquedaChofer chof = new Abm_Chofer.BusquedaChofer();
-            chof.Show(this);
+            chof.ShowDialog(this);
         }
 
         private void marca_SelectedIndexChanged(object sender, EventArgs e)

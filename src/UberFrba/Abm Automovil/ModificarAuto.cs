@@ -65,7 +65,7 @@ namespace UberFrba.Abm_Automovil
         private void botonBuscar(object sender, EventArgs e)
         {
             Abm_Automovil.BusquedaAuto buscar = new Abm_Automovil.BusquedaAuto();
-            buscar.Show(this);
+            buscar.ShowDialog(this);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace UberFrba.Abm_Automovil
             mca.setChofOriginal(chofer.Text);
             mca.setTurnoOriginal(turnos);
             mca.setAuto(auto.Text);
-            mca.Show(this);
+            mca.ShowDialog(this);
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -52,7 +52,7 @@
             this.btnInhabilitar.Location = new System.Drawing.Point(15, 40);
             this.btnInhabilitar.Name = "btnInhabilitar";
             this.btnInhabilitar.Size = new System.Drawing.Size(126, 23);
-            this.btnInhabilitar.TabIndex = 2;
+            this.btnInhabilitar.TabIndex = 1;
             this.btnInhabilitar.Text = "Inhabilitar";
             this.btnInhabilitar.UseVisualStyleBackColor = true;
             this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);
@@ -62,7 +62,7 @@
             this.btnVolver.Location = new System.Drawing.Point(146, 40);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(126, 23);
-            this.btnVolver.TabIndex = 3;
+            this.btnVolver.TabIndex = 2;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
