@@ -1388,7 +1388,7 @@ INSERT INTO RUBIRA_SANTOS.TURNO(turn_descripcion, turn_hora_inicio, turn_hora_fi
 	SELECT m.Turno_Descripcion
 	, CAST(RIGHT(RIGHT('00' + CAST(m.Turno_Hora_Inicio AS VARCHAR), 2),2)  + ':00:00' AS TIME)
 	,CASE m.Turno_Hora_Fin WHEN 24 THEN CAST(RIGHT(RIGHT('00' + CAST(23 AS VARCHAR), 2),2)  + ':59:00' AS TIME)
-						   ELSE CAST(RIGHT(RIGHT('00' + CAST(m.Turno_Hora_Fin AS VARCHAR), 2),2)  + ':00:00' AS TIME)
+	ELSE DATEADD(MINUTE,-1,CAST(RIGHT(RIGHT('00' + CAST(m.Turno_Hora_Fin AS VARCHAR), 2),2)  + ':00:00' AS TIME))
 	 END
 	, m.Turno_Precio_Base
 	, m.Turno_Valor_Kilometro
