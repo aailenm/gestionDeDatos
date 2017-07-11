@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-
+using System.Data.SqlClient;
 namespace UberFrba.Registro_Viajes {
     public partial class Registro_Viajes : Form, ComunicacionForms
     {
@@ -70,7 +70,7 @@ namespace UberFrba.Registro_Viajes {
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (validaciones())
+            if (validaciones() && validarViaje())
             {
                 bool result = Conexion.executeProcedure("ALTA_VIAJE", Conexion.generarArgumentos("@CANTIDADKM", "@FECHAINICIO", "@FECHAFIN", "@TURNO", "@AUTO", "@CHOFER", "@CLIENT"),
                     Double.Parse(cantkm.Text), Funciones.TransformarDateConTime(finic.Value.ToShortDateString(), HDH.Value, HDM.Value), Funciones.TransformarDateConTime(ffin.Value.ToShortDateString(), HHH.Value, HHM.Value), turn.SelectedValue, auto.Text, chof.Text, clie.Text);
@@ -212,6 +212,28 @@ namespace UberFrba.Registro_Viajes {
                 }
             }
 
+            return true;
+        }
+
+        
+        private bool validarViaje()
+        {
+            SqlDataReader reader = Conexion.ejecutarQuery("select viaj_id, CAST(viaj_fyh_inicio as time) inicioV, CAST(viaj_fyh_fin as time) finV, viaj_cliente, viaj_chofer from RUBIRA_SANTOS.VIAJE where  CONVERT(VARCHAR(10), CAST(viaj_fyh_fin AS DATE), 103) = '" + ffin.Value.ToShortDateString().ToString() + "'"); // como la fecha del viaje tiene que ser dentro de un mismo dia, me fijo con una sola fecha
+            TimeSpan inicio = TimeSpan.Parse(HDH.Value.ToString() + ':' + HDM.Value.ToString() );
+            TimeSpan fin = TimeSpan.Parse(HHH.Value.ToString() + ':' + HHM.Value.ToString());
+            while (reader.Read())
+            {
+                TimeSpan nuevoInicio = TimeSpan.Parse(reader["inicioV"].ToString());
+                TimeSpan nuevoFin = TimeSpan.Parse(reader["finV"].ToString());
+                if (Funciones.horaDentroDeRangoExistente(inicio,nuevoInicio, nuevoFin) || Funciones.horaDentroDeRangoExistente(fin, nuevoInicio, nuevoFin))
+                { //si hora inicio u hora fin del viaje estan dentro de otro viaje 
+                    if (reader["viaj_chofer"].ToString().Equals(chof.Text) || reader["viaj_cliente"].ToString().Equals(clie.Text))
+                    {
+                        MessageBox.Show("No se puede crear el viaje porque el cliente o el chofer ya tienen asignado un viaje en esa franja horaria.");
+                        return false;
+                    }
+                }
+            }
             return true;
         }
     }
