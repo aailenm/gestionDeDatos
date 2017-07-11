@@ -129,8 +129,7 @@ namespace UberFrba.Facturacion {
                       client.Text, fechainicio.Value.ToShortDateString(), fechafin.Value.ToShortDateString(), tot);
                 if (result)
                 {
-                    MessageBox.
-                        "Factura creada");
+                    MessageBox.Show("Factura creada");
                     Close();
                 }
             }
