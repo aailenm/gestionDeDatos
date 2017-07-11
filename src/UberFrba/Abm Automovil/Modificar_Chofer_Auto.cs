@@ -81,7 +81,7 @@ namespace UberFrba.Abm_Automovil
         private void button3_Click(object sender, EventArgs e)
         {
             Abm_Chofer.BusquedaChofer bc = new Abm_Chofer.BusquedaChofer();
-            bc.Show(this);
+            bc.ShowDialog(this);
         }
 
         private void turnNuevo_SelectedIndexChanged(object sender, EventArgs e)

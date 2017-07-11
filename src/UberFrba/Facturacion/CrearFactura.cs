@@ -51,7 +51,7 @@ namespace UberFrba.Facturacion {
         private void button5_Click(object sender, EventArgs e)
         {
             Abm_Cliente.BusquedaCliente cliente = new Abm_Cliente.BusquedaCliente();
-            cliente.Show(this);
+            cliente.ShowDialog(this);
         }
 
         public void editarChofer(string id)
@@ -129,7 +129,8 @@ namespace UberFrba.Facturacion {
                       client.Text, fechainicio.Value.ToShortDateString(), fechafin.Value.ToShortDateString(), tot);
                 if (result)
                 {
-                    MessageBox.Show("Factura creada");
+                    MessageBox.
+                        "Factura creada");
                     Close();
                 }
             }

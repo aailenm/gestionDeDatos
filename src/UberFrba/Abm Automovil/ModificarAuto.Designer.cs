@@ -53,9 +53,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(54, 12);
+            this.button1.Location = new System.Drawing.Point(12, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(285, 40);
+            this.button1.Size = new System.Drawing.Size(260, 40);
             this.button1.TabIndex = 0;
             this.button1.Text = "Buscar Auto";
             this.button1.UseVisualStyleBackColor = true;
@@ -80,15 +80,15 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 58);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(375, 236);
-            this.groupBox1.TabIndex = 40;
+            this.groupBox1.Size = new System.Drawing.Size(260, 219);
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(161, 10);
+            this.button6.Location = new System.Drawing.Point(176, 13);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.Size = new System.Drawing.Size(75, 20);
             this.button6.TabIndex = 50;
             this.button6.Text = "Habilitar";
             this.button6.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             this.labelEstado.AutoSize = true;
             this.labelEstado.BackColor = System.Drawing.SystemColors.Control;
             this.labelEstado.ForeColor = System.Drawing.Color.Red;
-            this.labelEstado.Location = new System.Drawing.Point(93, 16);
+            this.labelEstado.Location = new System.Drawing.Point(93, 17);
             this.labelEstado.Name = "labelEstado";
             this.labelEstado.Size = new System.Drawing.Size(51, 13);
             this.labelEstado.TabIndex = 49;
@@ -118,68 +118,72 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(11, 16);
+            this.label6.Location = new System.Drawing.Point(20, 15);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 13);
             this.label6.TabIndex = 47;
             this.label6.Text = "Auto";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // turnos
             // 
             this.turnos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.turnos.FormattingEnabled = true;
-            this.turnos.Location = new System.Drawing.Point(55, 203);
+            this.turnos.Location = new System.Drawing.Point(55, 184);
             this.turnos.Name = "turnos";
-            this.turnos.Size = new System.Drawing.Size(121, 21);
-            this.turnos.TabIndex = 46;
+            this.turnos.Size = new System.Drawing.Size(196, 21);
+            this.turnos.TabIndex = 5;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 206);
+            this.label4.Location = new System.Drawing.Point(14, 187);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 45;
             this.label4.Text = "Turno";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // patente
             // 
-            this.patente.Location = new System.Drawing.Point(55, 160);
+            this.patente.Location = new System.Drawing.Point(55, 150);
             this.patente.Name = "patente";
-            this.patente.Size = new System.Drawing.Size(100, 20);
-            this.patente.TabIndex = 44;
+            this.patente.Size = new System.Drawing.Size(196, 20);
+            this.patente.TabIndex = 4;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 163);
+            this.label3.Location = new System.Drawing.Point(5, 153);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 13);
             this.label3.TabIndex = 43;
             this.label3.Text = "Patente";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // modelo
             // 
-            this.modelo.Location = new System.Drawing.Point(55, 120);
+            this.modelo.Location = new System.Drawing.Point(55, 116);
             this.modelo.Name = "modelo";
-            this.modelo.Size = new System.Drawing.Size(100, 20);
-            this.modelo.TabIndex = 42;
+            this.modelo.Size = new System.Drawing.Size(196, 20);
+            this.modelo.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 123);
+            this.label2.Location = new System.Drawing.Point(7, 119);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 41;
             this.label2.Text = "Modelo";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(161, 44);
+            this.button3.Location = new System.Drawing.Point(176, 47);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 40;
+            this.button3.Size = new System.Drawing.Size(75, 20);
+            this.button3.TabIndex = 1;
             this.button3.Text = "Cambiar";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -187,66 +191,68 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 53);
+            this.label5.Location = new System.Drawing.Point(11, 49);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 37;
             this.label5.Text = "Chofer";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // chofer
             // 
             this.chofer.Enabled = false;
-            this.chofer.Location = new System.Drawing.Point(55, 46);
+            this.chofer.Location = new System.Drawing.Point(55, 47);
             this.chofer.Name = "chofer";
             this.chofer.ReadOnly = true;
-            this.chofer.Size = new System.Drawing.Size(100, 20);
-            this.chofer.TabIndex = 40;
+            this.chofer.Size = new System.Drawing.Size(114, 20);
+            this.chofer.TabIndex = 0;
             this.chofer.TextChanged += new System.EventHandler(this.chofer_TextChanged);
             // 
             // marcas
             // 
             this.marcas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.marcas.FormattingEnabled = true;
-            this.marcas.Location = new System.Drawing.Point(55, 82);
+            this.marcas.Location = new System.Drawing.Point(55, 81);
             this.marcas.Name = "marcas";
-            this.marcas.Size = new System.Drawing.Size(121, 21);
-            this.marcas.TabIndex = 30;
+            this.marcas.Size = new System.Drawing.Size(196, 21);
+            this.marcas.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 85);
+            this.label1.Location = new System.Drawing.Point(12, 84);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(37, 13);
             this.label1.TabIndex = 29;
             this.label1.Text = "Marca";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(231, 300);
+            this.button2.Location = new System.Drawing.Point(103, 283);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 48;
+            this.button2.Size = new System.Drawing.Size(78, 23);
+            this.button2.TabIndex = 3;
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(312, 300);
+            this.button4.Location = new System.Drawing.Point(12, 283);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 47;
+            this.button4.Size = new System.Drawing.Size(78, 23);
+            this.button4.TabIndex = 2;
             this.button4.Text = "Modificar";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.botonModificar);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(12, 300);
+            this.button5.Location = new System.Drawing.Point(194, 283);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 49;
+            this.button5.Size = new System.Drawing.Size(78, 23);
+            this.button5.TabIndex = 4;
             this.button5.Text = "Limpiar";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
@@ -255,12 +261,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(420, 335);
+            this.ClientSize = new System.Drawing.Size(279, 314);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Modificar_Auto";
             this.Text = "Modificar Automóvil";
             this.groupBox1.ResumeLayout(false);

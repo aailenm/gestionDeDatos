@@ -41,17 +41,17 @@
             // 
             // btnInhabilitar
             // 
-            this.btnInhabilitar.Location = new System.Drawing.Point(15, 38);
+            this.btnInhabilitar.Location = new System.Drawing.Point(15, 39);
             this.btnInhabilitar.Name = "btnInhabilitar";
             this.btnInhabilitar.Size = new System.Drawing.Size(117, 23);
-            this.btnInhabilitar.TabIndex = 2;
+            this.btnInhabilitar.TabIndex = 1;
             this.btnInhabilitar.Text = "Inhabilitar";
             this.btnInhabilitar.UseVisualStyleBackColor = true;
             this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(155, 38);
+            this.btnVolver.Location = new System.Drawing.Point(155, 39);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(117, 23);
             this.btnVolver.TabIndex = 2;
@@ -66,18 +66,19 @@
             this.cmbPatente.Location = new System.Drawing.Point(64, 12);
             this.cmbPatente.Name = "cmbPatente";
             this.cmbPatente.Size = new System.Drawing.Size(208, 21);
-            this.cmbPatente.TabIndex = 8;
+            this.cmbPatente.TabIndex = 0;
             this.cmbPatente.SelectedIndexChanged += new System.EventHandler(this.cmbPatente_SelectedIndexChanged);
             // 
             // Baja_Automovil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 74);
+            this.ClientSize = new System.Drawing.Size(284, 70);
             this.Controls.Add(this.cmbPatente);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnInhabilitar);
             this.Controls.Add(this.lblPatente);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Baja_Automovil";
             this.Text = "Baja de Automóvil";
             this.Load += new System.EventHandler(this.BajaAutomovil_Load);

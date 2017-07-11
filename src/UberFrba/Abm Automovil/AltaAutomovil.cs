@@ -25,7 +25,7 @@ namespace UberFrba.Abm_Automovil {
         private void button3_Click(object sender, EventArgs e)
         {
             Abm_Chofer.BusquedaChofer form = new Abm_Chofer.BusquedaChofer();
-            form.Show(this);
+            form.ShowDialog(this);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -127,29 +127,7 @@ namespace UberFrba.Abm_Automovil {
             Funciones.llenarCombo_Turno(turnos);
         }
 
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        private void label3_Click(object sender, EventArgs e) {
 
         }
     }

@@ -26,11 +26,6 @@ namespace UberFrba.Rendicion_Viajes
 
         }
 
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
@@ -81,7 +76,7 @@ namespace UberFrba.Rendicion_Viajes
         private void button4_Click(object sender, EventArgs e)
         {
             Abm_Chofer.BusquedaChofer chof = new Abm_Chofer.BusquedaChofer();
-            chof.Show(this);
+            chof.ShowDialog(this);
         }
 
         private void maskedTextBox3_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
@@ -192,10 +187,6 @@ namespace UberFrba.Rendicion_Viajes
         }
 
         private void TOTAL_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void CHOF_TextChanged(object sender, EventArgs e)
         {
         }
 
