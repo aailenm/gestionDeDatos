@@ -142,9 +142,10 @@ namespace UberFrba.Abm_Turno {
             if (cmbTurno.SelectedIndex != -1)
             {
                 DataTable dt = Conexion.obtenerTablaProcedure("GET_TURNO",Conexion.generarArgumentos("@ID"),cmbTurno.SelectedValue);
-                if (dt.Rows[0][6].ToString().Equals("True")) labelEstado.Text = "HABILITADO";
-                else
-                {
+                if (dt.Rows[0][6].ToString().Equals("True")) {
+                    labelEstado.Text = "HABILITADO";
+                    habilit.Enabled = false;
+                } else {
                     labelEstado.Text = "DESHABILITADO";
                     habilit.Enabled = true;
                 }

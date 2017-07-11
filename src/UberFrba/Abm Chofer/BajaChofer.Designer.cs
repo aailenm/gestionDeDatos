@@ -45,14 +45,14 @@
             this.cmbTeléfonos.Location = new System.Drawing.Point(69, 13);
             this.cmbTeléfonos.Name = "cmbTeléfonos";
             this.cmbTeléfonos.Size = new System.Drawing.Size(171, 21);
-            this.cmbTeléfonos.TabIndex = 1;
+            this.cmbTeléfonos.TabIndex = 0;
             // 
             // btnInhabilitar
             // 
             this.btnInhabilitar.Location = new System.Drawing.Point(17, 40);
             this.btnInhabilitar.Name = "btnInhabilitar";
             this.btnInhabilitar.Size = new System.Drawing.Size(108, 23);
-            this.btnInhabilitar.TabIndex = 2;
+            this.btnInhabilitar.TabIndex = 1;
             this.btnInhabilitar.Text = "Inhabilitar";
             this.btnInhabilitar.UseVisualStyleBackColor = true;
             this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);
@@ -76,6 +76,7 @@
             this.Controls.Add(this.btnInhabilitar);
             this.Controls.Add(this.cmbTeléfonos);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "BajaChofer";
             this.Text = "Baja de Chofer";
             this.Load += new System.EventHandler(this.BajaChofer_Load);

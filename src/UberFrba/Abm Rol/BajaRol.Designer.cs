@@ -34,7 +34,7 @@
             this.btnVolver.Location = new System.Drawing.Point(155, 38);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(117, 23);
-            this.btnVolver.TabIndex = 5;
+            this.btnVolver.TabIndex = 2;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
@@ -44,7 +44,7 @@
             this.btnInhabilitar.Location = new System.Drawing.Point(15, 38);
             this.btnInhabilitar.Name = "btnInhabilitar";
             this.btnInhabilitar.Size = new System.Drawing.Size(117, 23);
-            this.btnInhabilitar.TabIndex = 6;
+            this.btnInhabilitar.TabIndex = 1;
             this.btnInhabilitar.Text = "Inhabilitar";
             this.btnInhabilitar.UseVisualStyleBackColor = true;
             this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);
@@ -66,7 +66,7 @@
             this.cmbRol.Location = new System.Drawing.Point(64, 12);
             this.cmbRol.Name = "cmbRol";
             this.cmbRol.Size = new System.Drawing.Size(208, 21);
-            this.cmbRol.TabIndex = 7;
+            this.cmbRol.TabIndex = 0;
             // 
             // Baja_Rol
             // 

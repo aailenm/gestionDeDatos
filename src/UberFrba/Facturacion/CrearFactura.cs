@@ -51,7 +51,7 @@ namespace UberFrba.Facturacion {
         private void button5_Click(object sender, EventArgs e)
         {
             Abm_Cliente.BusquedaCliente cliente = new Abm_Cliente.BusquedaCliente();
-            cliente.Show(this);
+            cliente.ShowDialog(this);
         }
 
         public void editarChofer(string id)

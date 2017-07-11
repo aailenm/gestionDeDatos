@@ -66,7 +66,7 @@
             this.cmbTurno.Location = new System.Drawing.Point(84, 12);
             this.cmbTurno.Name = "cmbTurno";
             this.cmbTurno.Size = new System.Drawing.Size(103, 21);
-            this.cmbTurno.TabIndex = 1;
+            this.cmbTurno.TabIndex = 0;
             this.cmbTurno.SelectedIndexChanged += new System.EventHandler(this.cmbTurno_SelectedIndexChanged);
             // 
             // lblDesc
@@ -83,15 +83,15 @@
             // 
             this.DETALLE.Location = new System.Drawing.Point(84, 40);
             this.DETALLE.Name = "DETALLE";
-            this.DETALLE.Size = new System.Drawing.Size(188, 20);
-            this.DETALLE.TabIndex = 3;
+            this.DETALLE.Size = new System.Drawing.Size(275, 20);
+            this.DETALLE.TabIndex = 1;
             // 
             // PB
             // 
             this.PB.Location = new System.Drawing.Point(84, 67);
             this.PB.Name = "PB";
-            this.PB.Size = new System.Drawing.Size(188, 20);
-            this.PB.TabIndex = 4;
+            this.PB.Size = new System.Drawing.Size(275, 20);
+            this.PB.TabIndex = 2;
             this.PB.TextChanged += new System.EventHandler(this.PB_TextChanged);
             // 
             // label1
@@ -108,8 +108,8 @@
             // 
             this.VKM.Location = new System.Drawing.Point(84, 94);
             this.VKM.Name = "VKM";
-            this.VKM.Size = new System.Drawing.Size(188, 20);
-            this.VKM.TabIndex = 6;
+            this.VKM.Size = new System.Drawing.Size(275, 20);
+            this.VKM.TabIndex = 3;
             // 
             // label2
             // 
@@ -143,20 +143,20 @@
             // 
             // btnMod
             // 
-            this.btnMod.Location = new System.Drawing.Point(70, 182);
+            this.btnMod.Location = new System.Drawing.Point(15, 175);
             this.btnMod.Name = "btnMod";
-            this.btnMod.Size = new System.Drawing.Size(129, 23);
-            this.btnMod.TabIndex = 16;
+            this.btnMod.Size = new System.Drawing.Size(166, 23);
+            this.btnMod.TabIndex = 8;
             this.btnMod.Text = "Modificar";
             this.btnMod.UseVisualStyleBackColor = true;
             this.btnMod.Click += new System.EventHandler(this.btnMod_Click);
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(201, 182);
+            this.btnVolver.Location = new System.Drawing.Point(193, 175);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(129, 23);
-            this.btnVolver.TabIndex = 17;
+            this.btnVolver.Size = new System.Drawing.Size(166, 23);
+            this.btnVolver.TabIndex = 9;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
@@ -175,50 +175,50 @@
             // 
             // habilit
             // 
-            this.habilit.Location = new System.Drawing.Point(285, 10);
+            this.habilit.Location = new System.Drawing.Point(275, 12);
             this.habilit.Name = "habilit";
-            this.habilit.Size = new System.Drawing.Size(84, 23);
-            this.habilit.TabIndex = 51;
+            this.habilit.Size = new System.Drawing.Size(84, 21);
+            this.habilit.TabIndex = 10;
             this.habilit.Text = "Habilitar";
             this.habilit.UseVisualStyleBackColor = true;
             this.habilit.Click += new System.EventHandler(this.button1_Click);
             // 
             // HHM
             // 
-            this.HHM.Location = new System.Drawing.Point(148, 149);
+            this.HHM.Location = new System.Drawing.Point(142, 148);
             this.HHM.Name = "HHM";
             this.HHM.ReadOnly = true;
             this.HHM.Size = new System.Drawing.Size(39, 20);
-            this.HHM.TabIndex = 66;
+            this.HHM.TabIndex = 7;
             // 
             // HHH
             // 
-            this.HHH.Location = new System.Drawing.Point(90, 150);
+            this.HHH.Location = new System.Drawing.Point(84, 149);
             this.HHH.Name = "HHH";
             this.HHH.ReadOnly = true;
             this.HHH.Size = new System.Drawing.Size(39, 20);
-            this.HHH.TabIndex = 65;
+            this.HHH.TabIndex = 6;
             // 
             // HDM
             // 
-            this.HDM.Location = new System.Drawing.Point(148, 120);
+            this.HDM.Location = new System.Drawing.Point(142, 120);
             this.HDM.Name = "HDM";
             this.HDM.ReadOnly = true;
             this.HDM.Size = new System.Drawing.Size(39, 20);
-            this.HDM.TabIndex = 64;
+            this.HDM.TabIndex = 5;
             // 
             // HDH
             // 
-            this.HDH.Location = new System.Drawing.Point(90, 120);
+            this.HDH.Location = new System.Drawing.Point(84, 120);
             this.HDH.Name = "HDH";
             this.HDH.ReadOnly = true;
             this.HDH.Size = new System.Drawing.Size(39, 20);
-            this.HDH.TabIndex = 63;
+            this.HDH.TabIndex = 4;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(132, 123);
+            this.label7.Location = new System.Drawing.Point(126, 123);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(10, 13);
             this.label7.TabIndex = 62;
@@ -227,7 +227,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(132, 152);
+            this.label6.Location = new System.Drawing.Point(126, 151);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(10, 13);
             this.label6.TabIndex = 61;
@@ -237,7 +237,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(371, 217);
+            this.ClientSize = new System.Drawing.Size(367, 208);
             this.Controls.Add(this.HHM);
             this.Controls.Add(this.HHH);
             this.Controls.Add(this.HDM);
@@ -258,6 +258,7 @@
             this.Controls.Add(this.lblDesc);
             this.Controls.Add(this.cmbTurno);
             this.Controls.Add(this.lblTurno);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Modificar_Turno";
             this.Text = "Modificación de Turno";
             this.Load += new System.EventHandler(this.ModificarTurno_Load);

@@ -37,7 +37,7 @@
             // lblRol
             // 
             this.lblRol.AutoSize = true;
-            this.lblRol.Location = new System.Drawing.Point(53, 17);
+            this.lblRol.Location = new System.Drawing.Point(53, 16);
             this.lblRol.Name = "lblRol";
             this.lblRol.Size = new System.Drawing.Size(23, 13);
             this.lblRol.TabIndex = 0;
@@ -51,7 +51,7 @@
             this.cmbRol.Location = new System.Drawing.Point(82, 13);
             this.cmbRol.Name = "cmbRol";
             this.cmbRol.Size = new System.Drawing.Size(119, 21);
-            this.cmbRol.TabIndex = 1;
+            this.cmbRol.TabIndex = 0;
             this.cmbRol.SelectedIndexChanged += new System.EventHandler(this.cmbRol_SelectedIndexChanged);
             // 
             // lblDesc
@@ -69,24 +69,24 @@
             this.txtDesc.Location = new System.Drawing.Point(82, 41);
             this.txtDesc.MaxLength = 255;
             this.txtDesc.Name = "txtDesc";
-            this.txtDesc.Size = new System.Drawing.Size(190, 20);
-            this.txtDesc.TabIndex = 3;
+            this.txtDesc.Size = new System.Drawing.Size(308, 20);
+            this.txtDesc.TabIndex = 1;
             // 
             // btnMod
             // 
-            this.btnMod.Location = new System.Drawing.Point(273, 407);
+            this.btnMod.Location = new System.Drawing.Point(12, 407);
             this.btnMod.Name = "btnMod";
-            this.btnMod.Size = new System.Drawing.Size(117, 23);
-            this.btnMod.TabIndex = 4;
+            this.btnMod.Size = new System.Drawing.Size(179, 23);
+            this.btnMod.TabIndex = 3;
             this.btnMod.Text = "Modificar";
             this.btnMod.UseVisualStyleBackColor = true;
             this.btnMod.Click += new System.EventHandler(this.btnMod_Click);
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(7, 407);
+            this.btnVolver.Location = new System.Drawing.Point(211, 407);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(117, 23);
+            this.btnVolver.Size = new System.Drawing.Size(179, 23);
             this.btnVolver.TabIndex = 4;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -95,17 +95,17 @@
             // clbFuncionalidades
             // 
             this.clbFuncionalidades.FormattingEnabled = true;
-            this.clbFuncionalidades.Location = new System.Drawing.Point(7, 67);
+            this.clbFuncionalidades.Location = new System.Drawing.Point(12, 67);
             this.clbFuncionalidades.Name = "clbFuncionalidades";
-            this.clbFuncionalidades.Size = new System.Drawing.Size(383, 334);
-            this.clbFuncionalidades.TabIndex = 5;
+            this.clbFuncionalidades.Size = new System.Drawing.Size(378, 334);
+            this.clbFuncionalidades.TabIndex = 2;
             // 
             // habilitar
             // 
-            this.habilitar.Location = new System.Drawing.Point(319, 12);
+            this.habilitar.Location = new System.Drawing.Point(314, 12);
             this.habilitar.Name = "habilitar";
-            this.habilitar.Size = new System.Drawing.Size(76, 23);
-            this.habilitar.TabIndex = 6;
+            this.habilitar.Size = new System.Drawing.Size(76, 21);
+            this.habilitar.TabIndex = 5;
             this.habilitar.Text = "Habilitar";
             this.habilitar.UseVisualStyleBackColor = true;
             this.habilitar.Click += new System.EventHandler(this.habilitar_Click);
@@ -115,7 +115,7 @@
             this.labelEstado.AutoSize = true;
             this.labelEstado.BackColor = System.Drawing.SystemColors.Control;
             this.labelEstado.ForeColor = System.Drawing.Color.Red;
-            this.labelEstado.Location = new System.Drawing.Point(207, 17);
+            this.labelEstado.Location = new System.Drawing.Point(207, 16);
             this.labelEstado.Name = "labelEstado";
             this.labelEstado.Size = new System.Drawing.Size(51, 13);
             this.labelEstado.TabIndex = 50;
@@ -135,6 +135,7 @@
             this.Controls.Add(this.lblDesc);
             this.Controls.Add(this.cmbRol);
             this.Controls.Add(this.lblRol);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Modificar_Rol";
             this.Text = "Modificación de Rol";
             this.Load += new System.EventHandler(this.ModificarRol_Load);
