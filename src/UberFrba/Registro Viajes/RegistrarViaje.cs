@@ -83,10 +83,7 @@ namespace UberFrba.Registro_Viajes {
         }
 
         private bool validaciones() {
-            if(Funciones.esMuyGrande(Double.Parse(cantkm.Text))){
-                MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
-                return false;
-            }
+            
             if (turn.SelectedIndex == -1)
             {
                 MessageBox.Show("Debe seleccionar un turno");
@@ -143,6 +140,11 @@ namespace UberFrba.Registro_Viajes {
             if (0 >= Double.Parse(cantkm.Text))
             {
                 MessageBox.Show("El campo Cantidad de km debe ser mayor a 0");
+                return false;
+            }
+            if (Funciones.esMuyGrande(Double.Parse(cantkm.Text)))
+            {
+                MessageBox.Show("El numero ingresado es muy grande. Verifique si es correcto");
                 return false;
             }
             if (finic.Value == ffin.Value)
@@ -219,8 +221,8 @@ namespace UberFrba.Registro_Viajes {
             {
                 TimeSpan nuevoInicio = TimeSpan.Parse(reader["inicioV"].ToString());
                 TimeSpan nuevoFin = TimeSpan.Parse(reader["finV"].ToString());
-                if (Funciones.horaDentroDeRangoExistente(inicio,nuevoInicio, nuevoFin) || Funciones.horaDentroDeRangoExistente(fin, nuevoInicio, nuevoFin))
-                { //si hora inicio u hora fin del viaje estan dentro de otro viaje 
+                if (Funciones.horaDentroDeRangoExistente(inicio,nuevoInicio, nuevoFin) || Funciones.horaDentroDeRangoExistente(fin, nuevoInicio, nuevoFin) ||Funciones.franjaMayor(inicio, fin, nuevoInicio, nuevoFin))
+                { //si hora inicio u hora fin del viaje estan dentro de otro viaje o abarca a uno mas chico
                     if (reader["viaj_chofer"].ToString().Equals(chof.Text) || reader["viaj_cliente"].ToString().Equals(clie.Text))
                     {
                         MessageBox.Show("No se puede crear el viaje porque el cliente o el chofer ya tienen asignado un viaje en esa franja horaria.");

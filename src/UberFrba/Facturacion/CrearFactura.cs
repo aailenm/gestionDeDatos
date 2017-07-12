@@ -114,8 +114,9 @@ namespace UberFrba.Facturacion {
         private void limpiar_Click(object sender, EventArgs e)
         {
             client.Clear();
-            fechainicio.Value = Funciones.ObtenerFecha();
-            fechafin.Value = Funciones.ObtenerFecha();
+            fechainicio.Value = Funciones.ObtenerFecha().AddMonths(-1).AddDays(1 - Funciones.ObtenerFecha().Day);
+            fechafin.Value = Funciones.ObtenerFecha().AddDays(-Funciones.ObtenerFecha().Day);
+
             total.Clear();
             dataGridView1.DataSource = -1;
 
