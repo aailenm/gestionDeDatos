@@ -36,7 +36,7 @@ namespace UberFrba.Abm_Turno
         {
             if (e.RowIndex != -1)
             {
-                string id = dataGridView1.Rows[e.RowIndex].Cells["chof_id"].Value.ToString();
+                string id = dataGridView1.Rows[e.RowIndex].Cells["turn_id"].Value.ToString();
                 ComunicacionForms comunic = this.Owner as ComunicacionForms;
                 if (comunic != null)
                     comunic.editar(id);
