@@ -33,6 +33,7 @@ namespace UberFrba.Rendicion_Viajes
 
         private void button5_Click(object sender, EventArgs e)
         {
+            totalViajes = 0;
             if (validaciones())
             {
                 dataGridView1.DataSource = Conexion.obtenerTablaProcedure("VIAJES_RENDICION", Conexion.generarArgumentos("@CHOFER", "@TURNO", "@FECHA"),
@@ -106,7 +107,7 @@ namespace UberFrba.Rendicion_Viajes
         {
             if (!validacionPorcentaje(porcentaje.Text))
             {
-                MessageBox.Show("El porcentaje solo acepta números y '.' para indicar los decimales. Solo se puede utilizar el . una sola vez");
+                MessageBox.Show("El porcentaje solo acepta números y ',' para indicar los decimales. Solo se puede utilizar la ',' una sola vez");
             }
             else if (Double.Parse(porcentaje.Text) <= 0)
             {
@@ -162,7 +163,7 @@ namespace UberFrba.Rendicion_Viajes
             if (porcentaje.Text == "") porcentaje.Text = "0";
             else if (!validacionPorcentaje(porcentaje.Text))
             {
-                MessageBox.Show("El porcentaje solo acepta números y ',' para indicar los decimales. Solo se puede utilizar la , una sola vez");
+                MessageBox.Show("El porcentaje solo acepta números y ',' para indicar los decimales. Solo se puede utilizar la ',' una sola vez");
             }
             else {
                 double totalCalculado = totalViajes + (totalViajes * Double.Parse(porcentaje.Text)*0.01) ;
