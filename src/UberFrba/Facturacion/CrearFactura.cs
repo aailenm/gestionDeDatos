@@ -69,6 +69,8 @@ namespace UberFrba.Facturacion {
 
         private void buscar_Click(object sender, EventArgs e)
         {
+
+            tot = 0;
             if(validaciones())
                 dataGridView1.DataSource = Conexion.obtenerTablaProcedure("VIAJE_FACTURA", Conexion.generarArgumentos("@FECHAI", "@FECHAF", "@CLIENT"),
                fechainicio.Value.ToShortDateString(), fechafin.Value.ToShortDateString(), client.Text);
@@ -113,7 +115,7 @@ namespace UberFrba.Facturacion {
             fechainicio.Value = Funciones.ObtenerFecha().AddMonths(-1).AddDays(1 - Funciones.ObtenerFecha().Day);
             fechafin.Value = Funciones.ObtenerFecha().AddDays(-Funciones.ObtenerFecha().Day);
 
-            total.Clear();
+            total.Text = "0";
             dataGridView1.DataSource = -1;
 
         }
