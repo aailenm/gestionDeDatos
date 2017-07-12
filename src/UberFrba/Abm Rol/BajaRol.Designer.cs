@@ -26,7 +26,8 @@
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnInhabilitar = new System.Windows.Forms.Button();
             this.lblRol = new System.Windows.Forms.Label();
-            this.cmbRol = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.rol = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnVolver
@@ -59,21 +60,31 @@
             this.lblRol.Text = "Rol";
             this.lblRol.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // cmbRol
+            // button1
             // 
-            this.cmbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbRol.FormattingEnabled = true;
-            this.cmbRol.Location = new System.Drawing.Point(64, 12);
-            this.cmbRol.Name = "cmbRol";
-            this.cmbRol.Size = new System.Drawing.Size(208, 21);
-            this.cmbRol.TabIndex = 0;
+            this.button1.Location = new System.Drawing.Point(155, 9);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(117, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Buscar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // rol
+            // 
+            this.rol.Enabled = false;
+            this.rol.Location = new System.Drawing.Point(41, 12);
+            this.rol.Name = "rol";
+            this.rol.Size = new System.Drawing.Size(91, 20);
+            this.rol.TabIndex = 5;
             // 
             // Baja_Rol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 74);
-            this.Controls.Add(this.cmbRol);
+            this.Controls.Add(this.rol);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnInhabilitar);
             this.Controls.Add(this.lblRol);
@@ -90,6 +101,7 @@
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnInhabilitar;
         private System.Windows.Forms.Label lblRol;
-        private System.Windows.Forms.ComboBox cmbRol;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox rol;
     }
 }

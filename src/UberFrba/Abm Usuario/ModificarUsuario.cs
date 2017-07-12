@@ -49,7 +49,15 @@ namespace UberFrba.Abm_Usuario
                 roles.SetItemChecked(rol - 1, true);
                 rolesIniciales.Add(rol);
             }
-            traerDatos(rolesIniciales);
+            if (reader.HasRows) traerDatos(rolesIniciales);
+            else
+            {
+                LimpiarCampos();
+                Limpiar();
+                labelCh.Text = "";
+                labelCli.Text = "";
+                MessageBox.Show("El usuario no tiene ningun rol asignado.");
+            }
             reader.Close();
         }
 

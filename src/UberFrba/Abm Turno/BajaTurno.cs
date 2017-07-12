@@ -2,28 +2,26 @@
 using System.Windows.Forms;
 
 namespace UberFrba.Abm_Turno {
-    public partial class Baja_Turno : Form {
+    public partial class Baja_Turno : Form, ComunicacionForms {
         public Baja_Turno() {
             InitializeComponent();
         }
 
         private void refrescarTurnos() {
-            cmbDesc.DataSource = Conexion.cargarTablaConsulta("GET_HABILITADOS_TURNOS");
-            cmbDesc.SelectedIndex = -1;
-            cmbDesc.Focus();
+
         }
 
         private void btnInhabilitar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(cmbDesc.Text))
+            if (string.IsNullOrEmpty(turno.Text))
             {
                 MessageBox.Show("Elija un turno");
             }
             else
             {
-                if (Conexion.executeProcedure("BAJA_TURNO", Conexion.generarArgumentos("@ID"), cmbDesc.SelectedValue))
+                if (Conexion.executeProcedure("BAJA_TURNO", Conexion.generarArgumentos("@ID"), turno.Text))
                     MessageBox.Show("Turno dado de baja", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                refrescarTurnos();
+                turno.Text = "";
             }
         }
 
@@ -32,14 +30,30 @@ namespace UberFrba.Abm_Turno {
         }
 
         private void BajaTurno_Load(object sender, EventArgs e) {
-            cmbDesc.ValueMember = "turn_id";
-            cmbDesc.DisplayMember = "turn_descripcion";
-            refrescarTurnos();
+
         }
 
         private void cmbDesc_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            BusquedaTurno bus = new BusquedaTurno();
+            bus.Show(this);
+        }
+
+        public void editarChofer(string id)
+        {
+        }
+        public void editarCliente(string id)
+        {
+        }
+        public void editarAuto(string id) { }
+        public void editar(string id) {
+            turno.Text = id;
+        }
+
     }
 }

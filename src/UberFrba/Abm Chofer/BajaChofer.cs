@@ -2,26 +2,21 @@
 using System.Windows.Forms;
 
 namespace UberFrba.Abm_Chofer {
-    public partial class BajaChofer : Form {
+    public partial class BajaChofer : Form, ComunicacionForms {
         public BajaChofer() {
             InitializeComponent();
         }
 
-        private void refrescarChoferes() {
-            cmbTeléfonos.DataSource = Conexion.cargarTablaConsulta("GET_CHOFERES");
-            cmbTeléfonos.SelectedIndex = -1;
-            cmbTeléfonos.Focus();
-        }
 
         private void btnInhabilitar_Click(object sender, EventArgs e) {
-            if (string.IsNullOrEmpty(cmbTeléfonos.Text))
+            if (string.IsNullOrEmpty(chofer.Text))
             {
                 MessageBox.Show("Elija un chofer");
             }
-            if (Conexion.executeProcedure("BAJA_CHOFER", Conexion.generarArgumentos("@ID"), cmbTeléfonos.SelectedValue))
+            if (Conexion.executeProcedure("BAJA_CHOFER", Conexion.generarArgumentos("@ID"), chofer.Text))
                 MessageBox.Show("Chofer dado de baja", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else MessageBox.Show("No fue posible dar de baja al chofer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            refrescarChoferes();
+            chofer.Text = "";
         }
 
         private void btnVolver_Click(object sender, EventArgs e) {
@@ -29,9 +24,22 @@ namespace UberFrba.Abm_Chofer {
         }
 
         private void BajaChofer_Load(object sender, EventArgs e) {
-            cmbTeléfonos.ValueMember = "chof_id";
-            cmbTeléfonos.DisplayMember = "chof_telefono";
-            refrescarChoferes();
+
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            BusquedaChofer bus = new BusquedaChofer();
+            bus.Show(this);
+        }
+
+        public void editarChofer(string id)
+        {
+            chofer.Text = id;
+        }
+        public void editarCliente(string id) { }
+        public void editarAuto(string id) { }
+        public void editarTurno(string id) { }
+        public void editar(string id) { }
     }
 }

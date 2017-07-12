@@ -23,20 +23,12 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.cmbDesc = new System.Windows.Forms.ComboBox();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnInhabilitar = new System.Windows.Forms.Button();
             this.lblDesc = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.turno = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // cmbDesc
-            // 
-            this.cmbDesc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDesc.FormattingEnabled = true;
-            this.cmbDesc.Location = new System.Drawing.Point(83, 12);
-            this.cmbDesc.Name = "cmbDesc";
-            this.cmbDesc.Size = new System.Drawing.Size(189, 21);
-            this.cmbDesc.TabIndex = 0;
             // 
             // btnVolver
             // 
@@ -63,17 +55,36 @@
             this.lblDesc.AutoSize = true;
             this.lblDesc.Location = new System.Drawing.Point(14, 15);
             this.lblDesc.Name = "lblDesc";
-            this.lblDesc.Size = new System.Drawing.Size(63, 13);
+            this.lblDesc.Size = new System.Drawing.Size(35, 13);
             this.lblDesc.TabIndex = 9;
-            this.lblDesc.Text = "Descripción";
+            this.lblDesc.Text = "Turno";
             this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(155, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(117, 23);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Buscar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // turno
+            // 
+            this.turno.Enabled = false;
+            this.turno.Location = new System.Drawing.Point(49, 13);
+            this.turno.Name = "turno";
+            this.turno.Size = new System.Drawing.Size(85, 20);
+            this.turno.TabIndex = 11;
             // 
             // Baja_Turno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 70);
-            this.Controls.Add(this.cmbDesc);
+            this.Controls.Add(this.turno);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnInhabilitar);
             this.Controls.Add(this.lblDesc);
@@ -87,9 +98,10 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox cmbDesc;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnInhabilitar;
         private System.Windows.Forms.Label lblDesc;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox turno;
     }
 }
