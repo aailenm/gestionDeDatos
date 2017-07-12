@@ -1177,7 +1177,7 @@ BEGIN
 	JOIN RUBIRA_SANTOS.TURNO t ON t.turn_id = v.viaj_turno
 	JOIN RUBIRA_SANTOS.CHOFER c ON c.chof_id = v.viaj_chofer
 	JOIN RUBIRA_SANTOS.AUTOMOVIL a ON a.auto_id = v.viaj_auto
-	WHERE v.viaj_cliente = 48--@CLIENT
+	WHERE v.viaj_cliente = @CLIENT
 		AND YEAR(v.viaj_fyh_fin) = YEAR(@FECHAI)
 		AND MONTH(v.viaj_fyh_fin) = MONTH(@FECHAF)
 END
