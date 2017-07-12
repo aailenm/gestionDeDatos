@@ -177,21 +177,15 @@ namespace UberFrba.Registro_Viajes {
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Abm_Chofer.BusquedaChofer chofer = new Abm_Chofer.BusquedaChofer();
-            chofer.ShowDialog(this);
+           
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Abm_Automovil.BusquedaAuto auto = new Abm_Automovil.BusquedaAuto();
-            auto.editarChofer(chof.Text);
-            auto.ShowDialog(this);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Abm_Cliente.BusquedaCliente cliente = new Abm_Cliente.BusquedaCliente();
-            cliente.ShowDialog(this);
         }
 
         private void finic_ValueChanged(object sender, EventArgs e)
@@ -225,7 +219,7 @@ namespace UberFrba.Registro_Viajes {
             {
                 TimeSpan nuevoInicio = TimeSpan.Parse(reader["inicioV"].ToString());
                 TimeSpan nuevoFin = TimeSpan.Parse(reader["finV"].ToString());
-                if (Funciones.horaDentroDeRangoExistente(inicio,nuevoInicio, nuevoFin) || Funciones.horaDentroDeRangoExistente(fin, nuevoInicio, nuevoFin))
+                if (Funciones.horaDentroDeRangoExistente(inicio,nuevoInicio, nuevoFin) && Funciones.horaDentroDeRangoExistente(fin, nuevoInicio, nuevoFin))
                 { //si hora inicio u hora fin del viaje estan dentro de otro viaje 
                     if (reader["viaj_chofer"].ToString().Equals(chof.Text) || reader["viaj_cliente"].ToString().Equals(clie.Text))
                     {
@@ -235,6 +229,26 @@ namespace UberFrba.Registro_Viajes {
                 }
             }
             return true;
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            Abm_Chofer.BusquedaChofer chofer = new Abm_Chofer.BusquedaChofer();
+            chofer.ShowDialog(this);
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+
+            Abm_Automovil.BusquedaAuto auto = new Abm_Automovil.BusquedaAuto();
+            auto.editarChofer(chof.Text);
+            auto.ShowDialog(this);
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            Abm_Cliente.BusquedaCliente cliente = new Abm_Cliente.BusquedaCliente();
+            cliente.ShowDialog(this);
         }
     }
 }
