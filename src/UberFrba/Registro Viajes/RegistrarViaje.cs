@@ -219,7 +219,7 @@ namespace UberFrba.Registro_Viajes {
             {
                 TimeSpan nuevoInicio = TimeSpan.Parse(reader["inicioV"].ToString());
                 TimeSpan nuevoFin = TimeSpan.Parse(reader["finV"].ToString());
-                if (Funciones.horaDentroDeRangoExistente(inicio,nuevoInicio, nuevoFin) && Funciones.horaDentroDeRangoExistente(fin, nuevoInicio, nuevoFin))
+                if (Funciones.horaDentroDeRangoExistente(inicio,nuevoInicio, nuevoFin) || Funciones.horaDentroDeRangoExistente(fin, nuevoInicio, nuevoFin))
                 { //si hora inicio u hora fin del viaje estan dentro de otro viaje 
                     if (reader["viaj_chofer"].ToString().Equals(chof.Text) || reader["viaj_cliente"].ToString().Equals(clie.Text))
                     {
