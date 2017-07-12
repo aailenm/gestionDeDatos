@@ -52,7 +52,7 @@ namespace UberFrba.Listado_Estadistico
                 MessageBox.Show("La fecha de inicio no puede ser mayor a la de fin");
                 return false;
             }
-            if(Funciones.calcularMeses(INICIO.Value, FIN.Value) != 3){
+            if(Funciones.calcularMeses(INICIO.Value, FIN.Value) != 3 || (Funciones.calcularMeses(INICIO.Value, FIN.Value) == 3 && (INICIO.Value.Day - FIN.Value.Day != 0))){
                 MessageBox.Show("Las consultas para obtener listados deben ser trimestrales. Verifique las fechas elegidas");
                 return false;
             }
