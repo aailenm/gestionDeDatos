@@ -190,5 +190,13 @@ namespace UberFrba.Abm_Automovil
         {
 
         }
+
+        public ComboBox getCmbTurnos() {
+            return this.turnos;
+        }
+        private void turnos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

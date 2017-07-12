@@ -845,7 +845,7 @@ IF(NOT EXISTS (select 1 from RUBIRA_SANTOS.VIAJE v left join RUBIRA_SANTOS.ITEM_
 						INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, turn_id, turn_turnoActivo, auto_id)
 						VALUES(@CHOFERN, @TURNON, @TURNON, @AUTO)
 					ELSE --si ya habia una entrada con turno y chofer para este auto, modifico el chofer viejo por el nuevo o digo que no puedo modificarlo porque ya hay otro chofer y deberia ser nulo? Por ahora primrea opcion
-						UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE turn_id = @TURNON and auto_id = @AUTO
+						UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN, turn_turnoActivo = @TURNON WHERE turn_id = @TURNON and auto_id = @AUTO
 				END
 			ELSE
 				BEGIN
@@ -853,7 +853,7 @@ IF(NOT EXISTS (select 1 from RUBIRA_SANTOS.VIAJE v left join RUBIRA_SANTOS.ITEM_
 					SELECT @AUTOANTERIOR = AUTO_ID FROM AUTO_POR_TURNO WHERE @CHOFERN = chof_id AND @AUTO <> auto_id
 					DELETE FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE chof_id = @CHOFERN AND auto_id = @AUTOANTERIOR
 					IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE @AUTO = auto_id AND turn_id = @TURNON))
-						UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE auto_id = @AUTO AND @TURNON = turn_id
+						UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN, turn_turnoActivo = @TURNON WHERE auto_id = @AUTO AND @TURNON = turn_id
 					ELSE
 						INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, turn_id, turn_turnoActivo, auto_id)
 						VALUES(@CHOFERN, @TURNON, @TURNON, @AUTO)
@@ -868,14 +868,14 @@ IF(NOT EXISTS (select 1 from RUBIRA_SANTOS.VIAJE v left join RUBIRA_SANTOS.ITEM_
 							INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, turn_id, turn_turnoActivo, auto_id)
 							VALUES(@CHOFERN, @TURNON, @TURNON, @AUTO)
 						ELSE --si ya habia una entrada con turno y chofer para este auto, modifico el chofer viejo por el nuevo o digo que no puedo modificarlo porque ya hay otro chofer y deberia ser nulo? Por ahora primrea opcion
-							UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE turn_id = @TURNON and auto_id = @AUTO
+							UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN, turn_turnoActivo = @TURNON WHERE turn_id = @TURNON and auto_id = @AUTO
 					ELSE
 						BEGIN
 							--el chofer tenia asignado otro auto, lo elimino del otro auto y lo inserto en este 
 							SELECT @AUTOANTERIOR = AUTO_ID FROM AUTO_POR_TURNO WHERE @CHOFERN = chof_id AND @AUTO <> auto_id
 							DELETE FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE chof_id = @CHOFERN AND auto_id = @AUTOANTERIOR
 							IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE @AUTO = auto_id AND turn_id = @TURNON))
-								UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE auto_id = @AUTO AND @TURNON = turn_id
+								UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN, turn_turnoActivo = @TURNON WHERE auto_id = @AUTO AND @TURNON = turn_id
 							ELSE
 								INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, turn_id, turn_turnoActivo, auto_id)
 								VALUES(@CHOFERN, @TURNON, @TURNON, @AUTO)
@@ -884,7 +884,7 @@ IF(NOT EXISTS (select 1 from RUBIRA_SANTOS.VIAJE v left join RUBIRA_SANTOS.ITEM_
 			IF(@TURNON <> @TURNOV)
 				BEGIN
 					IF(EXISTS(SELECT 1 FROM RUBIRA_SANTOS.AUTO_POR_TURNO WHERE auto_id = @AUTO AND @TURNON = turn_id))
-						UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN WHERE auto_id = @AUTO AND turn_id = @TURNON
+						UPDATE RUBIRA_SANTOS.AUTO_POR_TURNO SET chof_id = @CHOFERN, turn_turnoActivo = @TURNON WHERE auto_id = @AUTO AND turn_id = @TURNON
 					ELSE
 						INSERT INTO RUBIRA_SANTOS.AUTO_POR_TURNO(chof_id, turn_id, turn_turnoActivo, auto_id)
 						VALUES(@CHOFERN, @TURNON, @TURNON, @AUTO)
@@ -1161,7 +1161,7 @@ BEGIN
 	CLOSE C1
 	DEALLOCATE C1
 END
-
+select * from RUBIRA_SANTOS.AUTO_POR_TURNO where auto_id =25
 /*
 =================================================
 				BUSQUEDA PROCEDURES

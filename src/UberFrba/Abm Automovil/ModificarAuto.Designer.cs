@@ -133,6 +133,7 @@
             this.turnos.Name = "turnos";
             this.turnos.Size = new System.Drawing.Size(196, 21);
             this.turnos.TabIndex = 5;
+            this.turnos.SelectedIndexChanged += new System.EventHandler(this.turnos_SelectedIndexChanged);
             // 
             // label4
             // 

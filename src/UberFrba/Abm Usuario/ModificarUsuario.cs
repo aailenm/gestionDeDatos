@@ -130,7 +130,15 @@ namespace UberFrba.Abm_Usuario
                 // si es cliente
                 habilitarDatos(true); // por si es administrador
                 traerDatosCliente();
-            } else if (rolesIniciales.Contains(3)) {
+            }
+            else
+            {
+                // si no es cliente ni chofer, los trato a todos por igual
+                habilitarDatos(false);
+                btnChofer.Enabled = false;
+                btnCliente.Enabled = false;
+            }
+            if (rolesIniciales.Contains(3)) {
                 // si es chofer
                 habilitarDatos(true); // por si es administrador
                 traerDatosChofer();
@@ -504,7 +512,7 @@ namespace UberFrba.Abm_Usuario
             if (Conexion.executeProcedure("HABILITAR_USUARIO", Conexion.generarArgumentos("@ID"), cmbUsuario.SelectedValue))
                 MessageBox.Show("Usuario habilitado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             label8.Text = "Usuario Habilitado";
-            btnChofer.Enabled = false;
+            habilitusua.Enabled = false;
         }
 
         private void label8_Click(object sender, EventArgs e)

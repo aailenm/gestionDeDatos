@@ -55,7 +55,9 @@ namespace UberFrba.Abm_Automovil
                     Modificar_Auto modif = this.Owner as Modificar_Auto;
                     modif.editarChofer(chofnNuevo.Text);
                     string id = turnNuevo.SelectedValue.ToString();
-                    modif.editarTurno(id);
+                   // modif.editarTurno(id);
+                    Funciones.choferPorTurno(modif.getCmbTurnos(),chofnNuevo.Text );
+                    modif.getCmbTurnos().SelectedValue = id;
                     MessageBox.Show("Chofer y turno modificados.");
                     Close();
                 }
