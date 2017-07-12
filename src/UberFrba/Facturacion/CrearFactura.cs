@@ -104,11 +104,7 @@ namespace UberFrba.Facturacion {
                 MessageBox.Show("Debe ingresar un cliente");
                 return false;
             }
-            if (tot == 0)
-            {
-                MessageBox.Show("No hay viajes entre las fechas indicadas");
-                return false;
-            }
+
             return true;
         }
         private void limpiar_Click(object sender, EventArgs e)
@@ -126,12 +122,16 @@ namespace UberFrba.Facturacion {
         {
             if (validaciones())
             {
-                bool result = Conexion.executeProcedure("CREAR_FACTURA", Conexion.generarArgumentos("@CLIENT", "@FECHAI", "@FECHAF", "@TOTAL"),
-                      client.Text, fechainicio.Value.ToShortDateString(), fechafin.Value.ToShortDateString(), tot);
-                if (result)
+                if (tot == 0) MessageBox.Show("No hay viajes entre las fechas indicadas");
+                else
                 {
-                    MessageBox.Show("Factura creada");
-                    Close();
+                    bool result = Conexion.executeProcedure("CREAR_FACTURA", Conexion.generarArgumentos("@CLIENT", "@FECHAI", "@FECHAF", "@TOTAL"),
+                      client.Text, fechainicio.Value.ToShortDateString(), fechafin.Value.ToShortDateString(), tot);
+                    if (result)
+                    {
+                        MessageBox.Show("Factura creada");
+                        Close();
+                    }
                 }
             }
             }
