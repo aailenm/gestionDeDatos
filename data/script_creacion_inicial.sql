@@ -1161,7 +1161,6 @@ BEGIN
 	CLOSE C1
 	DEALLOCATE C1
 END
-select * from RUBIRA_SANTOS.AUTO_POR_TURNO where auto_id =25
 /*
 =================================================
 				BUSQUEDA PROCEDURES
