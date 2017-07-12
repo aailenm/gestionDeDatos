@@ -42,6 +42,7 @@ namespace UberFrba.Abm_Usuario
 
         public void traerRoles()
         {
+            rolesIniciales = new List<int>();
             SqlDataReader reader = Conexion.ejecutarQuery("Select rol_id from RUBIRA_SANTOS.ROL_POR_USUARIO where usua_id = " + cmbUsuario.SelectedValue);
             while (reader.Read())
             {
@@ -49,7 +50,7 @@ namespace UberFrba.Abm_Usuario
                 roles.SetItemChecked(rol - 1, true);
                 rolesIniciales.Add(rol);
             }
-            traerDatos(rolesIniciales);
+            traerDatos();
             reader.Close();
         }
 
@@ -115,34 +116,25 @@ namespace UberFrba.Abm_Usuario
                 //traerDatos();
             }
         }
-        private void traerDatos(List<int> roles)
+
+        private void traerDatos()
         {
-
-            for (int cant = roles.Count; cant > 0; cant--)
-            {
-                if (roles.Contains(2)) // si es cliente
-                {
-                    habilitarDatos(true); //por si es administrador
-                    traerDatosCliente();
-                   }
-
-
-                if (roles.Contains(3))
-                {
-                    habilitarDatos(true); //por si es administrador
-                    traerDatosChofer();
-
-                }
-                if (!roles.Contains(2) && !roles.Contains(3))
-                {   
-                    habilitarDatos(false);
-                    btnChofer.Enabled = false;
-                    btnCliente.Enabled = false;
-
-                }//si no es cliente ni chofer, los trato a todos por igual
-            } // cierro for
-
+            if (rolesIniciales.Contains(2)) {
+                // si es cliente
+                habilitarDatos(true); // por si es administrador
+                traerDatosCliente();
+            } else if (rolesIniciales.Contains(3)) {
+                // si es chofer
+                habilitarDatos(true); // por si es administrador
+                traerDatosChofer();
+            } else {
+                // si no es cliente ni chofer, los trato a todos por igual
+                habilitarDatos(false);
+                btnChofer.Enabled = false;
+                btnCliente.Enabled = false;
+            }
         }
+
         private void traerDatosChofer() {
             SqlDataReader reader = Conexion.ejecutarQuery("select C.chof_nombre, C.chof_apellido, C.chof_dni, C.chof_mail, C.chof_telefono, C.chof_fechaNacimiento,D.dire_calle,D.dire_piso,D.dire_depto, D.dire_localidad,D.dire_cp, C.chof_habilitado from RUBIRA_SANTOS.CHOFER C join RUBIRA_SANTOS.DIRECCION D on C.chof_direccion=D.dire_id where C.chof_usua=" + cmbUsuario.SelectedValue);
             reader.Read();
