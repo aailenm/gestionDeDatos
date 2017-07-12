@@ -376,9 +376,9 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(438, 330);
+            this.btnVolver.Location = new System.Drawing.Point(456, 330);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(216, 54);
+            this.btnVolver.Size = new System.Drawing.Size(198, 54);
             this.btnVolver.TabIndex = 4;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -387,9 +387,9 @@
             // btnMod
             // 
             this.btnMod.Enabled = false;
-            this.btnMod.Location = new System.Drawing.Point(213, 330);
+            this.btnMod.Location = new System.Drawing.Point(258, 330);
             this.btnMod.Name = "btnMod";
-            this.btnMod.Size = new System.Drawing.Size(216, 54);
+            this.btnMod.Size = new System.Drawing.Size(192, 54);
             this.btnMod.TabIndex = 3;
             this.btnMod.Text = "Modificar";
             this.btnMod.UseVisualStyleBackColor = true;
@@ -409,7 +409,7 @@
             // 
             // btnChofer
             // 
-            this.btnChofer.Location = new System.Drawing.Point(103, 330);
+            this.btnChofer.Location = new System.Drawing.Point(144, 330);
             this.btnChofer.Name = "btnChofer";
             this.btnChofer.Size = new System.Drawing.Size(98, 24);
             this.btnChofer.TabIndex = 5;
@@ -419,7 +419,7 @@
             // 
             // btnCliente
             // 
-            this.btnCliente.Location = new System.Drawing.Point(103, 360);
+            this.btnCliente.Location = new System.Drawing.Point(144, 360);
             this.btnCliente.Name = "btnCliente";
             this.btnCliente.Size = new System.Drawing.Size(98, 24);
             this.btnCliente.TabIndex = 6;

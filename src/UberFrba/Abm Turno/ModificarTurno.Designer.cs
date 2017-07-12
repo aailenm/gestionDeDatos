@@ -175,9 +175,9 @@
             // 
             // habilit
             // 
-            this.habilit.Location = new System.Drawing.Point(275, 12);
+            this.habilit.Location = new System.Drawing.Point(288, 12);
             this.habilit.Name = "habilit";
-            this.habilit.Size = new System.Drawing.Size(84, 21);
+            this.habilit.Size = new System.Drawing.Size(71, 21);
             this.habilit.TabIndex = 10;
             this.habilit.Text = "Habilitar";
             this.habilit.UseVisualStyleBackColor = true;
